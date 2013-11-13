@@ -13,18 +13,9 @@ var makeQueue = function(){
   };
 
   instance.dequeue = function(){
-    if (size > 0) {
-      var temp = storage[0];
-      debugger;
-      _.each(storage, function(item, key){
-        var newKey = parseInt(key)--;
-        if(newKey > -1){
-          storage[newKey] = item;
-        }
-      });
-
+    if (size) {
       size--;
-
+      var temp = storage[0];
       return temp;
     }
 
