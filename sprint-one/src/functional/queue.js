@@ -16,6 +16,14 @@ var makeQueue = function(){
     if (size) {
       size--;
       var temp = storage[0];
+      for(var key in storage){
+        var newKey = parseInt(key) - 1;
+        if (newKey > -1) {
+          storage[newKey]=storage[key];
+        }
+      }
+      delete storage[size];
+
       return temp;
     }
 
