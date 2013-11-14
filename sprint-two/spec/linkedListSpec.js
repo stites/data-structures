@@ -57,22 +57,20 @@ describe("linkedList", function() {
       linkedList.addToTail(4);
       var firstAdd = linkedList.head;
       linkedList.addToTail(4);
-      var secondAdd = linkedList.head;
       linkedList.addToTail(4);
       linkedList.removeHead();
-      expect(linkedList[linkedList.head]).toNotEqual(firstAdd);
+      expect(linkedList.head).toNotEqual(firstAdd);
+      var secondAdd = linkedList.head;
       linkedList.removeHead();
-      expect(linkedList[linkedList.head]).toNotEqual(secondAdd);
+      expect(linkedList.head).toNotEqual(secondAdd);
     });
-
-    // Pending
-    xit('.removeHead() method removes the first node from any list', function(){
-      var originalLength = 5
+    it('.removeHead() method removes the first node from any list', function(){
+      var originalLength = 8
       for (var i = 0; i < originalLength; i++){
         linkedList.addToTail(i);
       }
       linkedList.removeHead();
-      expect(originalLength).toEqual(linkedList.tail-linkedList.head);
+      expect(originalLength).not.toEqual((linkedList.tail-linkedList.head)+1); // +1 for index<>length conversion
     });
     xit('.removeHead() method returns the value of the node which was removed', function(){
       linkedList.addToTail(4);
