@@ -72,10 +72,23 @@ describe("linkedList", function() {
       linkedList.removeHead();
       expect(originalLength).not.toEqual((linkedList.tail-linkedList.head)+1); // +1 for index<>length conversion
     });
-    xit('.removeHead() method returns the value of the node which was removed', function(){
+    it('.removeHead() method moves head and tail to `null` if no items are left in list', function(){
       linkedList.addToTail(4);
-      var head = linkedList.removeHead();
-      expect(head).toEqual(4);
+      linkedList.removeHead();
+      expect(linkedList.head).toEqual(null);
+      expect(linkedList.tail).toEqual(null);
+    });
+    //Pending
+    xit('.removeHead() method returns the value of the node which was removed', function(){
+      linkedList.addToTail(9);
+      linkedList.addToTail(8);
+      linkedList.addToTail(7);
+      var expected0 = linkedList[linkedList.head]['value'];
+      var head0 = linkedList.removeHead();
+      expect(head0).toEqual(expected0);
+      var expected1 = linkedList[linkedList.head]['value'];
+      var head1 = linkedList.removeHead();
+      expect(head1).toEqual(expected1);
     });
   });
   // it('.contains() method returns boolean reflecting whether or not the passed-in value is in the linked list', function(){
