@@ -16,7 +16,6 @@ var makeLinkedList = function(){
     if (list.tail) {
       list[previousTail]['next'] = list.tail;
     }
-    // debugger;
     list[list.tail] = makeNode(value);
 
   };

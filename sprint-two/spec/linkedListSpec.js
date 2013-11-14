@@ -38,6 +38,13 @@ describe("linkedList", function() {
       linkedList.addToTail(8);
       expect(linkedList[linkedList.head]['next']).toEqual(linkedList.tail);
     });
+    it('the second-to-last node has a .next property which points to tail when addToTail is run more than once', function(){
+      linkedList.addToTail(4);
+      linkedList.addToTail(8);
+      expect(linkedList[linkedList.tail-1]['next']).toEqual(linkedList.tail);
+      linkedList.addToTail(8);
+      expect(linkedList[linkedList.tail-1]['next']).toEqual(linkedList.tail);
+    });
   });
   // Pending
   xit('.removeHead() method removes the first node from the list and returns its value', function(){
