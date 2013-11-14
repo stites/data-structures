@@ -37,16 +37,13 @@ var makeLinkedList = function(){
   list.contains = function(value, position, result){
     position = position || list.head;
     result = result || false;
+
     var comparison = list[position]['value'];
-    // use recursion:
-    // --> CHECK PASSED VALUE
-    if(value === comparison){
-      return true;
-    } else {
-      return false;
-    }
-    // --> SEND FUNCTION TO CHECK THE CHILDREN (children===next)
-    return result || list.contains(value, position, result);
+    var next = list[position]['next'];
+
+    result = (value === comparison) ? true : false;
+
+    return (next !== null) ? (result || list.contains(value, next, result)) : result;
   };
 
   return list;
