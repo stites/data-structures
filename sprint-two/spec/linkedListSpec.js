@@ -46,11 +46,18 @@ describe("linkedList", function() {
       expect(linkedList[linkedList.tail-1]['next']).toEqual(linkedList.tail);
     });
   });
-  // Pending
-  xit('.removeHead() method removes the first node from the list and returns its value', function(){
-    linkedList.addToTail(4);
-    var head1 = linkedList.removeHead();
-    expect(head1).toEqual(4);
+
+  describe('.removeHead()', function () {
+    it('.removeHead() method removes the first node from a one-node list', function(){
+      linkedList.addToTail(4);
+      linkedList.removeHead();
+      expect(Object.keys(linkedList).length).toEqual(5);
+    });
+    xit('.removeHead() method returns the value of the node which was removed', function(){
+      linkedList.addToTail(4);
+      var head = linkedList.removeHead();
+      expect(head).toEqual(4);
+    });
   });
   // it('.contains() method returns boolean reflecting whether or not the passed-in value is in the linked list', function(){
   //   expect(linkedList.contains()).

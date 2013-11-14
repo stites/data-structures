@@ -21,7 +21,7 @@ var makeLinkedList = function(){
   };
 
   list.removeHead = function(){
-    return list.head;
+    delete list[list.head];
   };
 
   list.contains = function(){
