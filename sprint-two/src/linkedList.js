@@ -6,9 +6,11 @@ var makeLinkedList = function(){
 
   list.addToTail = function(value){
     list.tail = value;
+    list.head = value;
   };
 
   list.removeHead = function(){
+    return list.head;
   };
 
   list.contains = function(){
