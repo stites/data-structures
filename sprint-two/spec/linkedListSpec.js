@@ -53,6 +53,27 @@ describe("linkedList", function() {
       linkedList.removeHead();
       expect(Object.keys(linkedList).length).toEqual(5);
     });
+    it('.removeHead() method moves the head pointer to the next node in the list', function(){
+      linkedList.addToTail(4);
+      var firstAdd = linkedList.head;
+      linkedList.addToTail(4);
+      var secondAdd = linkedList.head;
+      linkedList.addToTail(4);
+      linkedList.removeHead();
+      expect(linkedList[linkedList.head]).toNotEqual(firstAdd);
+      linkedList.removeHead();
+      expect(linkedList[linkedList.head]).toNotEqual(secondAdd);
+    });
+
+    // Pending
+    xit('.removeHead() method removes the first node from any list', function(){
+      var originalLength = 5
+      for (var i = 0; i < originalLength; i++){
+        linkedList.addToTail(i);
+      }
+      linkedList.removeHead();
+      expect(originalLength).toEqual(linkedList.tail-linkedList.head);
+    });
     xit('.removeHead() method returns the value of the node which was removed', function(){
       linkedList.addToTail(4);
       var head = linkedList.removeHead();
