@@ -35,12 +35,20 @@ describe("tree", function() {
     it("should be able to add a new leaf to a child in the root's children array", function(){
       tree.addChild(7);
       tree.children[0].addChild(8);
-      // debugger;
       expect(tree.children[0].children[0]['value']).toEqual(8);
     });
   });
 
-  xit("", function(){
-    expect(tree.value).toEqual("this is a value");
+  describe("contains", function () {
+
+    it("should return a boolean expressing if the passed value is in the root", function(){
+      expect(tree.contains("root")).toEqual(true);
+      expect(tree.contains("branch")).toEqual(false);
+    });
+
+    xit("", function(){
+      expect(tree.value).toEqual("root");
+    });
+
   });
 });
