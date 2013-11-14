@@ -27,7 +27,9 @@ describe("tree", function() {
   describe("addChild", function () {
     it("should be able to add a new leaf to children array", function(){
       tree.addChild(7);
+      tree.addChild(8);
       expect(tree.children[0]['value']).toEqual(7);
+      expect(tree.children[1]['value']).toEqual(8);
     });
   });
 
