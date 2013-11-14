@@ -5,8 +5,11 @@ var makeLinkedList = function(){
   list.tail = null;
 
   list.addToTail = function(value){
-    list.tail = value;
-    list.head = value;
+    list.tail = 0;
+    list.head = 0;
+    // debugger;
+    list[list.tail] = makeNode(value);
+
   };
 
   list.removeHead = function(){

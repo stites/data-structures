@@ -19,14 +19,21 @@ describe("linkedList", function() {
   describe('.addToTail()', function () {
     it('.addToTail() method takes a value and adds it to the end of the list', function(){
       linkedList.addToTail(4);
-      expect(linkedList.tail).toEqual(4);
+      expect(linkedList[linkedList.tail]['value']).toEqual(4);
       linkedList.addToTail(7);
-      expect(linkedList.tail).toEqual(7);
+      expect(linkedList[linkedList.tail]['value']).toEqual(7);
     });
     it('head and tail point to the same value if run once', function(){
       linkedList.addToTail(4);
-      expect(linkedList.tail).toEqual(4);
+      expect(linkedList[linkedList.tail]['value']).toEqual(linkedList[linkedList.head]['value']);
+    });
+    xit('head and tail do not point to the same value if run more than once', function(){
+      linkedList.addToTail(4);
+      linkedList.addToTail(8);
       expect(linkedList.head).toEqual(4);
+      expect(linkedList.tail).toEqual(8);
+      // linkedList.addToTail(9);
+      // expect(linkedList.tail).toEqual(9);
     });
   });
   // Pending
