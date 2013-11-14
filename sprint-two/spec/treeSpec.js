@@ -2,7 +2,7 @@ describe("tree", function() {
   var tree;
 
   beforeEach(function() {
-    tree = makeTree();
+    tree = makeTree("root");
   });
 
   it("should have methods named 'addChild' and 'contains', and a property named 'value'", function() {
@@ -10,11 +10,28 @@ describe("tree", function() {
     expect(tree.contains).toEqual(jasmine.any(Function));
     expect('value' in tree).toBe(true);
   });
+
   it("should not have a child when makeTree() is invoked initially.", function(){
     expect(tree.children).toEqual(undefined);
   });
+
+  it("should not have a value when makeTree() is invoked without arguments.", function(){
+    tree = makeTree();
+    expect(tree.value).toEqual(undefined);
+  });
+
   it("should be able to receive a value when invoking makeTree().", function(){
-    tree = makeTree("this is a value");
+    expect(tree.value).toEqual("root");
+  });
+
+  describe("addChild", function () {
+    it("should be able to add a new leaf to children array", function(){
+      tree.addChild(7);
+      expect(tree.children[0]['value']).toEqual(7);
+    });
+  });
+
+  xit("", function(){
     expect(tree.value).toEqual("this is a value");
   });
 });
