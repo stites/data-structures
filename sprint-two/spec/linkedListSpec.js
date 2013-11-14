@@ -27,11 +27,11 @@ describe("linkedList", function() {
       linkedList.addToTail(4);
       expect(linkedList[linkedList.tail]['value']).toEqual(linkedList[linkedList.head]['value']);
     });
-    xit('head and tail do not point to the same value if run more than once', function(){
+    it('head and tail do not point to the same value if run more than once', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
-      expect(linkedList.head).toEqual(4);
-      expect(linkedList.tail).toEqual(8);
+      expect(linkedList[linkedList.head]['value']).toEqual(4);
+      expect(linkedList[linkedList.tail]['value']).toEqual(8);
       // linkedList.addToTail(9);
       // expect(linkedList.tail).toEqual(9);
     });
