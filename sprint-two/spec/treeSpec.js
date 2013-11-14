@@ -31,6 +31,13 @@ describe("tree", function() {
       expect(tree.children[0]['value']).toEqual(7);
       expect(tree.children[1]['value']).toEqual(8);
     });
+
+    it("should be able to add a new leaf to a child in the root's children array", function(){
+      tree.addChild(7);
+      tree.children[0].addChild(8);
+      // debugger;
+      expect(tree.children[0].children[0]['value']).toEqual(8);
+    });
   });
 
   xit("", function(){
