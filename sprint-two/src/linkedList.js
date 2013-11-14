@@ -8,7 +8,14 @@ var makeLinkedList = function(){
 
     (list.tail === null) && (list.tail = -1);
     (list.head === null) && (list.head = 0);
+
+    var previousTail = list.tail;
+
     list.tail += 1;
+
+    if (list.tail) {
+      list[previousTail]['next'] = list.tail;
+    }
     // debugger;
     list[list.tail] = makeNode(value);
 

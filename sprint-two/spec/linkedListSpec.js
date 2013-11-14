@@ -32,8 +32,11 @@ describe("linkedList", function() {
       linkedList.addToTail(8);
       expect(linkedList[linkedList.head]['value']).toEqual(4);
       expect(linkedList[linkedList.tail]['value']).toEqual(8);
-      // linkedList.addToTail(9);
-      // expect(linkedList.tail).toEqual(9);
+    });
+    it('the first node has a .next property which points to tail when addToTail is run twice', function(){
+      linkedList.addToTail(4);
+      linkedList.addToTail(8);
+      expect(linkedList[linkedList.head]['next']).toEqual(linkedList.tail);
     });
   });
   // Pending
