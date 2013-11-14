@@ -1,5 +1,5 @@
 var makeTree = function(){
-  var newTree = {};
+  var newTree = Object.create(treeMethods);
   newTree.value = undefined;
   newTree.children = undefined;
 
