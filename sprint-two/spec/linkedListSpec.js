@@ -78,8 +78,7 @@ describe("linkedList", function() {
       expect(linkedList.head).toEqual(null);
       expect(linkedList.tail).toEqual(null);
     });
-    //Pending
-    xit('.removeHead() method returns the value of the node which was removed', function(){
+    it('.removeHead() method returns the value of the node which was removed', function(){
       linkedList.addToTail(9);
       linkedList.addToTail(8);
       linkedList.addToTail(7);

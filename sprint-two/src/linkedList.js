@@ -22,6 +22,7 @@ var makeLinkedList = function(){
 
   list.removeHead = function(){
     var newHead = list[list.head]['next'];
+    var headValue = list[list.head]['value'];
     delete list[list.head];
 
     if (newHead === null){
@@ -30,6 +31,7 @@ var makeLinkedList = function(){
     } else {
       list.head = newHead;
     }
+    return headValue;
   };
 
   list.contains = function(){
