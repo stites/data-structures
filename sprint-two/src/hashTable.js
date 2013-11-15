@@ -12,15 +12,15 @@ var HashTable = function(){
   this._storage = makeLimitedArray(this._limit);
 };
 
-HashTable.prototype.insert = function(k, v){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-  // console.log(i);
-  this._storage.set(i, v);
+HashTable.prototype.insert = function(key, value){
+  var hash = getIndexBelowMaxForKey(key, this._limit);
+  console.log(hash);
+  this._storage.set(hash, value);
 };
 
-HashTable.prototype.retrieve = function(k){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-  return this._storage.get(i);
+HashTable.prototype.retrieve = function(key){
+  var hash = getIndexBelowMaxForKey(key, this._limit);
+  return this._storage.get(hash);
 };
 
 HashTable.prototype.remove = function(){
