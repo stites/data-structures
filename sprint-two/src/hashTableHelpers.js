@@ -17,11 +17,18 @@ var makeLimitedArray = function(limit){
   var limitedArray = {};
   limitedArray.get = function(index){
     checkLimit(index);
-    return storage[index];
+    if (storage[index]) {
+      var linkedList = storage[index];
+      return linkedList[linkedList.head]['value'];
+    } else {
+      return undefined;
+    }
   };
   limitedArray.set = function(index, value){
     checkLimit(index);
-    storage[index] = value;
+    var linkedList = makeLinkedList();
+    linkedList.addToTail(value);
+    storage[index] = linkedList;
   };
   limitedArray.each = function(callback){
     for(var i = 0; i < storage.length; i++){

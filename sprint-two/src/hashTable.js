@@ -14,7 +14,6 @@ var HashTable = function(){
 
 HashTable.prototype.insert = function(key, value){
   var hash = getIndexBelowMaxForKey(key, this._limit);
-  console.log(hash);
   this._storage.set(hash, value);
 };
 
@@ -24,8 +23,8 @@ HashTable.prototype.retrieve = function(key){
 };
 
 HashTable.prototype.remove = function(value){
-  this._storage.each(function (str, hash, storage) {
-    if (str === value) {
+  this._storage.each(function (linkedList, hash, storage) {
+    if (linkedList && linkedList.contains(value)) {
       storage[hash] = undefined;
     }
   });
