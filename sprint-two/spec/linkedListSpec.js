@@ -27,16 +27,19 @@ describe("linkedList", function() {
       expect(linkedList.tail).toEqual(jasmine.any(Object));
       expect(linkedList.head).toEqual(linkedList.tail);
     });
+
     it('head and tail do not point to the same object if run more than once', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
       expect(linkedList.head).toNotEqual(linkedList.tail);
     });
+
     it('the first node has a .next property which points to tail when addToTail is run twice', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
       expect(linkedList.head.next).toEqual(linkedList.tail);
     });
+
     it('the second-to-last node has a .next property which points to tail when addToTail is run more than once', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
@@ -55,6 +58,7 @@ describe("linkedList", function() {
       expect(linkedList.head).toEqual(null);
       expect(linkedList.tail).toEqual(null);
     });
+
     it('should change the head to null from a multi-node list', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
@@ -62,6 +66,7 @@ describe("linkedList", function() {
       linkedList.removeHead();
       expect(linkedList.head.value).toEqual(8);
     });
+
     it('should moves the head pointer to the next node in the list', function(){
       linkedList.addToTail(4);
       var firstAdd = linkedList.head;
@@ -73,6 +78,7 @@ describe("linkedList", function() {
       linkedList.removeHead();
       expect(linkedList.head).toNotEqual(secondAdd);
     });
+
     it('.removeHead() method returns the value of the node which was removed', function(){
       linkedList.addToTail(9);
       linkedList.addToTail(8);
@@ -85,8 +91,8 @@ describe("linkedList", function() {
       expect(head1).toEqual(expected1);
     });
   });
-  describe('.contains()',function () {
 
+  describe('.contains()',function () {
     it('should returns a boolean reflecting whether or not the passed-in value is in a single-valued list', function(){
       linkedList.addToTail(9);
       expect(linkedList.contains(9)).toEqual(true);
@@ -108,4 +114,14 @@ describe("linkedList", function() {
       expect(linkedList.contains(11)).toEqual(false);
     });
   })
+
+
+  describe('.addToHead()', function () {
+    it('should make head and tail point to the same object when run once on an empty list', function(){
+      linkedList.addToHead(4);
+      expect(linkedList.tail).toEqual(jasmine.any(Object));
+      expect(linkedList.head).toEqual(linkedList.tail);
+    });
+  });
+
 });
