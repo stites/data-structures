@@ -1,4 +1,4 @@
-describe("set", function() {
+  describe("set", function() {
   var set;
 
   beforeEach(function() {
@@ -10,4 +10,22 @@ describe("set", function() {
     expect(set.contains).toEqual(jasmine.any(Function));
     expect(set.remove).toEqual(jasmine.any(Function));
   });
-});
+
+  it("should add strings to the set when added with 'add'", function() {
+    set.add('string');
+    expect(set._storage['string']).toEqual(true);
+  });
+
+  // xit("should not add anything to the set with 'add' if the string is already in the set", function() {
+
+  // });
+
+  // xit("should remove the specified string that is passed to 'remove'", function() {
+
+  // });
+
+  // xit("should return a boolean expressing if the passed string to 'contains' is in the set", function() {
+
+  // });
+
+  });
