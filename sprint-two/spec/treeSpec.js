@@ -41,14 +41,26 @@ describe("tree", function() {
 
   describe("contains", function () {
 
-    it("should return a boolean expressing if the passed value is in the root", function(){
+    it("should return a boolean expressing if the passed value is in the root and only the root exists", function(){
       expect(tree.contains("root")).toEqual(true);
       expect(tree.contains("branch")).toEqual(false);
     });
 
-    xit("", function(){
-      expect(tree.value).toEqual("root");
-    });
+    it("should return a boolean expressing if the passed value is in the tree", function(){
+      tree.addChild(1);
+      expect(tree.contains(1)).toEqual(true);
+      expect(tree.contains(100)).toEqual(false);
+      tree.children[0].addChild(2);
+      tree.children[0].addChild(3);
+      expect(tree.contains(2)).toEqual(true);
+      expect(tree.contains(3)).toEqual(true);
+      expect(tree.contains(4)).toEqual(false);
+      tree.children[0].children[1].addChild(4);
+      tree.children[0].children[1].addChild(5);
+      expect(tree.contains(300)).toEqual(false);
+      expect(tree.contains(4)).toEqual(true);
+      expect(tree.contains(500)).toEqual(false);
 
+    });
   });
 });

@@ -1,7 +1,7 @@
 var makeTree = function(value){
   var newTree = Object.create(treeMethods);
   newTree.value = value || undefined;
-  newTree.children = undefined; // [9,8,7] --> [0,1,3] obj0={value:9}
+  newTree.children = undefined;
 
   return newTree;
 };
@@ -16,6 +16,19 @@ treeMethods.addChild = function(value){
 	this.children.push(child);
 };
 
-treeMethods.contains = function(value){
-	return value === this.value;
+treeMethods.contains = function(value, node, result){
+	result = result || false;
+	node = node || this;
+
+	if (value === node.value) {
+		result = true;
+	} else {
+		if (node.children !== undefined) {
+			for (var i = 0; i < node.children.length; i++) {
+				result = node.contains(value, node.children[i], result);
+			}
+		}
+	}
+
+	return result;
 };
