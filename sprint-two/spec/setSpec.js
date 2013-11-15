@@ -31,9 +31,14 @@
     expect(set._storage['string']).toEqual(undefined);
   });
 
-  // xit("should return a boolean expressing if the passed string to 'contains' is in the set", function() {
-
-  // });
+  it("should return a boolean expressing if the passed string to 'contains' is in the set", function() {
+    set.add('string0');
+    set.add('string1');
+    set.add('string2');
+    set.add('string3');
+    expect(set.contains('string3')).toEqual(true);
+    expect(set.contains('string8')).toEqual(false);
+  });
 
   xit("should not add anything to the set with 'add' if the string is already in the set", function() {
 
