@@ -17,6 +17,21 @@ describe("hashTable", function() {
     expect(hashTable._storage.get(hash)).toEqual(v1);
   });
 
+  it("should retrieve an element from the HashTable", function() {
+    var v1 = 'val1';
+    var hash = getIndexBelowMaxForKey(v1,8);
+    hashTable.insert(v1, v1);
+    expect(hashTable.retrieve(v1)).toEqual(v1);
+  });
+
+  it("should not retrieve an element not in the HashTable", function() {
+    var v1 = 'val1';
+    var v2 = 'val2';
+    var hash = getIndexBelowMaxForKey(v1,8);
+    hashTable.insert(v1, v1);
+    expect(hashTable.retrieve(v2)).toEqual(undefined);
+  });
+
   it("should insert multiple elements into the HashTable", function(){
     var v1 = 'val1', v2 = 'val2';
     hashTable.insert(v1, v1);
