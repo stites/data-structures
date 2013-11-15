@@ -34,16 +34,21 @@ var makeLinkedList = function(){
     return headValue;
   };
 
-  list.contains = function(value, position, result){
+  list.contains = function(value, retrieve, position, result){
+    retrieve = retrieve || false;
     position = position || list.head;
     result = result || false;
 
     var comparison = list[position]['value'];
     var next = list[position]['next'];
 
-    result = (value === comparison) ? true : false;
+    if (value === comparison){
+      result = !retrieve ? true : comparison;
+    } else {
+      result = false;
+    }
 
-    return (next !== null) ? (result || list.contains(value, next, result)) : result;
+    return (next !== null) ? (result || list.contains(value, retrieve, next, result)) : result;
   };
 
   return list;

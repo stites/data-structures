@@ -104,4 +104,21 @@ describe("linkedList", function() {
     expect(linkedList.contains(5)).toEqual(true);
     expect(linkedList.contains(11)).toEqual(false);
   });
+
+  it('.contains() method can return the value if passed an optional argument', function(){
+    linkedList.addToTail(9);
+    linkedList.addToTail(8);
+    linkedList.addToTail(7);
+    linkedList.addToTail(6);
+    linkedList.addToTail(5);
+    linkedList.addToTail('5');
+    linkedList.addToTail(4);
+    linkedList.addToTail(3);
+    linkedList.addToTail(2);
+    linkedList.addToTail(1);
+    linkedList.addToTail(0);
+    expect(linkedList.contains(5, true)).toEqual(5);
+    expect(linkedList.contains('5', true)).toEqual('5');
+    expect(linkedList.contains(11, true)).toEqual(false);
+  });
 });
