@@ -1,18 +1,28 @@
 // Note: don't use an array to do this.
-var makeLinkedList = function(){
+var makeDoublyLinkedList = function(){
   var list = {};
   list.head = null;
   list.tail = null;
 
-  list.addToTail = function(value){
+  list.addToHead = function(value){
     var newNode = makeNode(value);
 
     if (list.head === null){
       list.head = newNode;
       list.tail = list.head;
+    }
+  };
+
+  list.addToTail = function(value){
+    var newTail = makeNode(value);
+
+    if (list.head === null){
+      list.head = newTail;
+      list.tail = list.head;
     } else {
-      list.tail.next = newNode;
-      list.tail = newNode;
+      newTail.previous = list.tail;
+      list.tail.next = newTail;
+      list.tail = newTail;
     }
   };
 
@@ -28,6 +38,10 @@ var makeLinkedList = function(){
     }
 
     return value;
+  };
+
+  list.removeTail = function(){
+
   };
 
   list.contains = function(value){
@@ -48,6 +62,7 @@ var makeLinkedList = function(){
 var makeNode = function(value){
   var node = {};
   node.value = value;
+  node.previous = null;
   node.next = null;
 
   return node;

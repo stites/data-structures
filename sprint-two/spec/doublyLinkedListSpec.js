@@ -1,131 +1,139 @@
 describe("doublyLinkedList", function() {
-  var linkedList;
+  var dlinkedList;
 
   beforeEach(function() {
-    linkedList = makeLinkedList();
+    dlinkedList = makeDoublyLinkedList();
   });
 
   it("should have a head and tail", function() {
-    expect(Object.keys(linkedList)).toContain("head");
-    expect(Object.keys(linkedList)).toContain("tail");
+    expect(Object.keys(dlinkedList)).toContain("head");
+    expect(Object.keys(dlinkedList)).toContain("tail");
   });
 
-  it("should have methods named 'addToTail', 'removeHead', and 'contains'", function() {
-    expect(linkedList.addToTail).toEqual(jasmine.any(Function));
-    expect(linkedList.removeHead).toEqual(jasmine.any(Function));
-    expect(linkedList.contains).toEqual(jasmine.any(Function));
+  it("should have methods named 'addToTail', 'addToHead', 'removeTail', 'removeHead', and 'contains'", function() {
+    expect(dlinkedList.addToTail).toEqual(jasmine.any(Function));
+    expect(dlinkedList.addToHead).toEqual(jasmine.any(Function));
+    expect(dlinkedList.removeTail).toEqual(jasmine.any(Function));
+    expect(dlinkedList.removeHead).toEqual(jasmine.any(Function));
+    expect(dlinkedList.contains).toEqual(jasmine.any(Function));
   });
 
   it("should have a null head and tail when first instantiated", function() {
-    expect(linkedList.head).toEqual(null);
-    expect(linkedList.tail).toEqual(null);
+    expect(dlinkedList.head).toEqual(null);
+    expect(dlinkedList.tail).toEqual(null);
   });
 
-  describe('.addToTail()', function () {
+  xdescribe('.addToTail()', function () {
     it('should make head and tail point to the same object when run once on an empty list', function(){
-      linkedList.addToTail(4);
-      expect(linkedList.tail).toEqual(jasmine.any(Object));
-      expect(linkedList.head).toEqual(linkedList.tail);
+      dlinkedList.addToTail(4);
+      expect(dlinkedList.tail).toEqual(jasmine.any(Object));
+      expect(dlinkedList.head).toEqual(dlinkedList.tail);
     });
 
     it('head and tail do not point to the same object if run more than once', function(){
-      linkedList.addToTail(4);
-      linkedList.addToTail(8);
-      expect(linkedList.head).toNotEqual(linkedList.tail);
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      expect(dlinkedList.head).toNotEqual(dlinkedList.tail);
     });
 
     it('the first node has a .next property which points to tail when addToTail is run twice', function(){
-      linkedList.addToTail(4);
-      linkedList.addToTail(8);
-      expect(linkedList.head.next).toEqual(linkedList.tail);
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      expect(dlinkedList.head.next).toEqual(dlinkedList.tail);
+    });
+
+    it('the second node has a .previous property which points to head when addToTail is run twice', function(){
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      expect(dlinkedList.tail.previous).toEqual(dlinkedList.head);
     });
 
     it('the second-to-last node has a .next property which points to tail when addToTail is run more than once', function(){
-      linkedList.addToTail(4);
-      linkedList.addToTail(8);
-      expect(linkedList.head.next).toEqual(linkedList.tail);
-      linkedList.addToTail(12);
-      expect(linkedList.head.next.next).toEqual(linkedList.tail);
-      linkedList.addToTail(16);
-      expect(linkedList.head.next.next.next).toEqual(linkedList.tail);
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      expect(dlinkedList.head.next).toEqual(dlinkedList.tail);
+      dlinkedList.addToTail(12);
+      expect(dlinkedList.head.next.next).toEqual(dlinkedList.tail);
+      dlinkedList.addToTail(16);
+      expect(dlinkedList.head.next.next.next).toEqual(dlinkedList.tail);
     });
   });
 
-  describe('.removeHead()', function () {
+  xdescribe('.removeHead()', function () {
     it('.removeHead() method moves head and tail to `null` if no items are left in list', function(){
-      linkedList.addToTail(4);
-      linkedList.removeHead();
-      expect(linkedList.head).toEqual(null);
-      expect(linkedList.tail).toEqual(null);
+      dlinkedList.addToTail(4);
+      dlinkedList.removeHead();
+      expect(dlinkedList.head).toEqual(null);
+      expect(dlinkedList.tail).toEqual(null);
     });
 
     it('should change the head to null from a multi-node list', function(){
-      linkedList.addToTail(4);
-      linkedList.addToTail(8);
-      linkedList.addToTail(12);
-      linkedList.removeHead();
-      expect(linkedList.head.value).toEqual(8);
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      dlinkedList.addToTail(12);
+      dlinkedList.removeHead();
+      expect(dlinkedList.head.value).toEqual(8);
     });
 
     it('should moves the head pointer to the next node in the list', function(){
-      linkedList.addToTail(4);
-      var firstAdd = linkedList.head;
-      linkedList.addToTail(4);
-      linkedList.addToTail(4);
-      linkedList.removeHead();
-      expect(linkedList.head).toNotEqual(firstAdd);
-      var secondAdd = linkedList.head;
-      linkedList.removeHead();
-      expect(linkedList.head).toNotEqual(secondAdd);
+      dlinkedList.addToTail(4);
+      var firstAdd = dlinkedList.head;
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(4);
+      dlinkedList.removeHead();
+      expect(dlinkedList.head).toNotEqual(firstAdd);
+      var secondAdd = dlinkedList.head;
+      dlinkedList.removeHead();
+      expect(dlinkedList.head).toNotEqual(secondAdd);
     });
 
     it('.removeHead() method returns the value of the node which was removed', function(){
-      linkedList.addToTail(9);
-      linkedList.addToTail(8);
-      linkedList.addToTail(7);
-      var expected0 = linkedList.head.value;
-      var head0 = linkedList.removeHead();
+      dlinkedList.addToTail(9);
+      dlinkedList.addToTail(8);
+      dlinkedList.addToTail(7);
+      var expected0 = dlinkedList.head.value;
+      var head0 = dlinkedList.removeHead();
       expect(head0).toEqual(expected0);
-      var expected1 = linkedList.head.value;
-      var head1 = linkedList.removeHead();
+      var expected1 = dlinkedList.head.value;
+      var head1 = dlinkedList.removeHead();
       expect(head1).toEqual(expected1);
     });
   });
 
-  describe('.contains()',function () {
+  xdescribe('.contains()',function () {
     it('should returns a boolean reflecting whether or not the passed-in value is in a single-valued list', function(){
-      linkedList.addToTail(9);
-      expect(linkedList.contains(9)).toEqual(true);
-      expect(linkedList.contains(11)).toEqual(false);
+      dlinkedList.addToTail(9);
+      expect(dlinkedList.contains(9)).toEqual(true);
+      expect(dlinkedList.contains(11)).toEqual(false);
     });
 
     it('should returns a boolean reflecting whether or not the passed-in value is in a multi-valued list', function(){
-      linkedList.addToTail(9);
-      linkedList.addToTail(8);
-      linkedList.addToTail(7);
-      linkedList.addToTail(6);
-      linkedList.addToTail(5);
-      linkedList.addToTail(4);
-      linkedList.addToTail(3);
-      linkedList.addToTail(2);
-      linkedList.addToTail(1);
-      linkedList.addToTail(0);
-      expect(linkedList.contains(5)).toEqual(true);
-      expect(linkedList.contains(11)).toEqual(false);
+      dlinkedList.addToTail(9);
+      dlinkedList.addToTail(8);
+      dlinkedList.addToTail(7);
+      dlinkedList.addToTail(6);
+      dlinkedList.addToTail(5);
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(3);
+      dlinkedList.addToTail(2);
+      dlinkedList.addToTail(1);
+      dlinkedList.addToTail(0);
+      expect(dlinkedList.contains(5)).toEqual(true);
+      expect(dlinkedList.contains(11)).toEqual(false);
     });
   })
 
-  describe('.addToHead()', function () {
+  xdescribe('.addToHead()', function () {
     it('should make head and tail point to the same object when run once on an empty list', function(){
-      linkedList.addToHead(4);
-      expect(linkedList.tail).toEqual(jasmine.any(Object));
-      expect(linkedList.head).toEqual(linkedList.tail);
+      dlinkedList.addToHead(4);
+      expect(dlinkedList.tail).toEqual(jasmine.any(Object));
+      expect(dlinkedList.head).toEqual(dlinkedList.tail);
     });
 
     it('head and tail do not point to the same object if run more than once', function(){
-      linkedList.addToHead(4);
-      linkedList.addToHead(8);
-      expect(linkedList.head).toNotEqual(linkedList.tail);
+      dlinkedList.addToHead(4);
+      dlinkedList.addToHead(8);
+      expect(dlinkedList.head).toNotEqual(dlinkedList.tail);
     });
 
   });
