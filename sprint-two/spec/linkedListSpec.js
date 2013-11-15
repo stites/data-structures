@@ -16,44 +16,53 @@ describe("linkedList", function() {
     expect(linkedList.contains).toEqual(jasmine.any(Function));
   });
 
+  it("should have a null head and tail when first instantiated", function() {
+    expect(linkedList.head).toEqual(null);
+    expect(linkedList.tail).toEqual(null);
+  });
+
   describe('.addToTail()', function () {
-    it('.addToTail() method takes a value and adds it to the end of the list', function(){
+    it('should make head and tail point to the same object when run once on an empty list', function(){
       linkedList.addToTail(4);
-      expect(linkedList[linkedList.tail]['value']).toEqual(4);
-      linkedList.addToTail(7);
-      expect(linkedList[linkedList.tail]['value']).toEqual(7);
+      expect(linkedList.tail).toEqual(jasmine.any(Object));
+      expect(linkedList.head).toEqual(linkedList.tail);
     });
-    it('head and tail point to the same value if run once', function(){
-      linkedList.addToTail(4);
-      expect(linkedList[linkedList.tail]['value']).toEqual(linkedList[linkedList.head]['value']);
-    });
-    it('head and tail do not point to the same value if run more than once', function(){
+    it('head and tail do not point to the same object if run more than once', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
-      expect(linkedList[linkedList.head]['value']).toEqual(4);
-      expect(linkedList[linkedList.tail]['value']).toEqual(8);
+      expect(linkedList.head).toNotEqual(linkedList.tail);
     });
     it('the first node has a .next property which points to tail when addToTail is run twice', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
-      expect(linkedList[linkedList.head]['next']).toEqual(linkedList.tail);
+      expect(linkedList.head.next).toEqual(linkedList.tail);
     });
     it('the second-to-last node has a .next property which points to tail when addToTail is run more than once', function(){
       linkedList.addToTail(4);
       linkedList.addToTail(8);
-      expect(linkedList[linkedList.tail-1]['next']).toEqual(linkedList.tail);
-      linkedList.addToTail(8);
-      expect(linkedList[linkedList.tail-1]['next']).toEqual(linkedList.tail);
+      expect(linkedList.head.next).toEqual(linkedList.tail);
+      linkedList.addToTail(12);
+      expect(linkedList.head.next.next).toEqual(linkedList.tail);
+      linkedList.addToTail(16);
+      expect(linkedList.head.next.next.next).toEqual(linkedList.tail);
     });
   });
 
   describe('.removeHead()', function () {
-    it('.removeHead() method removes the first node from a one-node list', function(){
+    it('.removeHead() method moves head and tail to `null` if no items are left in list', function(){
       linkedList.addToTail(4);
       linkedList.removeHead();
-      expect(Object.keys(linkedList).length).toEqual(5);
+      expect(linkedList.head).toEqual(null);
+      expect(linkedList.tail).toEqual(null);
     });
-    it('.removeHead() method moves the head pointer to the next node in the list', function(){
+    it('should change the head to null from a multi-node list', function(){
+      linkedList.addToTail(4);
+      linkedList.addToTail(8);
+      linkedList.addToTail(12);
+      linkedList.removeHead();
+      expect(linkedList.head.value).toEqual(8);
+    });
+    it('should moves the head pointer to the next node in the list', function(){
       linkedList.addToTail(4);
       var firstAdd = linkedList.head;
       linkedList.addToTail(4);
@@ -64,61 +73,39 @@ describe("linkedList", function() {
       linkedList.removeHead();
       expect(linkedList.head).toNotEqual(secondAdd);
     });
-    it('.removeHead() method removes the first node from any list', function(){
-      var originalLength = 8
-      for (var i = 0; i < originalLength; i++){
-        linkedList.addToTail(i);
-      }
-      linkedList.removeHead();
-      expect(originalLength).not.toEqual((linkedList.tail-linkedList.head)+1); // +1 for index<>length conversion
-    });
-    it('.removeHead() method moves head and tail to `null` if no items are left in list', function(){
-      linkedList.addToTail(4);
-      linkedList.removeHead();
-      expect(linkedList.head).toEqual(null);
-      expect(linkedList.tail).toEqual(null);
-    });
     it('.removeHead() method returns the value of the node which was removed', function(){
       linkedList.addToTail(9);
       linkedList.addToTail(8);
       linkedList.addToTail(7);
-      var expected0 = linkedList[linkedList.head]['value'];
+      var expected0 = linkedList.head.value;
       var head0 = linkedList.removeHead();
       expect(head0).toEqual(expected0);
-      var expected1 = linkedList[linkedList.head]['value'];
+      var expected1 = linkedList.head.value;
       var head1 = linkedList.removeHead();
       expect(head1).toEqual(expected1);
     });
   });
-  it('.contains() method returns a boolean reflecting whether or not the passed-in value is in the linked list', function(){
-    linkedList.addToTail(9);
-    linkedList.addToTail(8);
-    linkedList.addToTail(7);
-    linkedList.addToTail(6);
-    linkedList.addToTail(5);
-    linkedList.addToTail(4);
-    linkedList.addToTail(3);
-    linkedList.addToTail(2);
-    linkedList.addToTail(1);
-    linkedList.addToTail(0);
-    expect(linkedList.contains(5)).toEqual(true);
-    expect(linkedList.contains(11)).toEqual(false);
-  });
+  describe('.contains()',function () {
 
-  it('.contains() method can return the value if passed an optional argument', function(){
-    linkedList.addToTail(9);
-    linkedList.addToTail(8);
-    linkedList.addToTail(7);
-    linkedList.addToTail(6);
-    linkedList.addToTail(5);
-    linkedList.addToTail('5');
-    linkedList.addToTail(4);
-    linkedList.addToTail(3);
-    linkedList.addToTail(2);
-    linkedList.addToTail(1);
-    linkedList.addToTail(0);
-    expect(linkedList.contains(5, true)).toEqual(5);
-    expect(linkedList.contains('5', true)).toEqual('5');
-    expect(linkedList.contains(11, true)).toEqual(false);
-  });
+    it('should returns a boolean reflecting whether or not the passed-in value is in a single-valued list', function(){
+      linkedList.addToTail(9);
+      expect(linkedList.contains(9)).toEqual(true);
+      expect(linkedList.contains(11)).toEqual(false);
+    });
+
+    it('should returns a boolean reflecting whether or not the passed-in value is in a multi-valued list', function(){
+      linkedList.addToTail(9);
+      linkedList.addToTail(8);
+      linkedList.addToTail(7);
+      linkedList.addToTail(6);
+      linkedList.addToTail(5);
+      linkedList.addToTail(4);
+      linkedList.addToTail(3);
+      linkedList.addToTail(2);
+      linkedList.addToTail(1);
+      linkedList.addToTail(0);
+      expect(linkedList.contains(5)).toEqual(true);
+      expect(linkedList.contains(11)).toEqual(false);
+    });
+  })
 });

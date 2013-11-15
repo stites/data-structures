@@ -5,52 +5,42 @@ var makeLinkedList = function(){
   list.tail = null;
 
   list.addToTail = function(value){
+    var newNode = makeNode(value);
 
-    (list.tail === null) && (list.tail = -1);
-    (list.head === null) && (list.head = 0);
-
-    var previousTail = list.tail;
-
-    list.tail += 1;
-
-    if (list.tail) {
-      list[previousTail]['next'] = list.tail;
+    if (list.head === null){
+      list.head = newNode;
+      list.tail = list.head;
+    } else {
+      list.tail.next = newNode;
+      list.tail = newNode;
     }
-    list[list.tail] = makeNode(value);
 
   };
 
   list.removeHead = function(){
-    var newHead = list[list.head]['next'];
-    var headValue = list[list.head]['value'];
-    delete list[list.head];
+    var newHead = list.head.next;
+    var value = list.head.value;
+    list.head = null;
 
     if (newHead === null){
       list.tail = null;
-      list.head = null;
     } else {
       list.head = newHead;
     }
-    return headValue;
+    return value;
   };
 
-  list.contains = function(value, retrieve, position, result){
-    retrieve = retrieve || false;
-    position = position || list.head;
-    result = result || false;
+  list.contains = function(value){
+    var node = list.head;
+    do {
+      if (node.value === value){
+        return true;
+      }
+      (node.next) && (node = node.next);
+    } while (node.next !== null)
 
-    var comparison = list[position]['value'];
-    var next = list[position]['next'];
-
-    if (value === comparison){
-      result = !retrieve ? true : comparison;
-    } else {
-      result = false;
-    }
-
-    return (next !== null) ? (result || list.contains(value, retrieve, next, result)) : result;
+    return false;
   };
-
   return list;
 };
 
