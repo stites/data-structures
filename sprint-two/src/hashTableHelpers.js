@@ -14,29 +14,29 @@
 var makeLimitedArray = function(limit){
   var storage = [];
 
+
   var limitedArray = {};
   limitedArray.get = function(index, key){
     checkLimit(index);
     var linkedList = storage[index];
-    debugger;
+    var result;
+
     if (linkedList) {
-      var pos = linkedList.head;
-      var tail = linkedList.tail;
-      var checkNode = linkedList[pos];
-      var result;
+      var node = linkedList.head;
       do {
-        if (key !== undefined && key === linkedList[pos]['value']){
-          return linkedList[pos]['value'];
+        if (node.value === key){
+          result = node.value;
         }
-        result = linkedList[pos]['value']
-        pos += 1;
-      } while (checkNode.next !== null)
+        if (node.next !== null) {
+          node = node.next;
+        } else {
+          node = undefined;
+        }
 
-      return result;
-
-    } else {
-      return undefined;
+      } while (node)
     }
+
+    return result;
   };
   limitedArray.set = function(index, value){
     checkLimit(index);
