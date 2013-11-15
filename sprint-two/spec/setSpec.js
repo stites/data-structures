@@ -16,6 +16,15 @@
     expect(set._storage['string']).toEqual(true);
   });
 
+  it("should add multiple strings to the set", function() {
+    set.add('string');
+    set.add('tim');
+    set.add('jerry');
+    expect(set._storage['string']).toEqual(true);
+    expect(set._storage['tim']).toEqual(true);
+    expect(set._storage['jerry']).toEqual(true);
+  });
+
   // xit("should not add anything to the set with 'add' if the string is already in the set", function() {
 
   // });
