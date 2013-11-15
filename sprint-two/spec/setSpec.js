@@ -40,8 +40,11 @@
     expect(set.contains('string8')).toEqual(false);
   });
 
-  xit("should not add anything to the set with 'add' if the string is already in the set", function() {
-
+  it("should not add anything to the set with 'add' if the string is already in the set", function() {
+    set.add('string0');
+    set.add('string0');
+    set.remove('string0');
+    expect(set.contains('string0')).toEqual(false);
   });
 
 });
