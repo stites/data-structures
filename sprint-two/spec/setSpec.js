@@ -25,16 +25,18 @@
     expect(set._storage['jerry']).toEqual(true);
   });
 
-  // xit("should not add anything to the set with 'add' if the string is already in the set", function() {
-
-  // });
-
-  // xit("should remove the specified string that is passed to 'remove'", function() {
-
-  // });
+  it("should remove the specified string that is passed to 'remove'", function() {
+    set.add('string');
+    set.remove('string');
+    expect(set._storage['string']).toEqual(undefined);
+  });
 
   // xit("should return a boolean expressing if the passed string to 'contains' is in the set", function() {
 
   // });
 
+  xit("should not add anything to the set with 'add' if the string is already in the set", function() {
+
   });
+
+});
