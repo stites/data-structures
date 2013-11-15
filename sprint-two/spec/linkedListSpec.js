@@ -91,7 +91,6 @@ describe("linkedList", function() {
       expect(head1).toEqual(expected1);
     });
   });
-
   describe('.contains()',function () {
     it('should returns a boolean reflecting whether or not the passed-in value is in a single-valued list', function(){
       linkedList.addToTail(9);
@@ -116,11 +115,33 @@ describe("linkedList", function() {
   })
 
 
-  describe('.addToHead()', function () {
+  describe('.addToTail()', function () {
     it('should make head and tail point to the same object when run once on an empty list', function(){
-      linkedList.addToHead(4);
+      linkedList.addToTail(4);
       expect(linkedList.tail).toEqual(jasmine.any(Object));
       expect(linkedList.head).toEqual(linkedList.tail);
+    });
+
+    it('head and tail do not point to the same object if run more than once', function(){
+      linkedList.addToTail(4);
+      linkedList.addToTail(8);
+      expect(linkedList.head).toNotEqual(linkedList.tail);
+    });
+
+    it('the first node has a .next property which points to tail when addToTail is run twice', function(){
+      linkedList.addToTail(4);
+      linkedList.addToTail(8);
+      expect(linkedList.head.next).toEqual(linkedList.tail);
+    });
+
+    it('the second-to-last node has a .next property which points to tail when addToTail is run more than once', function(){
+      linkedList.addToTail(4);
+      linkedList.addToTail(8);
+      expect(linkedList.head.next).toEqual(linkedList.tail);
+      linkedList.addToTail(12);
+      expect(linkedList.head.next.next).toEqual(linkedList.tail);
+      linkedList.addToTail(16);
+      expect(linkedList.head.next.next.next).toEqual(linkedList.tail);
     });
   });
 
