@@ -52,7 +52,7 @@ describe("hashTable", function() {
     expect(hashTable.retrieve(v3)).toEqual(undefined);
   });
 
-  xit("should handle hash function collisions", function(){
+  it("should handle hash function collisions", function(){
     // force the hash function to return 0
     spyOn(window, 'getIndexBelowMaxForKey').andReturn(0);
     hashTable.insert(v1, v1);
@@ -61,5 +61,4 @@ describe("hashTable", function() {
     expect(hashTable.retrieve(v2)).toEqual(v2);
   });
 
-  // add more tests!
 });

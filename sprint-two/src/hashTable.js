@@ -19,7 +19,7 @@ HashTable.prototype.insert = function(key, value){
 
 HashTable.prototype.retrieve = function(key){
   var hash = getIndexBelowMaxForKey(key, this._limit);
-  return this._storage.get(hash);
+  return this._storage.get(hash, key);
 };
 
 HashTable.prototype.remove = function(value){

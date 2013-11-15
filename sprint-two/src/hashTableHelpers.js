@@ -15,20 +15,38 @@ var makeLimitedArray = function(limit){
   var storage = [];
 
   var limitedArray = {};
-  limitedArray.get = function(index){
+  limitedArray.get = function(index, key){
     checkLimit(index);
-    if (storage[index]) {
-      var linkedList = storage[index];
-      return linkedList[linkedList.head]['value'];
+    var linkedList = storage[index];
+    debugger;
+    if (linkedList) {
+      var pos = linkedList.head;
+      var tail = linkedList.tail;
+      var checkNode = linkedList[pos];
+      var result;
+      do {
+        if (key !== undefined && key === linkedList[pos]['value']){
+          return linkedList[pos]['value'];
+        }
+        result = linkedList[pos]['value']
+        pos += 1;
+      } while (checkNode.next !== null)
+
+      return result;
+
     } else {
       return undefined;
     }
   };
   limitedArray.set = function(index, value){
     checkLimit(index);
-    var linkedList = makeLinkedList();
-    linkedList.addToTail(value);
-    storage[index] = linkedList;
+    if (storage[index] !== undefined){
+      storage[index].addToTail(value);
+    } else {
+      var linkedList = makeLinkedList();
+      linkedList.addToTail(value);
+      storage[index] = linkedList;
+    }
   };
   limitedArray.each = function(callback){
     for(var i = 0; i < storage.length; i++){
