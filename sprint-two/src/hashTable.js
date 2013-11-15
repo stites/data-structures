@@ -23,7 +23,12 @@ HashTable.prototype.retrieve = function(key){
   return this._storage.get(hash);
 };
 
-HashTable.prototype.remove = function(){
+HashTable.prototype.remove = function(value){
+  this._storage.each(function (str, hash, storage) {
+    if (str === value) {
+      storage[hash] = undefined;
+    }
+  });
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js

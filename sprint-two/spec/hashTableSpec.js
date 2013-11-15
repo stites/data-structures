@@ -40,6 +40,13 @@ describe("hashTable", function() {
     expect(hashTable.retrieve(v2)).toEqual(v2);
   });
 
+  it("should remove an indicated element from the HashTable", function() {
+    var v1 = 'val1';
+    hashTable.insert(v1, v1);
+    hashTable.remove(v1);
+    expect(hashTable.retrieve(v1)).toEqual(undefined);
+  });
+
   xit("should handle hash function collisions", function(){
     // force the hash function to return 0
     spyOn(window, 'getIndexBelowMaxForKey').andReturn(0);
