@@ -161,7 +161,34 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.tail.previous).toEqual(dlinkedList.head);
     });
 
+    it('should make next point to null when only one element on the list', function(){
+      dlinkedList.addToHead(4);
+      expect(dlinkedList.tail.next).toEqual(null);
+    });
 
+    it('the second node has a .previous property which points to head when addToHead is run twice', function(){
+      dlinkedList.addToHead(4);
+      dlinkedList.addToHead(8);
+      expect(dlinkedList.tail.previous).toEqual(dlinkedList.head);
+    });
+
+    it('should make previous property points to the previous element when list has many elements', function(){
+      dlinkedList.addToHead(4);
+      dlinkedList.addToHead(8);
+      dlinkedList.addToHead(12);
+      dlinkedList.addToHead(16);
+      expect(dlinkedList.tail.previous).toEqual(dlinkedList.head.next.next);
+    });
+
+    it('the second-to-last node has a .next property which points to tail when addToHead is run more than once', function(){
+      dlinkedList.addToHead(4);
+      dlinkedList.addToHead(8);
+      expect(dlinkedList.head.next).toEqual(dlinkedList.tail);
+      dlinkedList.addToHead(12);
+      expect(dlinkedList.head.next.next).toEqual(dlinkedList.tail);
+      dlinkedList.addToHead(16);
+      expect(dlinkedList.head.next.next.next).toEqual(dlinkedList.tail);
+    });
   });
 
 
