@@ -59,11 +59,15 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.children[1]).toEqual(undefined);
     });
 
-    xit("it should not change the left and right properties after they are set", function() {
+    it("it should not change the left and right properties after they are set", function() {
+      binarySearchTree.insert(5);
+      var left = binarySearchTree.left;
       binarySearchTree.insert(1);
-      expect(binarySearchTree.left).toEqual(binarySearchTree.children[0]);
+      expect(binarySearchTree.left).toEqual(left);
       binarySearchTree.insert(11);
-      expect(binarySearchTree.right).toEqual(binarySearchTree.children[1]);
+      var right = binarySearchTree.right;
+      binarySearchTree.insert(15);
+      expect(binarySearchTree.right).toEqual(right);
     });
   });
 
