@@ -14,19 +14,27 @@ baseTree.isNum = function (value) {
   return typeof value === 'number' ? value : undefined;
 };
 
-baseTree.insert = function (value) {
-  var parentValue = this.value;
+baseTree.insert = function (value, node) {
+  node = node || this;
+  var parentValue = node.value;
 
   if (typeof this.isNum(value) === 'number') {
-    if (parentValue > value) {
-      this.addChild(value,'left', true);
-      this.left = this.children[0];
-    } else {
-      this.addChild(value,'right', true);
-      this.right = this.children[1];
+    if (value < parentValue) {
+      if (!node.left) {
+        node.addChild(value,'left', true);
+        node.left = node.children[0];
+      } else {
+        node.insert(value, node.left);
+      }
+    } else if (value > parentValue) {
+      if (!node.right) {
+        node.addChild(value,'right', true);
+        node.right = node.children[1];
+      } else {
+        node.insert(value, node.right);
+      }
     }
   }
-
 };
 
 baseTree.contains = function () {

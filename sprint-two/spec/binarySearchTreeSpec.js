@@ -49,6 +49,16 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.children.length).toEqual(2);
     });
 
+    it("should not add duplicated values", function() {
+      binarySearchTree.insert(10);
+      expect(binarySearchTree.children).toEqual(undefined);
+      binarySearchTree.insert(5);
+      expect(binarySearchTree.children[0].value).toEqual(5);
+      binarySearchTree.insert(5);
+      expect(binarySearchTree.children[0].value).toEqual(5);
+      expect(binarySearchTree.children[1]).toEqual(undefined);
+    });
+
     xit("it should not change the left and right properties after they are set", function() {
       binarySearchTree.insert(1);
       expect(binarySearchTree.left).toEqual(binarySearchTree.children[0]);
