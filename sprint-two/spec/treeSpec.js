@@ -150,7 +150,33 @@ describe("tree", function() {
       expect(tree.traverse).toEqual(jasmine.any(Function));
     });
 
-    it("", function(){
+    it("should act on the children of a node that is passed into the function", function(){
+      tree = makeTree(2);
+      tree.addChild(4);
+      var vals = [];
+      var fun = function (i) {
+        vals.push(i);
+      };
+      tree.traverse(fun);
+      expect(vals).toEqual([2,4]);
+    });
+
+    it("should act on all children of multi-level node that is passed into the function", function(){
+      tree = makeTree(2);
+      tree.addChild(4);
+      tree.addChild(8);
+
+      tree.children[0].addChild(16);
+      tree.children[0].addChild(32);
+
+      tree.children[1].addChild(64);
+      tree.children[1].addChild(128);
+      var vals = [];
+      var fun = function (i) {
+        vals.push(i);
+      };
+      tree.traverse(fun);
+      expect(vals).toEqual([2,4,16,32,8,64,128]);
     });
 
   });

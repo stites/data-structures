@@ -33,7 +33,15 @@ treeMethods.removeFromParent = function (node) {
 };
 
 
-treeMethods.traverse = function(cb){
+treeMethods.traverse = function(cb, node){
+  node = node || this;
+  cb(node.value);
+
+  if (node.children) {
+    for (var i = 0; i < node.children.length; i++) {
+      this.traverse(cb, node.children[i]);
+    }
+  }
 };
 
 treeMethods.contains = function(value, node, result){
