@@ -76,13 +76,48 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.contains(11)).toEqual(false);
     });
 
-    it("should be determine if a number is in a tree", function() {
+    it("should determine if a number is in a tree", function() {
       binarySearchTree.insert(5);
       binarySearchTree.insert(1);
       binarySearchTree.insert(11);
       binarySearchTree.insert(15);
       expect(binarySearchTree.contains(11)).toEqual(true);
       expect(binarySearchTree.contains(22)).toEqual(false);
+    });
+  });
+
+  describe("depthFirstLog functionality", function() {
+    it("should be able to operate on the first value", function() {
+
+      var cb = function (nodeValue) {
+        return nodeValue += 1;
+      };
+      binarySearchTree.depthFirstLog(cb);
+      expect(binarySearchTree.value).toEqual(11);
+    });
+
+    it("should be able to operate on every value in a tree", function() {
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(1);
+      binarySearchTree.insert(11);
+      binarySearchTree.insert(15);
+
+      var cb = function (nodeValue) {
+        return nodeValue += 1;
+      };
+
+      binarySearchTree.depthFirstLog(cb);
+
+      expect(binarySearchTree.contains(10)).toEqual(false);
+      expect(binarySearchTree.contains(5)).toEqual(false);
+      expect(binarySearchTree.contains(1)).toEqual(false);
+      expect(binarySearchTree.contains(15)).toEqual(false);
+
+      expect(binarySearchTree.contains(11)).toEqual(true);
+      expect(binarySearchTree.contains(6)).toEqual(true);
+      expect(binarySearchTree.contains(2)).toEqual(true);
+      expect(binarySearchTree.contains(12)).toEqual(true);
+      expect(binarySearchTree.contains(16)).toEqual(true);
     });
   });
 
