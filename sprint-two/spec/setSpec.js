@@ -52,5 +52,22 @@
     expect(set._storage[1]).toEqual(true);
   });
 
+  it("should add Arrays to the set when added with 'add'", function() {
+    set.add([]);
+    expect(set._storage[[]]).toEqual(true);
+  });
+
+  it("should add Objects to the set when added with 'add'", function() {
+    set.add({});
+    expect(set._storage[{}]).toEqual(true);
+  });
+
+  it("should add the null and undefined types to the set when added with 'add'", function() {
+    set.add(null);
+    expect(set._storage[null]).toEqual(true);
+    set.add(undefined);
+    expect(set._storage[undefined]).toEqual(true);
+  });
+
 
 });
