@@ -9,12 +9,15 @@ var makeTree = function(value, parent){
 
 var treeMethods = {};
 
-treeMethods.addChild = function(value){
+treeMethods.addChild = function(value, direction){
   var child = makeTree(value, this);
 
   (!this.children) && (this.children = []);
-
-  this.children.push(child);
+  if (direction === "left"){
+    this.children.unshift(child);
+  } else {
+    this.children.push(child);
+  }
 };
 
 treeMethods.removeFromParent = function (node) {

@@ -35,6 +35,13 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.children[1]).toEqual(undefined);
     });
 
+    it("should change the parent's left and right property to hold pointers to nodes", function() {
+      binarySearchTree.insert(1);
+      expect(binarySearchTree.left).toEqual(binarySearchTree.children[0]);
+      binarySearchTree.insert(11);
+      expect(binarySearchTree.right).toEqual(binarySearchTree.children[1]);
+    });
+
     xit("should be able to add only numeric values", function() {
       binarySearchTree.insert(1);
       expect(binarySearchTree.value).toEqual(1);
