@@ -38,8 +38,15 @@ baseTree.insert = function (value, node) {
 };
 
 baseTree.contains = function (value) {
-  return this.value === value;
+  var result = false;
 
+  this.traverse(function(nodeVal){
+    if (!result) {
+      result = (nodeVal === value);
+    }
+  });
+
+  return result;
 };
 
 baseTree.depthFirstLog = function () {

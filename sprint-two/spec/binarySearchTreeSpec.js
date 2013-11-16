@@ -75,6 +75,15 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.contains(10)).toEqual(true);
       expect(binarySearchTree.contains(11)).toEqual(false);
     });
+
+    it("should be determine if a number is in a tree", function() {
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(1);
+      binarySearchTree.insert(11);
+      binarySearchTree.insert(15);
+      expect(binarySearchTree.contains(11)).toEqual(true);
+      expect(binarySearchTree.contains(22)).toEqual(false);
+    });
   });
 
 });
