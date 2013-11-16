@@ -23,7 +23,7 @@ describe("doublyLinkedList", function() {
     expect(dlinkedList.tail).toEqual(null);
   });
 
-  xdescribe('.addToTail()', function () {
+  describe('.addToTail()', function () {
     it('should make head and tail point to the same object when run once on an empty list', function(){
       dlinkedList.addToTail(4);
       expect(dlinkedList.tail).toEqual(jasmine.any(Object));
@@ -42,10 +42,23 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.head.next).toEqual(dlinkedList.tail);
     });
 
+    it('should make previous point to null when only one element on the list', function(){
+      dlinkedList.addToTail(4);
+      expect(dlinkedList.head.previous).toEqual(null);
+    });
+
     it('the second node has a .previous property which points to head when addToTail is run twice', function(){
       dlinkedList.addToTail(4);
       dlinkedList.addToTail(8);
       expect(dlinkedList.tail.previous).toEqual(dlinkedList.head);
+    });
+
+    it('should make previous property points to the previous element when list has many elements', function(){
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      dlinkedList.addToTail(12);
+      dlinkedList.addToTail(16);
+      expect(dlinkedList.tail.previous).toEqual(dlinkedList.head.next.next);
     });
 
     it('the second-to-last node has a .next property which points to tail when addToTail is run more than once', function(){
@@ -59,7 +72,7 @@ describe("doublyLinkedList", function() {
     });
   });
 
-  xdescribe('.removeHead()', function () {
+  describe('.removeHead()', function () {
     it('.removeHead() method moves head and tail to `null` if no items are left in list', function(){
       dlinkedList.addToTail(4);
       dlinkedList.removeHead();
@@ -67,15 +80,21 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.tail).toEqual(null);
     });
 
-    it('should change the head to null from a multi-node list', function(){
+    it('should change the head to the next node in the list', function(){
       dlinkedList.addToTail(4);
       dlinkedList.addToTail(8);
-      dlinkedList.addToTail(12);
       dlinkedList.removeHead();
       expect(dlinkedList.head.value).toEqual(8);
     });
 
-    it('should moves the head pointer to the next node in the list', function(){
+    it('should change the head.previous value to null', function(){
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      dlinkedList.removeHead();
+      expect(dlinkedList.head.previous).toEqual(null);
+    });
+
+    xit('should moves the head pointer to the next node in the list', function(){
       dlinkedList.addToTail(4);
       var firstAdd = dlinkedList.head;
       dlinkedList.addToTail(4);
@@ -87,7 +106,7 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.head).toNotEqual(secondAdd);
     });
 
-    it('.removeHead() method returns the value of the node which was removed', function(){
+    xit('.removeHead() method returns the value of the node which was removed', function(){
       dlinkedList.addToTail(9);
       dlinkedList.addToTail(8);
       dlinkedList.addToTail(7);

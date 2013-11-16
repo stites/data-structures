@@ -31,10 +31,12 @@ var makeDoublyLinkedList = function(){
     var value = list.head.value;
     list.head = null;
 
+
     if (newHead === null){
       list.tail = null;
     } else {
       list.head = newHead;
+      list.head.previous = null;
     }
 
     return value;
