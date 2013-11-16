@@ -48,6 +48,55 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.children.length).toEqual(2);
     });
 
+    it("left's value should always be less than it's parent's value for one level", function() {
+      binarySearchTree.insert(1);
+      binarySearchTree.insert(11);
+      expect(binarySearchTree.left.value).toBeLessThan(binarySearchTree.value);
+
+    });
+
+    it("right's value should always be greater than it's parent's value for one level", function() {
+      binarySearchTree.insert(1);
+      binarySearchTree.insert(11);
+      expect(binarySearchTree.right.value).toBeGreaterThan(binarySearchTree.value);
+    });
+
+    it("left's value should always be less than it's parent's value for multiple levels", function() {
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(1);
+      binarySearchTree.insert(12);
+      binarySearchTree.insert(15);
+      binarySearchTree.insert(6);
+      binarySearchTree.insert(11);
+
+      expect(binarySearchTree.left.value).toBeLessThan(binarySearchTree.value);
+      expect(binarySearchTree.left.left.value).toBeLessThan(binarySearchTree.left.value);
+      expect(binarySearchTree.right.left.value).toBeLessThan(binarySearchTree.right.value);
+
+    });
+
+    it("left's value should always be less than it's parent's value for multiple levels [edge case]", function() {
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(7);
+      binarySearchTree.insert(1);
+
+      expect(binarySearchTree.left.right.value).toBeGreaterThan(binarySearchTree.left.value);
+      expect(binarySearchTree.left.left.value).toBeLessThan(binarySearchTree.left.value);
+
+    });
+
+    it("right's value should always be greater than it's parent's value for multiple levels", function() {
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(1);
+      binarySearchTree.insert(12);
+      binarySearchTree.insert(15);
+      binarySearchTree.insert(6);
+      binarySearchTree.insert(11);
+      expect(binarySearchTree.right.value).toBeGreaterThan(binarySearchTree.value);
+      expect(binarySearchTree.left.right.value).toBeGreaterThan(binarySearchTree.left.value);
+      expect(binarySearchTree.right.right.value).toBeGreaterThan(binarySearchTree.right.value);
+    });
+
     it("should not add duplicated values", function() {
       binarySearchTree.insert(10);
       expect(binarySearchTree.children).toEqual(undefined);

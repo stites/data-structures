@@ -20,16 +20,24 @@ baseTree.insert = function (value, node) {
 
   if (typeof this.isNum(value) === 'number') {
     if (value < parentValue) {
+
       if (!node.left) {
         node.addChild(value,'left', true);
         node.left = node.children[0];
       } else {
         node.insert(value, node.left);
       }
+
     } else if (value > parentValue) {
       if (!node.right) {
         node.addChild(value,'right', true);
-        node.right = node.children[1];
+
+        if (!node.children[1]){
+          node.right = node.children[0];
+        } else {
+          node.right = node.children[1];
+        }
+
       } else {
         node.insert(value, node.right);
       }
