@@ -64,7 +64,6 @@ describe("tree", function() {
       expect(tree.contains(300)).toEqual(false);
       expect(tree.contains(4)).toEqual(true);
       expect(tree.contains(500)).toEqual(false);
-
     });
   });
 
@@ -74,11 +73,23 @@ describe("tree", function() {
       expect(tree.parent).toEqual(null);
     });
 
-    it("should have a child whose parent property holds a value", function(){
+    it("should have a single layer of children whose parent property's holds a reference to the parent", function(){
       tree.addChild(1);
       tree.addChild(3);
       expect(tree.children[0].parent).toEqual(tree);
       expect(tree.children[1].parent).toEqual(tree);
+    });
+
+    it("should have multi layer of children whose parent property's holds a reference to their parent", function(){
+      tree.addChild(1);
+      var layer1 = tree.children
+      expect(layer1[0].parent).toEqual(tree);
+
+      layer1[0].addChild(2);
+      layer1[0].addChild(3);
+      var layer2 = layer1[0].children
+      expect(layer2[0].parent).toEqual(layer1[0]);
+      expect(layer2[1].parent).toEqual(layer1[0]);
     });
 
   });
