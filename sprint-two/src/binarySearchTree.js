@@ -19,10 +19,10 @@ baseTree.insert = function (value) {
 
   if (typeof this.isNum(value) === 'number') {
     if (parentValue > value) {
-      this.addChild(value,'left');
+      this.addChild(value,'left', true);
       this.left = this.children[0];
     } else {
-      this.addChild(value,'right');
+      this.addChild(value,'right', true);
       this.right = this.children[1];
     }
   }

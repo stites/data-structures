@@ -42,11 +42,18 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.right).toEqual(binarySearchTree.children[1]);
     });
 
-    xit("should be able to add only numeric values", function() {
+    it("it should not add more than two children", function() {
+      binarySearchTree.insert(9);
+      binarySearchTree.insert(110);
+      binarySearchTree.insert(150);
+      expect(binarySearchTree.children.length).toEqual(2);
+    });
+
+    xit("it should not change the left and right properties after they are set", function() {
       binarySearchTree.insert(1);
-      expect(binarySearchTree.value).toEqual(1);
-      binarySearchTree.insert("1");
-      expect(binarySearchTree.value).toEqual(undefined);
+      expect(binarySearchTree.left).toEqual(binarySearchTree.children[0]);
+      binarySearchTree.insert(11);
+      expect(binarySearchTree.right).toEqual(binarySearchTree.children[1]);
     });
   });
 

@@ -9,13 +9,18 @@ var makeTree = function(value, parent){
 
 var treeMethods = {};
 
-treeMethods.addChild = function(value, direction){
+treeMethods.addChild = function(value, direction, binary){
   var child = makeTree(value, this);
 
   (!this.children) && (this.children = []);
-  if (direction === "left"){
-    this.children.unshift(child);
-  } else {
+
+  if (binary && (this.children.length < 2)){
+    if (direction === "left") {
+      this.children.unshift(child);
+    } else {
+      this.children.push(child);
+    }
+  } else if (!binary) {
     this.children.push(child);
   }
 };
