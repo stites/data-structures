@@ -100,5 +100,20 @@ describe("tree", function() {
       expect(tree.removeFromParent).toEqual(jasmine.any(Function));
     });
 
+    it("should return the tree that it's passed", function(){
+      tree.addChild(1);
+      var orphan = tree.removeFromParent(tree.children[0]);
+      expect(orphan).toEqual(jasmine.any(Object));
+      expect(orphan.value).toEqual(1);
+    });
+
+    xit("should remove reference from root and a single child", function(){
+      tree.addChild(1);
+      var orphan = tree.removeFromParent(tree.children[0]);
+      expect(orphan.parent).toEqual(null);
+      expect(orphan.children).toEqual(undefined);
+      expect(tree.children).toEqual(undefined);
+    });
+
   });
 });

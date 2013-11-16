@@ -17,8 +17,8 @@ treeMethods.addChild = function(value){
   this.children.push(child);
 };
 
-treeMethods.removeFromParent = function () {
-
+treeMethods.removeFromParent = function (node) {
+  return node;
 };
 
 treeMethods.contains = function(value, node, result){
