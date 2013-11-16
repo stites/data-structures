@@ -5,11 +5,15 @@ var makeDoublyLinkedList = function(){
   list.tail = null;
 
   list.addToHead = function(value){
-    var newNode = makeNode(value);
+    var newHead = makeNode(value);
 
     if (list.head === null){
-      list.head = newNode;
+      list.head = newHead;
       list.tail = list.head;
+    } else {
+      newHead.next = list.head;
+      list.head.previous = newHead;
+      list.head = newHead;
     }
   };
 

@@ -94,7 +94,7 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.head.previous).toEqual(null);
     });
 
-    xit('should moves the head pointer to the next node in the list', function(){
+    it('should moves the head pointer to the next node in the list', function(){
       dlinkedList.addToTail(4);
       var firstAdd = dlinkedList.head;
       dlinkedList.addToTail(4);
@@ -106,7 +106,7 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.head).toNotEqual(secondAdd);
     });
 
-    xit('.removeHead() method returns the value of the node which was removed', function(){
+    it('.removeHead() method returns the value of the node which was removed', function(){
       dlinkedList.addToTail(9);
       dlinkedList.addToTail(8);
       dlinkedList.addToTail(7);
@@ -119,7 +119,7 @@ describe("doublyLinkedList", function() {
     });
   });
 
-  xdescribe('.contains()',function () {
+  describe('.contains()',function () {
     it('should returns a boolean reflecting whether or not the passed-in value is in a single-valued list', function(){
       dlinkedList.addToTail(9);
       expect(dlinkedList.contains(9)).toEqual(true);
@@ -142,7 +142,7 @@ describe("doublyLinkedList", function() {
     });
   })
 
-  xdescribe('.addToHead()', function () {
+  describe('.addToHead()', function () {
     it('should make head and tail point to the same object when run once on an empty list', function(){
       dlinkedList.addToHead(4);
       expect(dlinkedList.tail).toEqual(jasmine.any(Object));
