@@ -47,4 +47,10 @@
     expect(set.contains('string0')).toEqual(false);
   });
 
+  it("should add number to the set when added with 'add'", function() {
+    set.add(1);
+    expect(set._storage[1]).toEqual(true);
+  });
+
+
 });
