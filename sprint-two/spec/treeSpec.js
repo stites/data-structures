@@ -107,13 +107,21 @@ describe("tree", function() {
       expect(orphan.value).toEqual(1);
     });
 
-    it("should remove the children from the parent's children array", function(){
+    it("should remove a child from the parent's children array with a single node", function(){
       tree.addChild(1);
       tree.removeFromParent(tree.children[0]);
       expect(tree.children).toEqual(undefined);
     });
 
-    it("should remove reference from root and a single child", function(){
+    it("should remove a child from the parent's children array with multiple nodes", function(){
+      tree.addChild(2);
+      tree.addChild(4);
+      tree.addChild(8);
+      tree.removeFromParent(tree.children[0]);
+      expect(tree.children[0].value).toEqual(4);
+    });
+
+    xit("should remove reference from root and a single child", function(){
       tree.addChild(1);
       var orphan = tree.removeFromParent(tree.children[0]);
       expect(orphan.parent).toEqual(null);
