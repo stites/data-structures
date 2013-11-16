@@ -19,15 +19,23 @@ describe("binarySearchTree", function() {
     expect(binarySearchTree.value).toEqual(undefined);
   });
 
+  describe("Insert functionality", function() {
 
-
-  xdescribe("Insert functionality", function() {
-
-    it("should be able to add a root element", function() {
+    it("should be able to add only numeric values", function() {
       binarySearchTree.insert(1);
-      expect(binarySearchTree.value).toEqual(1);
+      expect(binarySearchTree.children[0].value).toEqual(1);
+      binarySearchTree.insert("1");
+      expect(binarySearchTree.children[1]).toEqual(undefined);
+      binarySearchTree.insert([]);
+      expect(binarySearchTree.children[1]).toEqual(undefined);
     });
 
+    xit("should be able to add only numeric values", function() {
+      binarySearchTree.insert(1);
+      expect(binarySearchTree.value).toEqual(1);
+      binarySearchTree.insert("1");
+      expect(binarySearchTree.value).toEqual(undefined);
+    });
   });
 
 });

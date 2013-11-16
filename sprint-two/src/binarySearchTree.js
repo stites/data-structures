@@ -1,14 +1,22 @@
 var makeBinarySearchTree = function(value) {
   var binarySearchTree = Object.create(baseTree);
 
-  binarySearchTree.value = typeof value === 'number' ? value : undefined;
+  binarySearchTree.value = binarySearchTree.isNum(value);
 
   return binarySearchTree;
 };
 
 var baseTree = makeTree();
 
-baseTree.insert = function () {
+baseTree.isNum = function (value) {
+  return typeof value === 'number' ? value : undefined;
+};
+
+baseTree.insert = function (value) {
+
+  if (typeof this.isNum(value) === 'number') {
+    this.addChild(value);
+  }
 
 };
 
