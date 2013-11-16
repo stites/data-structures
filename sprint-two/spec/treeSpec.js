@@ -11,6 +11,10 @@ describe("tree", function() {
     expect('value' in tree).toBe(true);
   });
 
+  it("should have property named 'parent'", function() {
+    expect('parent' in tree).toBe(true);
+  });
+
   it("should not have a child when makeTree() is invoked initially.", function(){
     expect(tree.children).toEqual(undefined);
   });
@@ -62,5 +66,18 @@ describe("tree", function() {
       expect(tree.contains(500)).toEqual(false);
 
     });
+  });
+
+  describe("parent functionality", function () {
+
+    it("should contains a parent property that holds null when only the root exists", function(){
+      expect(tree.parent).toEqual(null);
+    });
+
+    it("should have a child whose parent property holds a value", function(){
+      tree.addChild(1);
+      expect(tree.children[0].parent).toEqual(tree);
+    });
+
   });
 });
