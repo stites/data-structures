@@ -69,5 +69,36 @@
     expect(set._storage[undefined]).toEqual(true);
   });
 
+  it("should return a boolean expressing if any passed value to 'contains' is in the set", function() {
+    set.add('string');
+    set.add(1);
+    set.add([]);
+    set.add({});
+    set.add(null);
+    expect(set.contains('string')).toEqual(true);
+    expect(set.contains(1)).toEqual(true);
+    expect(set.contains([])).toEqual(true);
+    expect(set.contains({})).toEqual(true);
+    expect(set.contains(null)).toEqual(true);
+  });
+
+  it("should remove any specified value that is passed to 'remove'", function() {
+    set.add('string');
+    set.add(1);
+    set.add([]);
+    set.add({});
+    set.add(null);
+    set.remove('string');
+    set.remove(1);
+    set.remove([]);
+    set.remove({});
+    set.remove(null);
+    expect(set.contains('string')).toEqual(false);
+    expect(set.contains(1)).toEqual(false);
+    expect(set.contains([])).toEqual(false);
+    expect(set.contains({})).toEqual(false);
+    expect(set.contains(null)).toEqual(false);
+  });
+
 
 });
