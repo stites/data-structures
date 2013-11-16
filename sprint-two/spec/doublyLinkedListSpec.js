@@ -155,6 +155,13 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.head).toNotEqual(dlinkedList.tail);
     });
 
+    it('the last node has a .previous property which points to head when addToHead is run twice', function(){
+      dlinkedList.addToHead(4);
+      dlinkedList.addToHead(8);
+      expect(dlinkedList.tail.previous).toEqual(dlinkedList.head);
+    });
+
+
   });
 
 
