@@ -4,6 +4,9 @@ var makeBinarySearchTree = function(value) {
   binarySearchTree.value = binarySearchTree.isNum(value);
   binarySearchTree.left = null;
   binarySearchTree.right = null;
+  binarySearchTree.mindepth = null;
+  binarySearchTree.maxdepth = null;
+
 
   return binarySearchTree;
 };

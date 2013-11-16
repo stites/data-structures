@@ -121,4 +121,11 @@ describe("binarySearchTree", function() {
     });
   });
 
+  describe("rebalancing functionality", function() {
+    it("should have properties named 'mindepth' and 'maxdepth'", function() {
+      expect('mindepth' in binarySearchTree).toEqual(true);
+      expect('maxdepth' in binarySearchTree).toEqual(true);
+    })
+  });
+
 });
