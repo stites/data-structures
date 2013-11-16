@@ -76,7 +76,9 @@ describe("tree", function() {
 
     it("should have a child whose parent property holds a value", function(){
       tree.addChild(1);
+      tree.addChild(3);
       expect(tree.children[0].parent).toEqual(tree);
+      expect(tree.children[1].parent).toEqual(tree);
     });
 
   });
