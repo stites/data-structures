@@ -2,6 +2,8 @@ var makeBinarySearchTree = function(value) {
   var binarySearchTree = Object.create(baseTree);
 
   binarySearchTree.value = binarySearchTree.isNum(value);
+  binarySearchTree.left = binarySearchTree.isNum(value);
+  binarySearchTree.right = binarySearchTree.isNum(value);
 
   return binarySearchTree;
 };

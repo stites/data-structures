@@ -19,6 +19,11 @@ describe("binarySearchTree", function() {
     expect(binarySearchTree.value).toEqual(undefined);
   });
 
+  it("should have properties named 'left' and 'right'", function() {
+    expect('left' in binarySearchTree).toEqual(true);
+    expect('right' in binarySearchTree).toEqual(true);
+  });
+
   describe("Insert functionality", function() {
 
     it("should be able to add only numeric values", function() {
