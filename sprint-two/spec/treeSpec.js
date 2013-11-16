@@ -142,6 +142,17 @@ describe("tree", function() {
       expect(orphan.children).toEqual(undefined);
       expect(tree.children).toEqual(undefined);
     });
+  });
+
+  describe("traverse functionality", function () {
+
+    it("should have method named 'traverse'", function(){
+      expect(tree.traverse).toEqual(jasmine.any(Function));
+    });
+
+    it("", function(){
+    });
 
   });
+
 });

@@ -32,6 +32,10 @@ treeMethods.removeFromParent = function (node) {
   return result;
 };
 
+
+treeMethods.traverse = function(cb){
+};
+
 treeMethods.contains = function(value, node, result){
   result = result || false;
   node = node || this;
