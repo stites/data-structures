@@ -25,7 +25,6 @@ describe("binarySearchTree", function() {
   });
 
   describe("Insert functionality", function() {
-
     it("should be able to add only numeric values", function() {
       binarySearchTree.insert(1);
       expect(binarySearchTree.children[0].value).toEqual(1);
@@ -68,6 +67,13 @@ describe("binarySearchTree", function() {
       var right = binarySearchTree.right;
       binarySearchTree.insert(15);
       expect(binarySearchTree.right).toEqual(right);
+    });
+  });
+
+  describe("Contains functionality", function() {
+    it("should be able to return a boolean", function() {
+      expect(binarySearchTree.contains(10)).toEqual(true);
+      expect(binarySearchTree.contains(11)).toEqual(false);
     });
   });
 

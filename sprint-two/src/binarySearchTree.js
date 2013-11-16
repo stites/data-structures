@@ -37,7 +37,8 @@ baseTree.insert = function (value, node) {
   }
 };
 
-baseTree.contains = function () {
+baseTree.contains = function (value) {
+  return this.value === value;
 
 };
 
