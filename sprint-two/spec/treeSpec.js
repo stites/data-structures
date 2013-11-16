@@ -93,4 +93,12 @@ describe("tree", function() {
     });
 
   });
+
+  describe("removeFromParent functionality", function () {
+
+    it("should have method named 'removeFromParent'", function(){
+      expect(tree.removeFromParent).toEqual(jasmine.any(Function));
+    });
+
+  });
 });
