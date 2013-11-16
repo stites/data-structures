@@ -23,6 +23,7 @@ treeMethods.removeFromParent = function (node) {
   for (var i = 0; i < parent.children.length; i++) {
     if (parent.children[i] === node) {
       result = parent.children.splice(i, 1)[0];
+      result.parent = null;
     }
   }
   if (parent.children.length === 0){

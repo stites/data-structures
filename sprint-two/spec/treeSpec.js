@@ -128,7 +128,14 @@ describe("tree", function() {
       expect(orphan.children[0].value).toEqual(4);
     });
 
-    xit("should remove reference from root and a single child", function(){
+    it("should remove a child and make that child's parent property equal to null", function(){
+      tree.addChild(2);
+      tree.children[0].addChild(4);
+      var orphan = tree.removeFromParent(tree.children[0]);
+      expect(orphan.parent).toEqual(null);
+    });
+
+    it("should remove reference from root and a single child", function(){
       tree.addChild(1);
       var orphan = tree.removeFromParent(tree.children[0]);
       expect(orphan.parent).toEqual(null);
