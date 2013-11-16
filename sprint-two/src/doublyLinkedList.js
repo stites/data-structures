@@ -47,6 +47,15 @@ var makeDoublyLinkedList = function(){
 
   list.removeTail = function(){
 
+    if (!list.head.next) {
+      list.head = null;
+      list.tail = null;
+    } else {
+      var newTail = list.tail.previous;
+      newTail.next = null;
+      list.tail = newTail;
+    }
+
   };
 
   list.contains = function(value){

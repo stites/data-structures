@@ -191,6 +191,24 @@ describe("doublyLinkedList", function() {
     });
   });
 
+  describe('.removeTail()', function () {
+    it('should remove a single node from a single-node list', function(){
+      dlinkedList.addToTail(1);
+      dlinkedList.removeTail();
+      expect(dlinkedList.head).toEqual(null);
+      expect(dlinkedList.tail).toEqual(null);
+    });
+
+    it('should remove a single node from a list with two nodes', function(){
+      dlinkedList.addToTail(1);
+      dlinkedList.addToTail(4);
+      dlinkedList.removeTail();
+      expect(dlinkedList.head.value).toEqual(1);
+      expect(dlinkedList.head.next).toEqual(null);
+      expect(dlinkedList.head.previous).toEqual(null);
+      expect(dlinkedList.tail).toEqual(dlinkedList.head);
+    });
+  });
 
 
 
