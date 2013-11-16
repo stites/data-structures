@@ -46,6 +46,7 @@ var makeDoublyLinkedList = function(){
   };
 
   list.removeTail = function(){
+    var value = list.tail.value;
 
     if (!list.head.next) {
       list.head = null;
@@ -55,6 +56,8 @@ var makeDoublyLinkedList = function(){
       newTail.next = null;
       list.tail = newTail;
     }
+
+    return value;
 
   };
 

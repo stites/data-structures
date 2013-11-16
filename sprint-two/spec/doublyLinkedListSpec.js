@@ -219,10 +219,20 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.tail.next).toEqual(null);
       expect(dlinkedList.tail.previous.value).toEqual(4);
     });
+
+    it('should return the value of the node which was removed', function(){
+      dlinkedList.addToTail(2);
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      dlinkedList.addToTail(16);
+
+      var expected0 = dlinkedList.tail.value;
+      var tail0 = dlinkedList.removeTail();
+      expect(tail0).toEqual(expected0);
+
+      var expected1 = dlinkedList.tail.value;
+      var tail1 = dlinkedList.removeTail();
+      expect(tail1).toEqual(expected1);
+    });
   });
-
-
-
-
-
 });
