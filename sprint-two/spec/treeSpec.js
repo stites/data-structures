@@ -121,6 +121,13 @@ describe("tree", function() {
       expect(tree.children[0].value).toEqual(4);
     });
 
+    it("should remove a child with children from the parent's children array without altering the removed node", function(){
+      tree.addChild(2);
+      tree.children[0].addChild(4);
+      var orphan = tree.removeFromParent(tree.children[0]);
+      expect(orphan.children[0].value).toEqual(4);
+    });
+
     xit("should remove reference from root and a single child", function(){
       tree.addChild(1);
       var orphan = tree.removeFromParent(tree.children[0]);
