@@ -208,14 +208,18 @@ describe("doublyLinkedList", function() {
       expect(dlinkedList.head.previous).toEqual(null);
       expect(dlinkedList.tail).toEqual(dlinkedList.head);
     });
+
+    it('should remove a single node from a list with multiple nodes', function(){
+      dlinkedList.addToTail(2);
+      dlinkedList.addToTail(4);
+      dlinkedList.addToTail(8);
+      dlinkedList.addToTail(16);
+      dlinkedList.removeTail();
+      expect(dlinkedList.tail.value).toEqual(8);
+      expect(dlinkedList.tail.next).toEqual(null);
+      expect(dlinkedList.tail.previous.value).toEqual(4);
+    });
   });
-
-
-
-
-
-
-
 
 
 
