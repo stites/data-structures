@@ -4,30 +4,29 @@ var makeDoublyLinkedList = function(){
   list.head = null;
   list.tail = null;
 
-  list.addToHead = function(value){
-    var newHead = makeNode(value);
+  list.add = function (value, direction) {
+    var node = makeNode(value);
 
     if (list.head === null){
-      list.head = newHead;
+      list.head = node;
       list.tail = list.head;
-    } else {
-      newHead.next = list.head;
-      list.head.previous = newHead;
-      list.head = newHead;
+    } else if (direction === 'head') {
+      node.next = list.head;
+      list.head.previous = node;
+      list.head = node;
+    } else if (direction === 'tail') {
+      node.previous = list.tail;
+      list.tail.next = node;
+      list.tail = node;
     }
+  }
+
+  list.addToHead = function(value){
+    list.add(value, 'head');
   };
 
   list.addToTail = function(value){
-    var newTail = makeNode(value);
-
-    if (list.head === null){
-      list.head = newTail;
-      list.tail = list.head;
-    } else {
-      newTail.previous = list.tail;
-      list.tail.next = newTail;
-      list.tail = newTail;
-    }
+    list.add(value, 'tail');
   };
 
   list.removeHead = function(){
