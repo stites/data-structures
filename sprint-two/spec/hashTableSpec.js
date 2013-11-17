@@ -53,12 +53,17 @@ describe("hashTable", function() {
   });
 
   it("should handle hash function collisions", function(){
-    // force the hash function to return 0
     spyOn(window, 'getIndexBelowMaxForKey').andReturn(0);
     hashTable.insert(v1, v1);
     hashTable.insert(v2, v2);
     expect(hashTable.retrieve(v1)).toEqual(v1);
     expect(hashTable.retrieve(v2)).toEqual(v2);
   });
+
+  it("should have a _size property on the hash table", function(){
+    expect('_size' in hashTable).toEqual(true);
+  });
+
+
 
 });
