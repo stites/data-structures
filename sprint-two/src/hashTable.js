@@ -48,11 +48,13 @@ HashTable.prototype.remove = function(key){
 };
 
 HashTable.prototype.iterateBucket = function (bucket, key, cb) {
-  console.log(bucket);
   for (var i = 0; i < bucket.length; i++) {
     var pair = bucket[i];
     if (pair[0] === key) {
       return cb(bucket, i);
     }
   }
+};
+
+HashTable.prototype.resize = function (limit) {
 };
