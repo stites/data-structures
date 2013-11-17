@@ -17,6 +17,7 @@ HashTable.prototype.insert = function(key, value){
   });
 
   bucket.push([key, value]);
+  this._size += 1;
   this._storage.set(hash, bucket);
 };
 

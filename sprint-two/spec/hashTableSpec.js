@@ -64,6 +64,15 @@ describe("hashTable", function() {
     expect('_size' in hashTable).toEqual(true);
   });
 
+  it("should make _size store the number of items in the hash table", function(){
+    hashTable.insert(v1, v1);
+    expect(hashTable._size).toEqual(1);
+    hashTable.insert(v2, v2);
+    expect(hashTable._size).toEqual(2);
+    hashTable.insert(v2, v2);
+    expect(hashTable._size).toEqual(3);
+  });
+
 
 
 });
