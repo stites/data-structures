@@ -57,11 +57,7 @@ HashTable.prototype.iterateBucket = function (bucket, key, cb) {
   for (var i = 0; i < bucket.length; i++) {
     var pair = bucket[i];
     if (pair[0] === key) {
-      return cb(bucket, i);// pair[1];
+      return cb(bucket, i);
     }
   }
 };
-
-// NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
-// Start by loading those files up and playing with the functions it provides.
-// You don't need to understand how they work, only their interface is important to you
