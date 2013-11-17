@@ -90,6 +90,18 @@ describe("hashTable", function() {
       expect(hashTable._limit).toEqual(16);
     });
 
+    it("should replace _storage with a new _storage of doubled size", function(){
+      hashTable.insert(v1, v1);
+      hashTable.insert(v2, v2);
+      hashTable.insert(v2, v2);
+      hashTable.insert(v1, v1);
+      hashTable.insert(v2, v2);
+      var old = hashTable._storage;
+      hashTable.insert(v2, v2);
+      hashTable.insert(v2, v2);
+      expect(hashTable._storage).toNotEqual(old);
+    });
+
   });
 
 
