@@ -17,13 +17,10 @@ HashTable.prototype.insert = function(key, value){
 
   var bucket = this._storage.get(hash) || [];
 
-  for (var i = 0; i < bucket.length; i++) {
-    var pair = bucket[i];
-    if (pair[0] === key) {
-      pair[1] = value;
-      return;
-    }
-  }
+  this.iterateBucket(bucket, key, function (context, index) {
+    context[index][1] = value;
+    return;
+  });
 
   bucket.push([key, value]);
   this._storage.set(hash, bucket);
@@ -34,12 +31,9 @@ HashTable.prototype.retrieve = function(key){
   var bucket = this._storage.get(hash);
 
   if (bucket) {
-    for (var i = 0; i < bucket.length; i++) {
-      var pair = bucket[i];
-      if (pair[0] === key) {
-        return pair[1];
-      }
-    }
+    return this.iterateBucket(bucket, key, function(context, index){
+      return context[index][1];
+    });
   }
 
   return undefined;
@@ -50,15 +44,22 @@ HashTable.prototype.remove = function(key){
   var bucket = this._storage.get(hash);
 
   if (bucket) {
-    for (var i = 0; i < bucket.length; i++) {
-      var pair = bucket[i];
-      if (pair[0] === key) {
-        return bucket.splice(i, 1);
-      }
-    }
+    return this.iterateBucket(bucket, key, function (context, index) {
+      return context.splice(index, 1);
+    });
   }
 
   return undefined;
+};
+
+HashTable.prototype.iterateBucket = function (bucket, key, cb) {
+  console.log(bucket);
+  for (var i = 0; i < bucket.length; i++) {
+    var pair = bucket[i];
+    if (pair[0] === key) {
+      return cb(bucket, i);// pair[1];
+    }
+  }
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
