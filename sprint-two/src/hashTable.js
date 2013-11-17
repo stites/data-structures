@@ -1,8 +1,6 @@
 var HashTable = function(){
   this._limit = 8;
   this._size = 0;
-  // There's also a '.each' method that you might find
-  // handy once you're working on resizing
   this._storage = makeLimitedArray(this._limit);
 };
 
@@ -19,6 +17,8 @@ HashTable.prototype.insert = function(key, value){
   bucket.push([key, value]);
   this._size += 1;
   if (this._size >= (this._limit * 0.75)){
+    // console.log('here');
+    // debugger;
     this.resize();
   }
   this._storage.set(hash, bucket);
@@ -61,6 +61,7 @@ HashTable.prototype.iterateBucket = function (bucket, key, cb) {
 
 HashTable.prototype.resize = function () {
   this._limit = this._limit * 2;
+  this._size = 0;
   var oldStorage = this._storage;
   this._storage = makeLimitedArray(this._limit);
 

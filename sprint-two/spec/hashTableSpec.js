@@ -73,7 +73,7 @@ describe("hashTable", function() {
     expect(hashTable._size).toEqual(3);
   });
 
-  describe('resize functionality', function(){
+  describe('resize-up functionality', function(){
 
     it("should have a resize function", function(){
       expect(hashTable.resize).toEqual(jasmine.any(Function));
@@ -84,7 +84,6 @@ describe("hashTable", function() {
       hashTable.insert(v2, v2);
       hashTable.insert(v2, v2);
       hashTable.insert(v1, v1);
-      hashTable.insert(v2, v2);
       hashTable.insert(v2, v2);
       hashTable.insert(v2, v2);
       expect(hashTable._limit).toEqual(16);
