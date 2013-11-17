@@ -17,7 +17,7 @@ describe("hashTable", function() {
 
   it("should insert an element into the HashTable", function() {
     hashTable.insert(v1, v1);
-    expect(hashTable._storage.get(hash,v1)).toEqual(v1);
+    expect(hashTable._storage.get(hash,v1)[0][1]).toEqual(v1);
   });
 
   it("should retrieve an element from the HashTable", function() {
