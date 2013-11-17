@@ -18,6 +18,10 @@ HashTable.prototype.insert = function(key, value){
 
   bucket.push([key, value]);
   this._size += 1;
+  if (this._size >= (this._limit * 0.75)){
+    console.log('this')
+    this.resize();
+  }
   this._storage.set(hash, bucket);
 };
 
@@ -56,5 +60,8 @@ HashTable.prototype.iterateBucket = function (bucket, key, cb) {
   }
 };
 
-HashTable.prototype.resize = function (limit) {
+HashTable.prototype.resize = function () {
+  var newLimit = this._limit * 2;
+  this._limit = newLimit;
+
 };
