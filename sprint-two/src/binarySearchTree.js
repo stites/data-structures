@@ -88,3 +88,7 @@ baseTree.breadthFirstLog = function (cb) {
   };
 };
 
+
+baseTree.rebalance = function () {
+};
+

@@ -230,7 +230,10 @@ describe("binarySearchTree", function() {
     });
   });
 
-  xdescribe("rebalancing functionality", function() {
+  describe("rebalancing functionality", function() {
+    it('should have a function called \'rebalance\'', function () {
+      expect(binarySearchTree.rebalance).toEqual(jasmine.any(Function));
+    })
   });
 
 });
