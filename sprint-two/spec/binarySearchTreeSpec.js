@@ -170,10 +170,16 @@ describe("binarySearchTree", function() {
     });
   });
 
-  describe("rebalancing functionality", function() {
-    it("should have properties named 'mindepth' and 'maxdepth'", function() {
-      expect('mindepth' in binarySearchTree).toEqual(true);
-      expect('maxdepth' in binarySearchTree).toEqual(true);
+  describe('breadthFirstLog', function () {
+    it("should have a function named 'breadthFirstLog'", function() {
+      expect(binarySearchTree.breadthFirstLog).toEqual(jasmine.any(Function));
+    })
+  });
+
+  xdescribe("rebalancing functionality", function() {
+    it("should have a property named 'depth' defaulted to 0 at the root", function() {
+      expect('depth' in binarySearchTree).toEqual(true);
+      expect(binarySearchTree.depth).toEqual(0);
     })
   });
 

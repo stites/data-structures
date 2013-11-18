@@ -4,9 +4,7 @@ var makeBinarySearchTree = function(value) {
   binarySearchTree.value = binarySearchTree.isNum(value);
   binarySearchTree.left = null;
   binarySearchTree.right = null;
-  binarySearchTree.mindepth = null;
-  binarySearchTree.maxdepth = null;
-
+  binarySearchTree.depth = 0;
 
   return binarySearchTree;
 };
@@ -69,5 +67,8 @@ baseTree.depthFirstLog = function (cb, node) {
       this.depthFirstLog(cb, node.children[i]);
     }
   }
+};
+
+baseTree.breadthFirstLog = function () {
 };
 
