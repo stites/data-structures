@@ -19,8 +19,6 @@ HashTable.prototype.insert = function(key, value){
 
   if (this._size >= (this._limit * 0.75)){
     this.resize('up');
-  } else if ((this._limit > 8) && (this._size <= (this._limit * 0.25))){
-    // this.resize('down');
   }
 };
 
@@ -38,10 +36,15 @@ HashTable.prototype.retrieve = function(key){
 };
 
 HashTable.prototype.remove = function(key){
+  if (this._size <= this._limit*0.25) {
+    this.resize('down');
+  }
+
   var hash = getIndexBelowMaxForKey(key, this._limit);
   var bucket = this._storage.get(hash);
 
   if (bucket) {
+    (this._size > 0) && this._size--;
     return this.iterateBucket(bucket, key, function (context, index) {
       return context.splice(index, 1);
     });
@@ -62,8 +65,8 @@ HashTable.prototype.iterateBucket = function (bucket, key, cb) {
 HashTable.prototype.resize = function (direction) {
   if (direction === 'up'){
     this._limit = this._limit * 2;
-  // } else if (direction === 'down') {
-  //   this._limit = this._limit / 2;
+  } else if (direction === 'down') {
+    this._limit = this._limit / 2;
   }
   this._size = 0;
   var oldStorage = this._storage;
