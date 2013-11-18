@@ -7,6 +7,9 @@ describe("hashTable", function() {
     v2 = 'val2';
     v3 = 'val3';
     v4 = 'val4';
+    v5 = 'val5';
+    v6 = 'val6';
+    v7 = 'val7';
     hash = getIndexBelowMaxForKey(v1,8);
   });
 
@@ -92,12 +95,35 @@ describe("hashTable", function() {
     it("should replace _storage with a new _storage of doubled size", function(){
       hashTable.insert(v1, v1);
       hashTable.insert(v2, v2);
-      hashTable.insert(v2, v2);
+      hashTable.insert(v3, v3);
+      hashTable.insert(v4, v4);
+      hashTable.insert(v5, v5);
+      hashTable.insert(v6, v6);
+      hashTable.insert(v7, v7);
+
+      expect(hashTable.retrieve(v1)).toEqual(v1);
+      expect(hashTable.retrieve(v2)).toEqual(v2);
+      expect(hashTable.retrieve(v3)).toEqual(v3);
+      expect(hashTable.retrieve(v4)).toEqual(v4);
+      expect(hashTable.retrieve(v5)).toEqual(v5);
+      expect(hashTable.retrieve(v6)).toEqual(v6);
+      expect(hashTable.retrieve(v7)).toEqual(v7);
+      expect(hashTable._limit).toEqual(16);
+
+    });
+  });
+
+
+  xdescribe('resize-down functionality', function(){
+
+    it("should half the _limit when size reaches <25% of the _limit", function(){
       hashTable.insert(v1, v1);
-      hashTable.insert(v2, v2);
+      expect(hashTable._limit).toEqual(4);
+    });
+
+    xit("should replace _storage with a new _storage of half the size", function(){
       var old = hashTable._storage;
-      hashTable.insert(v2, v2);
-      hashTable.insert(v2, v2);
+      hashTable.insert(v1, v1);
       expect(hashTable._storage).toNotEqual(old);
     });
 

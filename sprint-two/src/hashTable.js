@@ -6,7 +6,6 @@ var HashTable = function(){
 
 HashTable.prototype.insert = function(key, value){
   var hash = getIndexBelowMaxForKey(key, this._limit);
-
   var bucket = this._storage.get(hash) || [];
 
   this.iterateBucket(bucket, key, function (context, index) {
@@ -16,12 +15,13 @@ HashTable.prototype.insert = function(key, value){
 
   bucket.push([key, value]);
   this._size += 1;
-  if (this._size >= (this._limit * 0.75)){
-    // console.log('here');
-    // debugger;
-    this.resize();
-  }
   this._storage.set(hash, bucket);
+
+  if (this._size >= (this._limit * 0.75)){
+    this.resize('up');
+  } else if ((this._limit > 8) && (this._size <= (this._limit * 0.25))){
+    // this.resize('down');
+  }
 };
 
 HashTable.prototype.retrieve = function(key){
@@ -59,12 +59,15 @@ HashTable.prototype.iterateBucket = function (bucket, key, cb) {
   }
 };
 
-HashTable.prototype.resize = function () {
-  this._limit = this._limit * 2;
+HashTable.prototype.resize = function (direction) {
+  if (direction === 'up'){
+    this._limit = this._limit * 2;
+  // } else if (direction === 'down') {
+  //   this._limit = this._limit / 2;
+  }
   this._size = 0;
   var oldStorage = this._storage;
   this._storage = makeLimitedArray(this._limit);
-
   var newHash = this;
 
   oldStorage.each(function(bucket, hash, storage){
@@ -73,7 +76,6 @@ HashTable.prototype.resize = function () {
         var key = storage[hash][i][0];
         var val = storage[hash][i][1];
         newHash.insert(key, val);
-        // debugger;
       };
     }
   });
