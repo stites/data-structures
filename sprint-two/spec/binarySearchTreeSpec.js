@@ -207,7 +207,7 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.value).toEqual(12);
     });
 
-    xit("should be able to operate on all nodes breadth first", function() {
+    it("should be able to operate on all nodes breadth-first order", function() {
       var result = [];
       var cb = function (nodeValue) {
         result.push(nodeValue)

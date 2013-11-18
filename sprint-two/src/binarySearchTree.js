@@ -24,8 +24,8 @@ baseTree.insert = function (value, node) {
     if (value < parentValue) {
       if (!node.left) {
         node.addChild(value,'left', true);
+        node.children[0].depth = parentDepth + 1;
         node.left = node.children[0];
-        node.left.depth = parentDepth + 1;
       } else {
         node.insert(value, node.left);
       }
@@ -35,11 +35,12 @@ baseTree.insert = function (value, node) {
         node.addChild(value,'right', true);
 
         if (!node.children[1]){
+          node.children[0].depth = parentDepth + 1;
           node.right = node.children[0];
         } else {
+          node.children[1].depth = parentDepth + 1;
           node.right = node.children[1];
         }
-        node.right.depth = parentDepth + 1;
 
       } else {
         node.insert(value, node.right);
@@ -71,14 +72,19 @@ baseTree.depthFirstLog = function (cb, node) {
   }
 };
 
-baseTree.breadthFirstLog = function (cb, node) {
-  node = node || this;
-  node.value = cb(node.value);
+baseTree.breadthFirstLog = function (cb) {
+  var queue = [];
 
-  if (node.children) {
-    for (var i = 0; i < node.children.length; i++) {
-      this.depthFirstLog(cb, node.children[i]);
-    }
-  }
+  this.traverse(function(node){
+    queue.push(node);
+  }, undefined, true);
+
+  queue = queue.sort(function(a,b){
+    return a.depth > b.depth;
+  });
+
+  for (var i = 0; i < queue.length; i++) {
+    queue[i].value = cb(queue[i].value);
+  };
 };
 
