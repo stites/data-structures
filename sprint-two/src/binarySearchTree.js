@@ -92,3 +92,32 @@ baseTree.breadthFirstLog = function (cb) {
 baseTree.rebalance = function () {
 };
 
+baseTree.checkDepth = function () {
+  var depths={}
+  var min = 0;
+  var max = 0;
+  this.traverse(function(node){
+    if (node.children === null || node.children === undefined) {
+      depths[node.depth] = true;
+    }
+  }, undefined, true);
+  depths = keysToInts(depths);
+  if (this.children && this.children.length === 1) {
+    max = Math.max.apply(null, depths);
+  } else if (depths.length === 1) {
+    return 0;
+  } else {
+    min = Math.min.apply(null, depths);
+    max = Math.max.apply(null, depths);
+  }
+  return max - min;
+};
+
+var keysToInts = function (array){
+  var result = [];
+  for (var key in array) {
+    result.push(parseInt(key, 10));
+  }
+  return result;
+};
+

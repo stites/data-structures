@@ -231,9 +231,32 @@ describe("binarySearchTree", function() {
   });
 
   describe("rebalancing functionality", function() {
-    it('should have a function called \'rebalance\'', function () {
+    it('should have a function called \'rebalance\' and \'checkDepth\'', function () {
       expect(binarySearchTree.rebalance).toEqual(jasmine.any(Function));
-    })
+      expect(binarySearchTree.checkDepth).toEqual(jasmine.any(Function));
+    });
+
+    it('should make \'checkDepth\' return the difference between min and max branches at any given time.', function () {
+      spyOn(binarySearchTree, 'rebalance').andReturn(undefined);
+      binarySearchTree.insert(5);
+      expect(binarySearchTree.checkDepth()).toEqual(1);
+      binarySearchTree.insert(2);
+      expect(binarySearchTree.checkDepth()).toEqual(2);
+      binarySearchTree.insert(7);
+      expect(binarySearchTree.checkDepth()).toEqual(2);
+      binarySearchTree.insert(15);
+      expect(binarySearchTree.checkDepth()).toEqual(1);
+      binarySearchTree.insert(12);
+      expect(binarySearchTree.checkDepth()).toEqual(0);
+    });
+
+    xit('should change the root to the median value in the tree', function () {
+    });
+
+    xit('should rebalance a skewed tree of 10-9-8-7-6 to have', function () {
+    });
+
+
   });
 
 });
