@@ -41,9 +41,13 @@ treeMethods.removeFromParent = function (node) {
 };
 
 
-treeMethods.traverse = function(cb, node){
+treeMethods.traverse = function(cb, node, actOnNode){
   node = node || this;
-  cb(node.value);
+  if (actOnNode) {
+    cb(node);
+  } else {
+    cb(node.value);
+  }
 
   if (node.children) {
     for (var i = 0; i < node.children.length; i++) {
