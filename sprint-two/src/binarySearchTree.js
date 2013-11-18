@@ -69,6 +69,7 @@ baseTree.depthFirstLog = function (cb, node) {
   }
 };
 
-baseTree.breadthFirstLog = function () {
+baseTree.breadthFirstLog = function (cb) {
+  this.value = cb(this.value);
 };
 

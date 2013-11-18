@@ -173,7 +173,17 @@ describe("binarySearchTree", function() {
   describe('breadthFirstLog', function () {
     it("should have a function named 'breadthFirstLog'", function() {
       expect(binarySearchTree.breadthFirstLog).toEqual(jasmine.any(Function));
-    })
+    });
+
+    it("should be able to operate on the root value", function() {
+      var cb = function (nodeValue) {
+        return nodeValue += 1;
+      };
+      binarySearchTree.breadthFirstLog(cb);
+      expect(binarySearchTree.value).toEqual(11);
+      binarySearchTree.breadthFirstLog(cb);
+      expect(binarySearchTree.value).toEqual(12);
+    });
   });
 
   xdescribe("rebalancing functionality", function() {
