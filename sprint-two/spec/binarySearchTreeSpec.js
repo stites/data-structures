@@ -170,6 +170,28 @@ describe("binarySearchTree", function() {
     });
   });
 
+  describe('depth property', function(){
+    it("should have a property named 'depth' defaulted to 0 at the root", function() {
+      expect('depth' in binarySearchTree).toEqual(true);
+      expect(binarySearchTree.depth).toEqual(0);
+    });
+
+    it("should indicate the level of a node", function() {
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(2);
+      binarySearchTree.insert(7);
+      binarySearchTree.insert(15);
+      binarySearchTree.insert(12);
+      binarySearchTree.insert(17);
+      expect(binarySearchTree.left.depth).toEqual(1);
+      expect(binarySearchTree.right.depth).toEqual(1);
+      expect(binarySearchTree.left.left.depth).toEqual(2);
+      expect(binarySearchTree.left.right.depth).toEqual(2);
+      expect(binarySearchTree.right.left.depth).toEqual(2);
+      expect(binarySearchTree.right.right.depth).toEqual(2);
+    });
+  });
+
   describe('breadthFirstLog', function () {
     it("should have a function named 'breadthFirstLog'", function() {
       expect(binarySearchTree.breadthFirstLog).toEqual(jasmine.any(Function));
@@ -183,26 +205,6 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.value).toEqual(11);
       binarySearchTree.breadthFirstLog(cb);
       expect(binarySearchTree.value).toEqual(12);
-    });
-
-    it("should have a property named 'depth' defaulted to 0 at the root", function() {
-      expect('depth' in binarySearchTree).toEqual(true);
-      expect(binarySearchTree.depth).toEqual(0);
-    });
-
-    it("'depth' should indicate the level of a node", function() {
-      binarySearchTree.insert(5);
-      binarySearchTree.insert(2);
-      binarySearchTree.insert(7);
-      binarySearchTree.insert(15);
-      binarySearchTree.insert(12);
-      binarySearchTree.insert(17);
-      expect(binarySearchTree.left.depth).toEqual(1);
-      expect(binarySearchTree.right.depth).toEqual(1);
-      expect(binarySearchTree.left.left.depth).toEqual(2);
-      expect(binarySearchTree.left.right.depth).toEqual(2);
-      expect(binarySearchTree.right.left.depth).toEqual(2);
-      expect(binarySearchTree.right.right.depth).toEqual(2);
     });
 
     xit("should be able to operate on all nodes breadth first", function() {
