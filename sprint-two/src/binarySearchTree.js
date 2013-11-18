@@ -18,13 +18,14 @@ baseTree.isNum = function (value) {
 baseTree.insert = function (value, node) {
   node = node || this;
   var parentValue = node.value;
+  var parentDepth = node.depth;
 
   if (typeof this.isNum(value) === 'number') {
     if (value < parentValue) {
-      // debugger;
       if (!node.left) {
         node.addChild(value,'left', true);
         node.left = node.children[0];
+        node.left.depth = parentDepth + 1;
       } else {
         node.insert(value, node.left);
       }
@@ -38,6 +39,7 @@ baseTree.insert = function (value, node) {
         } else {
           node.right = node.children[1];
         }
+        node.right.depth = parentDepth + 1;
 
       } else {
         node.insert(value, node.right);

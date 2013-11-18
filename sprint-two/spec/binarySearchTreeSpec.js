@@ -190,7 +190,7 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.depth).toEqual(0);
     });
 
-    xit("'depth' should indicate the level of a node", function() {
+    it("'depth' should indicate the level of a node", function() {
       binarySearchTree.insert(5);
       binarySearchTree.insert(2);
       binarySearchTree.insert(7);
