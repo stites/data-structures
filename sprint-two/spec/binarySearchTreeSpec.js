@@ -184,13 +184,51 @@ describe("binarySearchTree", function() {
       binarySearchTree.breadthFirstLog(cb);
       expect(binarySearchTree.value).toEqual(12);
     });
-  });
 
-  xdescribe("rebalancing functionality", function() {
     it("should have a property named 'depth' defaulted to 0 at the root", function() {
       expect('depth' in binarySearchTree).toEqual(true);
       expect(binarySearchTree.depth).toEqual(0);
-    })
+    });
+
+    xit("'depth' should indicate the level of a node", function() {
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(2);
+      binarySearchTree.insert(7);
+      binarySearchTree.insert(15);
+      binarySearchTree.insert(12);
+      binarySearchTree.insert(17);
+      expect(binarySearchTree.left.depth).toEqual(1);
+      expect(binarySearchTree.right.depth).toEqual(1);
+      expect(binarySearchTree.left.left.depth).toEqual(2);
+      expect(binarySearchTree.left.right.depth).toEqual(2);
+      expect(binarySearchTree.right.left.depth).toEqual(2);
+      expect(binarySearchTree.right.right.depth).toEqual(2);
+    });
+
+    xit("should be able to operate on all nodes breadth first", function() {
+      var result = [];
+      var cb = function (nodeValue) {
+        result.push(nodeValue)
+        return nodeValue;
+      };
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(2);
+      binarySearchTree.insert(7);
+      binarySearchTree.insert(15);
+      binarySearchTree.insert(12);
+      binarySearchTree.insert(17);
+      binarySearchTree.breadthFirstLog(cb);
+      expect(result.slice(0,1)).toContain(10);
+      expect(result.slice(1,3)).toContain(5);
+      expect(result.slice(1,3)).toContain(15);
+      expect(result.slice(3,7)).toContain(2);
+      expect(result.slice(3,7)).toContain(7);
+      expect(result.slice(3,7)).toContain(12);
+      expect(result.slice(3,7)).toContain(17);
+    });
+  });
+
+  xdescribe("rebalancing functionality", function() {
   });
 
 });

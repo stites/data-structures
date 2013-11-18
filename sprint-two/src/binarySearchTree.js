@@ -21,7 +21,7 @@ baseTree.insert = function (value, node) {
 
   if (typeof this.isNum(value) === 'number') {
     if (value < parentValue) {
-
+      // debugger;
       if (!node.left) {
         node.addChild(value,'left', true);
         node.left = node.children[0];
@@ -69,7 +69,14 @@ baseTree.depthFirstLog = function (cb, node) {
   }
 };
 
-baseTree.breadthFirstLog = function (cb) {
-  this.value = cb(this.value);
+baseTree.breadthFirstLog = function (cb, node) {
+  node = node || this;
+  node.value = cb(node.value);
+
+  if (node.children) {
+    for (var i = 0; i < node.children.length; i++) {
+      this.depthFirstLog(cb, node.children[i]);
+    }
+  }
 };
 
