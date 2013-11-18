@@ -41,10 +41,10 @@ treeMethods.removeFromParent = function (node) {
 };
 
 
-treeMethods.traverse = function(cb, node, actOnNode){
+treeMethods.traverse = function(cb, node, breadthHelper){
   node = node || this;
-  if (actOnNode) {
-    cb(node);
+  if (breadthHelper && (node.depth >= 0)) {
+    cb(node.depth, node.value);
   } else {
     cb(node.value);
   }
