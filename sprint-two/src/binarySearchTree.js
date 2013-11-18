@@ -4,7 +4,7 @@ var makeBinarySearchTree = function(value) {
   binarySearchTree.value = binarySearchTree.isNum(value);
   binarySearchTree.left = null;
   binarySearchTree.right = null;
-  binarySearchTree.depth = 0;
+  binarySearchTree.depth = 1;
 
   return binarySearchTree;
 };
@@ -47,6 +47,12 @@ baseTree.insert = function (value, node) {
       }
     }
   }
+
+  var check = this.checkDepth();
+  if (check[0] * 2 >= check[1]) {
+    this.rebalance();
+  }
+
 };
 
 baseTree.contains = function (value) {
@@ -89,28 +95,33 @@ baseTree.breadthFirstLog = function (cb) {
 };
 
 
-baseTree.rebalance = function () {
+baseTree.rebalance = function() {
 };
 
 baseTree.checkDepth = function () {
-  var depths={}
-  var min = 0;
-  var max = 0;
+  var depths={};
+  var min = 1;
+  var max = 1;
+
   this.traverse(function(node){
     if (node.children === null || node.children === undefined) {
       depths[node.depth] = true;
     }
   }, undefined, true);
+
   depths = keysToInts(depths);
+
   if (this.children && this.children.length === 1) {
     max = Math.max.apply(null, depths);
   } else if (depths.length === 1) {
-    return 0;
+    min = depths[0];
+    max = min;
   } else {
     min = Math.min.apply(null, depths);
     max = Math.max.apply(null, depths);
   }
-  return max - min;
+  return [min, max];
+
 };
 
 var keysToInts = function (array){

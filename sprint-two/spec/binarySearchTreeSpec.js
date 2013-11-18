@@ -173,7 +173,7 @@ describe("binarySearchTree", function() {
   describe('depth property', function(){
     it("should have a property named 'depth' defaulted to 0 at the root", function() {
       expect('depth' in binarySearchTree).toEqual(true);
-      expect(binarySearchTree.depth).toEqual(0);
+      expect(binarySearchTree.depth).toEqual(0 + 1);
     });
 
     it("should indicate the level of a node", function() {
@@ -183,12 +183,12 @@ describe("binarySearchTree", function() {
       binarySearchTree.insert(15);
       binarySearchTree.insert(12);
       binarySearchTree.insert(17);
-      expect(binarySearchTree.left.depth).toEqual(1);
-      expect(binarySearchTree.right.depth).toEqual(1);
-      expect(binarySearchTree.left.left.depth).toEqual(2);
-      expect(binarySearchTree.left.right.depth).toEqual(2);
-      expect(binarySearchTree.right.left.depth).toEqual(2);
-      expect(binarySearchTree.right.right.depth).toEqual(2);
+      expect(binarySearchTree.left.depth).toEqual(1 + 1);
+      expect(binarySearchTree.right.depth).toEqual(1 + 1);
+      expect(binarySearchTree.left.left.depth).toEqual(2 + 1);
+      expect(binarySearchTree.left.right.depth).toEqual(2 + 1);
+      expect(binarySearchTree.right.left.depth).toEqual(2 + 1);
+      expect(binarySearchTree.right.right.depth).toEqual(2 + 1);
     });
   });
 
@@ -236,21 +236,36 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.checkDepth).toEqual(jasmine.any(Function));
     });
 
-    it('should make \'checkDepth\' return the difference between min and max branches at any given time.', function () {
+    it('should make \'checkDepth\' return the max and min levels of branches at any given time.', function () {
       spyOn(binarySearchTree, 'rebalance').andReturn(undefined);
       binarySearchTree.insert(5);
-      expect(binarySearchTree.checkDepth()).toEqual(1);
+      var compare = binarySearchTree.checkDepth();
+      expect(compare[1] - compare[0]).toEqual(1);
       binarySearchTree.insert(2);
-      expect(binarySearchTree.checkDepth()).toEqual(2);
+      compare = binarySearchTree.checkDepth();
+      expect(compare[1] - compare[0]).toEqual(2);
       binarySearchTree.insert(7);
-      expect(binarySearchTree.checkDepth()).toEqual(2);
+      compare = binarySearchTree.checkDepth();
+      expect(compare[1] - compare[0]).toEqual(2);
       binarySearchTree.insert(15);
-      expect(binarySearchTree.checkDepth()).toEqual(1);
+      compare = binarySearchTree.checkDepth();
+      expect(compare[1] - compare[0]).toEqual(1);
       binarySearchTree.insert(12);
-      expect(binarySearchTree.checkDepth()).toEqual(0);
+      compare = binarySearchTree.checkDepth();
+      expect(compare[1] - compare[0]).toEqual(0);
+    });
+
+    it('should call rebalance when the min branch level is half the depth of the max branch level', function () {
+      spyOn(binarySearchTree, 'rebalance');
+      binarySearchTree.insert(9);
+      binarySearchTree.insert(8);
+      expect(binarySearchTree.rebalance).toHaveBeenCalled();
     });
 
     xit('should change the root to the median value in the tree', function () {
+      binarySearchTree.insert(9);
+      binarySearchTree.insert(8);
+      expect(binarySearchTree.value).toEqual(9);
     });
 
     xit('should rebalance a skewed tree of 10-9-8-7-6 to have', function () {
