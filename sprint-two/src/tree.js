@@ -1,16 +1,11 @@
-var makeTree = function(value, parent){
-  var newTree = Object.create(treeMethods);
-  newTree.value = value || undefined;
-  newTree.parent = parent || null;
-  newTree.children = undefined;
-
-  return newTree;
+var Tree = function(value, parent){
+  this.value = value || undefined;
+  this.parent = parent || null;
+  this.children = undefined;
 };
 
-var treeMethods = {};
-
-treeMethods.addChild = function(value, direction, binary){
-  var child = makeTree(value, this);
+Tree.prototype.addChild = function(value, direction, binary){
+  var child = new Tree(value, this);
 
   (!this.children) && (this.children = []);
 
@@ -25,7 +20,7 @@ treeMethods.addChild = function(value, direction, binary){
   }
 };
 
-treeMethods.removeFromParent = function (node) {
+Tree.prototype.removeFromParent = function (node) {
   var parent = node.parent;
   var result;
   for (var i = 0; i < parent.children.length; i++) {
@@ -41,7 +36,7 @@ treeMethods.removeFromParent = function (node) {
 };
 
 
-treeMethods.traverse = function(cb, node, breadthHelper){
+Tree.prototype.traverse = function(cb, node, breadthHelper){
   node = node || this;
   if (breadthHelper && (node.depth >= 0)) {
     cb(node);
@@ -56,7 +51,7 @@ treeMethods.traverse = function(cb, node, breadthHelper){
   }
 };
 
-treeMethods.contains = function(value, node, result){
+Tree.prototype.contains = function(value, node, result){
   result = result || false;
   node = node || this;
 

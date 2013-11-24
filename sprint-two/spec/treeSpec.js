@@ -2,7 +2,7 @@ describe("tree", function() {
   var tree;
 
   beforeEach(function() {
-    tree = makeTree("root");
+    tree = new Tree("root");
   });
 
   it("should have methods named 'addChild' and 'contains', and a property named 'value'", function() {
@@ -15,12 +15,12 @@ describe("tree", function() {
     expect('parent' in tree).toBe(true);
   });
 
-  it("should not have a child when makeTree() is invoked initially.", function(){
+  it("should not have a child when new Tree() is invoked initially.", function(){
     expect(tree.children).toEqual(undefined);
   });
 
   it("should not have a value when makeTree() is invoked without arguments.", function(){
-    tree = makeTree();
+    tree = new Tree();
     expect(tree.value).toEqual(undefined);
   });
 
@@ -151,7 +151,7 @@ describe("tree", function() {
     });
 
     it("should act on the children of a node that is passed into the function", function(){
-      tree = makeTree(2);
+      tree = new Tree(2);
       tree.addChild(4);
       var vals = [];
       var fun = function (i) {
@@ -162,7 +162,7 @@ describe("tree", function() {
     });
 
     it("should act on all children of multi-level node that is passed into the function", function(){
-      tree = makeTree(2);
+      tree = new Tree(2);
       tree.addChild(4);
       tree.addChild(8);
 
