@@ -2,7 +2,7 @@ describe("binarySearchTree", function() {
   var binarySearchTree;
 
   beforeEach(function() {
-    binarySearchTree = makeBinarySearchTree(10);
+    binarySearchTree = new BinarySearchTree(10);
   });
 
   it("should have methods named 'insert', 'contains', and 'depthFirstLog", function() {
@@ -13,9 +13,9 @@ describe("binarySearchTree", function() {
 
   it("should receive only numeric value as root", function() {
     expect(binarySearchTree.value).toEqual(10);
-    binarySearchTree = makeBinarySearchTree("10");
+    binarySearchTree = new BinarySearchTree("10");
     expect(binarySearchTree.value).toEqual(undefined);
-    binarySearchTree = makeBinarySearchTree([]);
+    binarySearchTree = new BinarySearchTree([]);
     expect(binarySearchTree.value).toEqual(undefined);
   });
 
@@ -26,6 +26,7 @@ describe("binarySearchTree", function() {
 
   describe("Insert functionality", function() {
     it("should be able to add only numeric values", function() {
+
       binarySearchTree.insert(1);
       expect(binarySearchTree.children[0].value).toEqual(1);
       binarySearchTree.insert("1");
@@ -52,7 +53,6 @@ describe("binarySearchTree", function() {
       binarySearchTree.insert(1);
       binarySearchTree.insert(11);
       expect(binarySearchTree.left.value).toBeLessThan(binarySearchTree.value);
-
     });
 
     it("right's value should always be greater than it's parent's value for one level", function() {
@@ -72,7 +72,6 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.left.value).toBeLessThan(binarySearchTree.value);
       expect(binarySearchTree.left.left.value).toBeLessThan(binarySearchTree.left.value);
       expect(binarySearchTree.right.left.value).toBeLessThan(binarySearchTree.right.value);
-
     });
 
     it("left's value should always be less than it's parent's value for multiple levels [edge case]", function() {
@@ -82,7 +81,6 @@ describe("binarySearchTree", function() {
 
       expect(binarySearchTree.left.right.value).toBeGreaterThan(binarySearchTree.left.value);
       expect(binarySearchTree.left.left.value).toBeLessThan(binarySearchTree.left.value);
-
     });
 
     it("right's value should always be greater than it's parent's value for multiple levels", function() {
@@ -281,8 +279,6 @@ describe("binarySearchTree", function() {
       compare = binarySearchTree.checkDepth();
       expect(compare[1] - compare[0]).toEqual(0);
     });
-
-
   });
 
 });

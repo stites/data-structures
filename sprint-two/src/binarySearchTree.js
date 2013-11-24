@@ -1,22 +1,32 @@
-var makeBinarySearchTree = function(value) {
-  var binarySearchTree = Object.create(baseTree);
-
-  binarySearchTree.value = binarySearchTree.isNum(value);
-  binarySearchTree.left = null;
-  binarySearchTree.right = null;
-  binarySearchTree.depth = 1;
-  binarySearchTree.root = 'root';
-
-  return binarySearchTree;
+var BinarySearchTree = function(value, parent) {
+  Tree.call(this, this.isNum(value), parent);
+  this.left = null;
+  this.right = null;
+  this.depth = 1;
 };
+BinarySearchTree.prototype = Object.create(Tree.prototype);
+BinarySearchTree.prototype.constructor = BinarySearchTree;
 
-var baseTree = makeTree();
-
-baseTree.isNum = function (value) {
+BinarySearchTree.prototype.isNum = function (value) {
   return typeof value === 'number' ? value : undefined;
 };
 
-baseTree.insert = function (value, node) {
+BinarySearchTree.prototype.addChild = function(value, direction){
+  var child = new BinarySearchTree(value, this);
+  (!this.children) && (this.children = []);
+
+  if (this.children.length < 2){
+    if (direction === "left") {
+      this.children.unshift(child);
+    } else {
+      this.children.push(child);
+    }
+  } else {
+    throw new Error('problem adding binary Child')
+  }
+};
+
+BinarySearchTree.prototype.insert = function (value, node) {
   node = node || this;
   var parentValue = node.value;
   var parentDepth = node.depth;
@@ -24,7 +34,7 @@ baseTree.insert = function (value, node) {
   if (typeof this.isNum(value) === 'number') {
     if (value < parentValue) {
       if (!node.left) {
-        node.addChild(value,'left', true);
+        node.addChild(value,'left');
         node.children[0].depth = parentDepth + 1;
         node.left = node.children[0];
       } else {
@@ -33,7 +43,7 @@ baseTree.insert = function (value, node) {
 
     } else if (value > parentValue) {
       if (!node.right) {
-        node.addChild(value,'right', true);
+        node.addChild(value,'right');
 
         if (!node.children[1]){
           node.children[0].depth = parentDepth + 1;
@@ -55,7 +65,11 @@ baseTree.insert = function (value, node) {
   }
 };
 
-baseTree.contains = function (value) {
+BinarySearchTree.prototype.rebalance = function() {
+  
+};
+
+BinarySearchTree.prototype.contains = function (value) {
   var result = false;
 
   this.traverse(function(nodeVal){
@@ -67,7 +81,7 @@ baseTree.contains = function (value) {
   return result;
 };
 
-baseTree.depthFirstLog = function (cb, node) {
+BinarySearchTree.prototype.depthFirstLog = function (cb, node) {
   node = node || this;
   node.value = cb(node.value);
 
@@ -78,7 +92,7 @@ baseTree.depthFirstLog = function (cb, node) {
   }
 };
 
-baseTree.breadthFirstLog = function (cb) {
+BinarySearchTree.prototype.breadthFirstLog = function (cb) {
   var queue = [];
 
   this.traverse(function(node){
@@ -94,7 +108,7 @@ baseTree.breadthFirstLog = function (cb) {
   };
 };
 
-baseTree.checkDepth = function () {
+BinarySearchTree.prototype.checkDepth = function () {
   var depths={};
   var min = 1;
   var max = 1;
