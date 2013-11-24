@@ -5,6 +5,7 @@ var makeBinarySearchTree = function(value) {
   binarySearchTree.left = null;
   binarySearchTree.right = null;
   binarySearchTree.depth = 1;
+  binarySearchTree.root = 'root';
 
   return binarySearchTree;
 };
@@ -49,10 +50,9 @@ baseTree.insert = function (value, node) {
   }
 
   var check = this.checkDepth();
-  if (check[0] * 2 >= check[1]) {
+  if ((check[0]) * 2 < check[1]) {
     this.rebalance();
   }
-
 };
 
 baseTree.contains = function (value) {
@@ -94,10 +94,6 @@ baseTree.breadthFirstLog = function (cb) {
   };
 };
 
-
-baseTree.rebalance = function() {
-};
-
 baseTree.checkDepth = function () {
   var depths={};
   var min = 1;
@@ -121,7 +117,6 @@ baseTree.checkDepth = function () {
     max = Math.max.apply(null, depths);
   }
   return [min, max];
-
 };
 
 var keysToInts = function (array){

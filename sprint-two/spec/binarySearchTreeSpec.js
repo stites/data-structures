@@ -268,7 +268,18 @@ describe("binarySearchTree", function() {
       expect(binarySearchTree.value).toEqual(9);
     });
 
-    xit('should rebalance a skewed tree of 10-9-8-7-6 to have', function () {
+    xit('should rebalance a skewed tree of 10-9-8-7-6 to have min-max depth difference of 0', function () {
+      binarySearchTree.insert(9);
+      binarySearchTree.insert(8);
+      binarySearchTree.insert(7);
+      binarySearchTree.insert(6);
+      binarySearchTree.insert(5);
+      binarySearchTree.insert(4);
+      binarySearchTree.insert(3);
+      binarySearchTree.insert(2);
+      binarySearchTree.insert(1);
+      compare = binarySearchTree.checkDepth();
+      expect(compare[1] - compare[0]).toEqual(0);
     });
 
 
