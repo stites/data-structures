@@ -66,11 +66,22 @@ describe("bloomFilter", function() {
         expect(typeof bloomFilter._hashStorage[i] === 'function').toBeTruthy();
       }
     });
-    it("should make sure that the initialized bitwise masks work", function() {
+    it("should make sure that the initialized bitwise masks work on one value", function() {
       bloomFilter.add(v1);
       expect(bloomFilter._storage&maskv1h0).toEqual(maskv1h0);
       expect(bloomFilter._storage&maskv1h1).toEqual(maskv1h1);
       expect(bloomFilter._storage&maskv1h2).toEqual(maskv1h2);
+      expect(bloomFilter._storage&fakeMask).toNotEqual(fakeMask);
+    });
+    it("should make add multiple items and ensure that the initialized bitwise masks work", function() {
+      bloomFilter.add(v1);
+      bloomFilter.add(v2);
+      expect(bloomFilter._storage&maskv1h0).toEqual(maskv1h0);
+      expect(bloomFilter._storage&maskv1h1).toEqual(maskv1h1);
+      expect(bloomFilter._storage&maskv1h2).toEqual(maskv1h2);
+      expect(bloomFilter._storage&maskv2h0).toEqual(maskv2h0);
+      expect(bloomFilter._storage&maskv2h1).toEqual(maskv2h1);
+      expect(bloomFilter._storage&maskv2h2).toEqual(maskv2h2);
       expect(bloomFilter._storage&fakeMask).toNotEqual(fakeMask);
     });
   });
