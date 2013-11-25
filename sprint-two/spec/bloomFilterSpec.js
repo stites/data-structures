@@ -3,7 +3,7 @@ describe("bloomFilter", function() {
 
   beforeEach(function() {
     m = 18;
-    k = [];
+    k = 3;
     bloomFilter = new BloomFilter(m, k);
   });
   describe('initial methods and properties of a bloom filter', function(){
@@ -12,14 +12,23 @@ describe("bloomFilter", function() {
       expect(bloomFilter.add).toEqual(jasmine.any(Function));
       expect(bloomFilter.query).toEqual(jasmine.any(Function));
     });
-    xit("should have properties '_storage' & '_hashes' which hold m bits and k hashes", function() {
-      expect(bloomFilter._storage).toEqual(jasmine.any(Array));
+    it("should have property '_limit' which holds the number of bits in our array", function() {
+      expect(bloomFilter._limit).toEqual(m);
+    });
+    it("should have property '_storage' which holds a limitedArray", function() {
+      spyOn(window, 'makeLimitedArray');
+      bloomFilter = new BloomFilter(m, k);
+      expect(window.makeLimitedArray).toHaveBeenCalled();
+    });
+    it("should have property '_hashes' which holds k number of hash functions", function() {
       expect(bloomFilter._hashes).toEqual(jasmine.any(Array));
-    });
-    xit("should have '_storage' & '_hashes' hold k items for each hash function", function() {
-      expect(bloomFilter._storage.length).toEqual(k);
       expect(bloomFilter._hashes.length).toEqual(k);
+      for (var i = 0; i < bloomFilter._hashes.length; i++) {
+        expect(typeof bloomFilter._hashes[i] === 'function' ||
+               typeof bloomFilter._hashes[i] === 'undefined').toBeTruthy();
+      }
     });
+
   });
 
 });
