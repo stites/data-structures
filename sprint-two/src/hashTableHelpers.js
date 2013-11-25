@@ -49,3 +49,42 @@ var getIndexBelowMaxForKey = function(str, max){
   }
   return hash % max;
 };
+// Moar Hash Functions!!!
+// djb2 Hashource: http://www.cse.yorku.ca/~oz/hash.html
+var djb2 = function (s, tableSize) {
+  var b = '', i, hash = 5381;
+  for (i = 0; i < s.length; i++) {
+    b += deciToBin(s[i].charCodeAt());
+  }
+  for (i = 0; i < b.length; i++) {
+    if (b[i] == '1') {
+      hash = ((hash << 5) + hash) + 1;
+    } else {
+      hash = ((hash << 5) + hash) + 0;
+    }
+  }
+  return Math.abs(hash) % tableSize;
+};
+// Universal Hash
+var universalHash = function (s, tableSize) {
+  var b = 27183, h = 0, a = 31415;
+  if (tableSize > 1) {
+    for (i = 0; i < s.length; i++) {
+      h = (a * h + s[i].charCodeAt()) % tableSize;
+      a = ((a % tableSize) * (b % tableSize)) % (tableSize);
+    }
+  }
+  return h;
+};
+// Simple Hash
+var simpleHash = function (s, tableSize) {
+  var i, hash = 0;
+  for (i = 0; i < s.length; i++) {
+    hash += (s[i].charCodeAt() * (i+1));
+  }
+  return Math.abs(hash) % tableSize;
+};
+// Division Hash Function
+var divisionHash = function (s, tableSize) {
+  return s.length % tableSize;
+};
