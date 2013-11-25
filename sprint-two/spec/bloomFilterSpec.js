@@ -23,8 +23,7 @@ describe("bloomFilter", function() {
       expect(bloomFilter._hashes).toEqual(jasmine.any(Array));
       expect(bloomFilter._hashes.length).toEqual(k);
       for (var i = 0; i < bloomFilter._hashes.length; i++) {
-        expect(typeof bloomFilter._hashes[i] === 'function' ||
-               typeof bloomFilter._hashes[i] === 'undefined').toBeTruthy();
+        expect(typeof bloomFilter._hashes[i] === 'function').toBeTruthy();
       }
     });
   });
