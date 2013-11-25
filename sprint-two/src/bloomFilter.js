@@ -1,6 +1,6 @@
 var BloomFilter = function (m, k) {
   this._limit = m;
-  this._storage = makeLimitedArray(this._limit);
+  this._storage = new Int32Array(this._limit);
   this._hashes = Array(k);
 }
 
