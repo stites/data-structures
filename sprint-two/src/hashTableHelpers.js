@@ -4,8 +4,6 @@
  */
 
 
-// This class represents an array with limited functionality and a maximum size.
-// It will ensure that you don't accidentally try to use up too much space.
 //
 // Usage:
 //   limitedArray.set(3, 'hi');
@@ -88,3 +86,37 @@ var simpleHash = function (s, tableSize) {
 var divisionHash = function (s, tableSize) {
   return s.length % tableSize;
 };
+
+
+// Hash Helpers
+// ==========================
+// Decimal to Binary
+// Source: http://www.hscripts.com/scripts/JavaScript/decimal-binary-convertor.php
+
+function deciToBin(arg) {
+  res1 = 999;
+  args = arg;
+  while(args>1) {
+    arg1 = parseInt(args/2);
+    arg2 = args%2;
+    args = arg1;
+    if(res1 == 999) {
+      res1 = arg2.toString();
+    } else {
+      res1 = arg2.toString()+res1.toString();
+    }
+  }
+  if(args == 1 && res1 != 999) {
+    res1 = args.toString()+res1.toString();
+  } else if(args == 0 && res1 == 999) {
+    res1 = 0;
+  } else if(res1 == 999) {
+    res1 = 1;
+  }
+  var ll = res1.length;
+  while(ll%4 != 0) {
+    res1 = "0"+res1;
+    ll = res1.length;
+  }
+  return res1;
+}
