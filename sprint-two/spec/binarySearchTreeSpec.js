@@ -238,46 +238,44 @@ describe("binarySearchTree", function() {
       spyOn(binarySearchTree, 'rebalance').andReturn(undefined);
       binarySearchTree.insert(5);
       var compare = binarySearchTree.checkDepth();
-      expect(compare[1] - compare[0]).toEqual(1);
+      expect(compare.max - compare.min).toEqual(1);
       binarySearchTree.insert(2);
       compare = binarySearchTree.checkDepth();
-      expect(compare[1] - compare[0]).toEqual(2);
+      expect(compare.max - compare.min).toEqual(2);
       binarySearchTree.insert(7);
       compare = binarySearchTree.checkDepth();
-      expect(compare[1] - compare[0]).toEqual(2);
+      expect(compare.max - compare.min).toEqual(2);
       binarySearchTree.insert(15);
       compare = binarySearchTree.checkDepth();
-      expect(compare[1] - compare[0]).toEqual(1);
+      expect(compare.max - compare.min).toEqual(1);
       binarySearchTree.insert(12);
       compare = binarySearchTree.checkDepth();
-      expect(compare[1] - compare[0]).toEqual(0);
+      expect(compare.max - compare.min).toEqual(0);
     });
 
     it('should call rebalance when the min branch level is half the depth of the max branch level', function () {
       spyOn(binarySearchTree, 'rebalance');
       binarySearchTree.insert(9);
       binarySearchTree.insert(8);
+      binarySearchTree.insert(7);
       expect(binarySearchTree.rebalance).toHaveBeenCalled();
     });
 
-    xit('should change the root to the median value in the tree', function () {
-      binarySearchTree.insert(9);
-      binarySearchTree.insert(8);
-      expect(binarySearchTree.value).toEqual(9);
-    });
-
-    xit('should rebalance a skewed tree of 10-9-8-7-6 to have min-max depth difference of 0', function () {
+    it('should change the root to the median value in the tree', function () {
       binarySearchTree.insert(9);
       binarySearchTree.insert(8);
       binarySearchTree.insert(7);
       binarySearchTree.insert(6);
-      binarySearchTree.insert(5);
-      binarySearchTree.insert(4);
-      binarySearchTree.insert(3);
-      binarySearchTree.insert(2);
-      binarySearchTree.insert(1);
-      compare = binarySearchTree.checkDepth();
-      expect(compare[1] - compare[0]).toEqual(0);
+      expect(binarySearchTree.value).toEqual(8);
+    });
+
+    it('should rebalance a tree so that it\'s max:min-depth ratio is always <=2 if depth is > 3', function () {
+      var check;
+      for (var i = 9; i > 0; i--) {
+        binarySearchTree.insert(i);
+        check = binarySearchTree.checkDepth();
+        expect((check.max/check.min <= 2) || check.max <= 3).toBeTruthy();
+      };
     });
   });
 

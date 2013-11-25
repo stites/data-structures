@@ -26,47 +26,69 @@ BinarySearchTree.prototype.addChild = function(value, direction){
   }
 };
 
-BinarySearchTree.prototype.insert = function (value, node) {
-  node = node || this;
-  var parentValue = node.value;
-  var parentDepth = node.depth;
+BinarySearchTree.prototype.insert = function (value) {
+  var recur = function (value, node) {
+    var parentValue = node.value;
+    var parentDepth = node.depth;
 
-  if (typeof this.isNum(value) === 'number') {
-    if (value < parentValue) {
-      if (!node.left) {
-        node.addChild(value,'left');
-        node.children[0].depth = parentDepth + 1;
-        node.left = node.children[0];
-      } else {
-        node.insert(value, node.left);
-      }
-
-    } else if (value > parentValue) {
-      if (!node.right) {
-        node.addChild(value,'right');
-
-        if (!node.children[1]){
+    if (typeof node.isNum(value) === 'number') {
+      if (value < parentValue) {
+        if (!node.left) {
+          node.addChild(value,'left');
           node.children[0].depth = parentDepth + 1;
-          node.right = node.children[0];
+          node.left = node.children[0];
         } else {
-          node.children[1].depth = parentDepth + 1;
-          node.right = node.children[1];
+          recur(value, node.left);
         }
 
-      } else {
-        node.insert(value, node.right);
+      } else if (value > parentValue) {
+        if (!node.right) {
+          node.addChild(value,'right');
+
+          if (!node.children[1]){
+            node.children[0].depth = parentDepth + 1;
+            node.right = node.children[0];
+          } else {
+            node.children[1].depth = parentDepth + 1;
+            node.right = node.children[1];
+          }
+
+        } else {
+          recur(value, node.right);
+        }
       }
     }
-  }
+  };
+  recur(value, this);
 
   var check = this.checkDepth();
-  if ((check[0]) * 2 < check[1]) {
+  if ((check.max/check.min > 2) && (check.max > 3)) {
     this.rebalance();
   }
 };
 
 BinarySearchTree.prototype.rebalance = function() {
-  
+  var items = [];
+  this.breadthFirstLog(function(item){
+    items.push(item);
+    return item;
+  });
+  var orderedItems = [];
+  var order = function (array) {
+    if(array.length === 0){
+      return;
+    } else {
+      var halfway = ~~(array.length/2);
+      orderedItems.push(array[halfway]);
+      order( array.slice(0, halfway));
+      order( array.slice(halfway+1));
+    }
+  };
+  order(items);
+  BinarySearchTree.call(this, orderedItems.shift());
+  for (var i = 0; i < orderedItems.length; i++) {
+    this.insert(orderedItems[i]);
+  };
 };
 
 BinarySearchTree.prototype.contains = function (value) {
@@ -130,7 +152,7 @@ BinarySearchTree.prototype.checkDepth = function () {
     min = Math.min.apply(null, depths);
     max = Math.max.apply(null, depths);
   }
-  return [min, max];
+  return {min:min, max:max};
 };
 
 var keysToInts = function (array){
