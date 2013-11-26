@@ -1,6 +1,7 @@
 var BloomFilter = function (m, k) {
   this._limit = m;
   this._storage = 0;
+  this._removedStorage = 0;
   this._hashStorage = Array(k);
 }
 
@@ -10,6 +11,11 @@ BloomFilter.prototype.getHashes = function() {
 BloomFilter.prototype.add = function(strVal) {
   var mask = this.getMask(strVal);
   this._storage |= mask;
+};
+
+BloomFilter.prototype.remove = function(strVal) {
+  var mask = this.getMask(strVal);
+  this._removedStorage |= mask;
 };
 
 BloomFilter.prototype.query = function(strVal) {
@@ -34,7 +40,7 @@ BloomFilter.prototype.addHash = function(hashFn) {
   if (counter < storage.length){
     storage.push(hashFn);
   } else {
-    throw new Error('Hash storage is full!')
+    throw new Error('Hash storage is full!');
   }
 };
 
