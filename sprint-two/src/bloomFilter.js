@@ -5,8 +5,6 @@ var BloomFilter = function (m, k) {
   this._hashStorage = Array(k);
 }
 
-BloomFilter.prototype.getHashes = function() {
-};
 
 BloomFilter.prototype.add = function(strVal) {
   var mask = this.getMask(strVal);
