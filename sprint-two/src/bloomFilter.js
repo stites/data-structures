@@ -15,6 +15,8 @@ BloomFilter.prototype.query = function(strVal) {
   var test = mask&this._storage;
   if (test !== mask){
     return 0;
+  } else {
+    return 1;
   }
 };
 

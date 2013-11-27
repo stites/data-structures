@@ -47,6 +47,7 @@ describe("bloomFilter", function() {
       }
     });
   });
+
   describe('add function', function(){
     it("should change the storage to be a different value", function() {
       var previousBitArray = bloomFilter._storage;
@@ -72,6 +73,7 @@ describe("bloomFilter", function() {
       expect(bloomFilter._storage&fakeMask).toNotEqual(fakeMask);
     });
   });
+
   describe('query function', function(){
     it("should return a value of 0 if an item is not in _storage using bitmasks", function() {
       expect(bloomFilter.query(v1)).toEqual(0);
@@ -80,7 +82,7 @@ describe("bloomFilter", function() {
       expect(bloomFilter.query(v1)).toNotEqual(0);
       expect(bloomFilter.query(v2)).toEqual(0);
     });
-    xit("should return a positive float if an item is in _storage using bitmasks", function() {
+    it("should return a positive float if an item is in _storage using bitmasks", function() {
       bloomFilter.add(v1);
       bloomFilter.add(v2);
       expect(bloomFilter.query(v1) > 0).toEqual(true);
