@@ -5,18 +5,22 @@ var BloomFilter = function (m, k) {
   this._hashStorage = Array(k);
 }
 
-
 BloomFilter.prototype.add = function(strVal) {
   var mask = this.getMask(strVal);
   this._storage |= mask;
 };
 
-BloomFilter.prototype.remove = function(strVal) {
+BloomFilter.prototype.query = function(strVal) {
   var mask = this.getMask(strVal);
-  this._removedStorage |= mask;
+  var test = mask&this._storage;
+  if (test !== mask){
+    return 0;
+  }
 };
 
-BloomFilter.prototype.query = function(strVal) {
+BloomFilter.prototype.remove = function(strVal) {
+  // var mask = this.getMask(strVal);
+  // this._removedStorage |= mask;
 };
 
 BloomFilter.prototype.getMask = function(strVal) {

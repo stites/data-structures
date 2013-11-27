@@ -72,7 +72,27 @@ describe("bloomFilter", function() {
       expect(bloomFilter._storage&fakeMask).toNotEqual(fakeMask);
     });
   });
-  describe('remove function', function(){
+  describe('query function', function(){
+    it("should return a value of 0 if an item is not in _storage using bitmasks", function() {
+      expect(bloomFilter.query(v1)).toEqual(0);
+      expect(bloomFilter.query(v2)).toEqual(0);
+      bloomFilter.add(v1);
+      expect(bloomFilter.query(v1)).toNotEqual(0);
+      expect(bloomFilter.query(v2)).toEqual(0);
+    });
+    xit("should return a positive float if an item is in _storage using bitmasks", function() {
+      bloomFilter.add(v1);
+      bloomFilter.add(v2);
+      expect(bloomFilter.query(v1) > 0).toEqual(true);
+      expect(bloomFilter.query(v2) > 0).toEqual(true);
+    });
+    xit("should return the probability of an item being in _storage", function() {
+      bloomFilter.add(v3);
+      var query = bloomFilter.query(v3);
+      expect(query > 0 && query <= 1).toEqual(true);
+    });
+  });
+  xdescribe('remove function', function(){
     it("should change the removeStorage to be a different value", function() {
       var previousBitArray = bloomFilter._removedStorage;
       bloomFilter.remove(v1);
@@ -97,13 +117,4 @@ describe("bloomFilter", function() {
       expect(bloomFilter._removedStorage&fakeMask).toNotEqual(fakeMask);
     });
   });
-  describe('query function', function(){
-    it("should return a value of 0 if an item is not in _storage using bitmasks", function() {
-    });
-    it("should return a positive float if an item is in _storage using bitmasks", function() {
-    });
-    it("should return the probability of an item being in _storage", function() {
-    });
-  });
-
 });
