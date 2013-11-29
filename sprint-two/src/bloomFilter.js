@@ -1,5 +1,6 @@
 var BloomFilter = function (m, k) {
   this._m = m;
+  this._k = k;
   this._n = 0;
   this._storage = 0;
   this._removed = 0;
@@ -23,7 +24,10 @@ BloomFilter.prototype.query = function(strVal) {
 };
 
 BloomFilter.prototype.fp = function() {
-  return null;
+  m = this._m;
+  k = this._k;
+  n = this._n;
+  return Math.pow(1 - Math.pow(1-(1/m), k*n), k);
 };
 
 BloomFilter.prototype.fn = function() {

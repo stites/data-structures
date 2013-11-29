@@ -200,10 +200,10 @@ describe("bloomFilter", function() {
   });
   describe('fp function', function(){
     describe('should return the false-positive rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
-      it('should return null when nothing is added to the filter', function () {
-        expect(bloomFilter.fp()).toEqual(null);
+      it('should return 0 when nothing is added to the filter', function () {
+        expect(bloomFilter.fp()).toEqual(0);
       });
-      xit('should return 0.2530 for m/n === 3 and k === 3', function () {
+      it('should return ~0.2530 for (m/n) === 3 and k === 3', function () {
         // n === 6
         bloomFilter.add(v1);
         bloomFilter.add(v2);
@@ -211,16 +211,17 @@ describe("bloomFilter", function() {
         bloomFilter.add(v4);
         bloomFilter.add(v5);
         bloomFilter.add(v6);
-        expect(bloomFilter.fp()).toEqual(0.2530);
+        expect(bloomFilter.fp()).toBeGreaterThan(0.251);
+        expect(bloomFilter.fp()).toBeLessThan(0.266);
       });
-      xit('should return 0.0609 for m/n === 6 and k === 3', function () {
+      xit('should return 0.0609 for (m/n) === 6 and k === 3', function () {
         // n === 3
         bloomFilter.add(v1);
         bloomFilter.add(v2);
         bloomFilter.add(v3);
         expect(bloomFilter.fp()).toEqual(0.0609);
       });
-      xit('should return 0.0228 for m/n === 9 and k === 3', function () {
+      xit('should return 0.0228 for (m/n) === 9 and k === 3', function () {
         // n === 2
         bloomFilter.add(v1);
         bloomFilter.add(v2);
