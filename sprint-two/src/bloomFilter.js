@@ -30,10 +30,12 @@ BloomFilter.prototype.fn = function(strVal) {
 
 BloomFilter.prototype.remove = function(strVal) {
   var mask = this.getMask(strVal);
-  var check = this._removedStorage;
-  this._removedStorage |= mask;
-  if (check !== this._removedStorage){
-    this._removed += 1;
+  var checkRemoved = this._removedStorage;
+  if (this._storage&mask === mask){
+    this._removedStorage |= mask;
+    if (checkRemoved !== this._removedStorage){
+      this._removed += 1;
+    }
   }
 };
 
