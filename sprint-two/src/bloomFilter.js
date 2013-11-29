@@ -35,6 +35,7 @@ BloomFilter.prototype.remove = function(strVal) {
     this._removedStorage |= mask;
     if (checkRemoved !== this._removedStorage){
       this._removed += 1;
+      return strVal;
     }
   }
 };

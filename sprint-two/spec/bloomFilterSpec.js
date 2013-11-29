@@ -128,10 +128,17 @@ describe("bloomFilter", function() {
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage).toEqual(0);
     });
+    it("should return undefined if it's bitmask is not in _storage", function() {
+      expect(bloomFilter.remove(v1)).toEqual(undefined);
+    });
     it("should remove an item if it's bitmask is in _storage", function() {
       bloomFilter.add(v1);
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage).toNotEqual(0);
+    });
+    it("should return the item if it's bitmask is successfully added to _removedStorage", function() {
+      bloomFilter.add(v1);
+      expect(bloomFilter.remove(v1)).toEqual(v1);
     });
     it("should change the removeStorage to be a different value", function() {
       bloomFilter.add(v1);
