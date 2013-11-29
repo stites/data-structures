@@ -8,8 +8,11 @@ var BloomFilter = function (m, k) {
 
 BloomFilter.prototype.add = function(strVal) {
   var mask = this.getMask(strVal);
-  this._n += 1;
+  var check = this._storage;
   this._storage |= mask;
+  if (check !== this._storage){
+    this._n += 1;
+  }
 };
 
 BloomFilter.prototype.query = function(strVal) {

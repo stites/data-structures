@@ -72,6 +72,12 @@ describe("bloomFilter", function() {
       bloomFilter.add(v2);
       expect(bloomFilter._n).toEqual(2);
     });
+    it("should not increase the _n property by one if the value does not change _storage", function() {
+      bloomFilter.add(v1);
+      expect(bloomFilter._n).toEqual(1);
+      bloomFilter.add(v1);
+      expect(bloomFilter._n).toEqual(1);
+    });
     it("should make add multiple items and ensure that the initialized bitwise masks work", function() {
       bloomFilter.add(v1);
       bloomFilter.add(v2);
