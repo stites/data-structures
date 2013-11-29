@@ -2,6 +2,7 @@ var BloomFilter = function (m, k) {
   this._m = m;
   this._n = 0;
   this._storage = 0;
+  this._removed = 0;
   this._removedStorage = 0;
   this._hashStorage = Array(k);
 }
@@ -32,7 +33,7 @@ BloomFilter.prototype.remove = function(strVal) {
   var check = this._removedStorage;
   this._removedStorage |= mask;
   if (check !== this._removedStorage){
-    this._n += 1;
+    this._removed += 1;
   }
 };
 

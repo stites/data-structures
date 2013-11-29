@@ -36,6 +36,9 @@ describe("bloomFilter", function() {
     it("should have property '_n' which holds the number of items added to our filter", function() {
       expect(bloomFilter._n).toEqual(0);
     });
+    it("should have property '_removed' which holds the number of items removed to our filter", function() {
+      expect(bloomFilter._removed).toEqual(0);
+    });
     it("should have property '_storage' which is initialized to 0", function() {
       expect(typeof bloomFilter._storage).toEqual('number');
       expect(bloomFilter._storage).toEqual(0);
@@ -120,14 +123,35 @@ describe("bloomFilter", function() {
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage).toNotEqual(previousBitArray);
     });
-    xit("should make sure that the initialized bitwise masks work on one value", function() {
+    it("should make sure that the initialized bitwise masks work on one value", function() {
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage&maskv1h0).toEqual(maskv1h0);
       expect(bloomFilter._removedStorage&maskv1h1).toEqual(maskv1h1);
       expect(bloomFilter._removedStorage&maskv1h2).toEqual(maskv1h2);
       expect(bloomFilter._removedStorage&fakeMask).toNotEqual(fakeMask);
     });
-    xit("should make add multiple items and ensure that the initialized bitwise masks work", function() {
+    it("should increase the _removed property by one for each removed value", function() {
+      expect(bloomFilter._removed).toEqual(0);
+      bloomFilter.remove(v1);
+      expect(bloomFilter._removed).toEqual(1);
+      bloomFilter.remove(v1);
+      expect(bloomFilter._removed).toEqual(1);
+      bloomFilter.remove(v2);
+      expect(bloomFilter._removed).toEqual(2);
+      bloomFilter.remove(v3);
+      expect(bloomFilter._removed).toEqual(3);
+    });
+    xit("should not increase the _removed property by one if the value does not change _removedStorage", function() {
+      bloomFilter.remove(v1);
+      expect(bloomFilter._removed).toEqual(1);
+      bloomFilter.remove(v1);
+      expect(bloomFilter._removed).toEqual(1);
+      bloomFilter.remove(v2);
+      expect(bloomFilter._removed).toEqual(2);
+      bloomFilter.remove(v2);
+      expect(bloomFilter._removed).toEqual(2);
+    });
+    it("should make add multiple items and ensure that the initialized bitwise masks work", function() {
       bloomFilter.remove(v1);
       bloomFilter.remove(v2);
       expect(bloomFilter._removedStorage&maskv1h0).toEqual(maskv1h0);
