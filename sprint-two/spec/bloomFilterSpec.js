@@ -123,9 +123,10 @@ describe("bloomFilter", function() {
       expect(bloomFilter._removedStorage).toEqual(0);
     });
     it("should remove an item if it's bitmask is in _storage", function() {
+      // debugger;
       bloomFilter.add(v1);
       bloomFilter.remove(v1);
-      expect(bloomFilter._removedStorage).toEqual(0);
+      expect(bloomFilter._removedStorage).toNotEqual(0);
     });
     xit("should change the removeStorage to be a different value", function() {
       var previousBitArray = bloomFilter._removedStorage;
