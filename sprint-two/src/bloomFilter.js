@@ -28,6 +28,12 @@ BloomFilter.prototype.fn = function(strVal) {
 };
 
 BloomFilter.prototype.remove = function(strVal) {
+  var mask = this.getMask(strVal);
+  var check = this._removedStorage;
+  this._removedStorage |= mask;
+  if (check !== this._removedStorage){
+    this._n += 1;
+  }
 };
 
 BloomFilter.prototype.getMask = function(strVal) {

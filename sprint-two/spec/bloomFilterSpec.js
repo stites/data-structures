@@ -67,16 +67,25 @@ describe("bloomFilter", function() {
       expect(bloomFilter._storage&fakeMask).toNotEqual(fakeMask);
     });
     it("should increase the _n property by one for each added value", function() {
+      expect(bloomFilter._n).toEqual(0);
+      bloomFilter.add(v1);
+      expect(bloomFilter._n).toEqual(1);
       bloomFilter.add(v1);
       expect(bloomFilter._n).toEqual(1);
       bloomFilter.add(v2);
       expect(bloomFilter._n).toEqual(2);
+      bloomFilter.add(v3);
+      expect(bloomFilter._n).toEqual(3);
     });
     it("should not increase the _n property by one if the value does not change _storage", function() {
       bloomFilter.add(v1);
       expect(bloomFilter._n).toEqual(1);
       bloomFilter.add(v1);
       expect(bloomFilter._n).toEqual(1);
+      bloomFilter.add(v2);
+      expect(bloomFilter._n).toEqual(2);
+      bloomFilter.add(v2);
+      expect(bloomFilter._n).toEqual(2);
     });
     it("should make add multiple items and ensure that the initialized bitwise masks work", function() {
       bloomFilter.add(v1);
@@ -90,8 +99,7 @@ describe("bloomFilter", function() {
       expect(bloomFilter._storage&fakeMask).toNotEqual(fakeMask);
     });
   });
-
-  xdescribe('query function', function(){
+  describe('query function', function(){
     it("should return a value of 0 if an item is not in _storage, using bitmasks", function() {
       expect(bloomFilter.query(v1)).toEqual(0);
       expect(bloomFilter.query(v2)).toEqual(0);
@@ -105,36 +113,21 @@ describe("bloomFilter", function() {
       expect(bloomFilter.query(v1)).toEqual(1);
       expect(bloomFilter.query(v2)).toEqual(1);
     });
-    it("should increment _n by one if _.storage was changed", function() {
-      expect(bloomFilter._n).toEqual(0);
-      bloomFilter.add(v1);
-      expect(bloomFilter._n).toEqual(1);
-      bloomFilter.add(v1);
-      expect(bloomFilter._n).toEqual(1);
-      bloomFilter.add(v2);
-      expect(bloomFilter._n).toEqual(2);
-      bloomFilter.add(v3);
-      expect(bloomFilter._n).toEqual(3);
-    });
   });
-  xdescribe('fp function', function(){
-    it('should return the false-positive rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
-    });
-  });
-  xdescribe('remove function', function(){
+  describe('remove function', function(){
     it("should change the removeStorage to be a different value", function() {
       var previousBitArray = bloomFilter._removedStorage;
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage).toNotEqual(previousBitArray);
     });
-    it("should make sure that the initialized bitwise masks work on one value", function() {
+    xit("should make sure that the initialized bitwise masks work on one value", function() {
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage&maskv1h0).toEqual(maskv1h0);
       expect(bloomFilter._removedStorage&maskv1h1).toEqual(maskv1h1);
       expect(bloomFilter._removedStorage&maskv1h2).toEqual(maskv1h2);
       expect(bloomFilter._removedStorage&fakeMask).toNotEqual(fakeMask);
     });
-    it("should make add multiple items and ensure that the initialized bitwise masks work", function() {
+    xit("should make add multiple items and ensure that the initialized bitwise masks work", function() {
       bloomFilter.remove(v1);
       bloomFilter.remove(v2);
       expect(bloomFilter._removedStorage&maskv1h0).toEqual(maskv1h0);
@@ -144,6 +137,10 @@ describe("bloomFilter", function() {
       expect(bloomFilter._removedStorage&maskv2h1).toEqual(maskv2h1);
       expect(bloomFilter._removedStorage&maskv2h2).toEqual(maskv2h2);
       expect(bloomFilter._removedStorage&fakeMask).toNotEqual(fakeMask);
+    });
+  });
+  xdescribe('fp function', function(){
+    it('should return the false-positive rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
     });
   });
 });
