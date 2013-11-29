@@ -1,5 +1,6 @@
 var BloomFilter = function (m, k) {
-  this._limit = m;
+  this._m = m;
+  this._n = 0;
   this._storage = 0;
   this._removedStorage = 0;
   this._hashStorage = Array(k);
@@ -7,28 +8,29 @@ var BloomFilter = function (m, k) {
 
 BloomFilter.prototype.add = function(strVal) {
   var mask = this.getMask(strVal);
+  this._n += 1;
   this._storage |= mask;
 };
 
 BloomFilter.prototype.query = function(strVal) {
   var mask = this.getMask(strVal);
   var test = mask&this._storage;
-  if (test !== mask){
-    return 0;
-  } else {
-    return 1;
-  }
+  return (test !== mask) ? 0 : 1;
+};
+
+BloomFilter.prototype.fp = function(strVal) {
+};
+
+BloomFilter.prototype.fn = function(strVal) {
 };
 
 BloomFilter.prototype.remove = function(strVal) {
-  // var mask = this.getMask(strVal);
-  // this._removedStorage |= mask;
 };
 
 BloomFilter.prototype.getMask = function(strVal) {
   var mask = 0;
   for (var i = 0; i < this._hashStorage.length; i++) {
-    mask |= 1 << this._hashStorage[i](strVal, this._limit);
+    mask |= 1 << this._hashStorage[i](strVal, this._m);
   };
   return mask;
 };

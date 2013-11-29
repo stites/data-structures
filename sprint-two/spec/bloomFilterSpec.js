@@ -23,13 +23,18 @@ describe("bloomFilter", function() {
   });
 
   describe('initial methods and properties of a bloom filter', function(){
-    it("should have methods named 'remove', 'add', and 'query'", function() {
+    it("should have methods named 'remove', 'add', 'fp', 'fn', and 'query'", function() {
       expect(bloomFilter.remove).toEqual(jasmine.any(Function));
       expect(bloomFilter.add).toEqual(jasmine.any(Function));
       expect(bloomFilter.query).toEqual(jasmine.any(Function));
+      expect(bloomFilter.fp).toEqual(jasmine.any(Function));
+      expect(bloomFilter.fn).toEqual(jasmine.any(Function));
     });
-    it("should have property '_limit' which holds the number of bits in our array", function() {
-      expect(bloomFilter._limit).toEqual(m);
+    it("should have property '_m' which holds the number of bits in our array", function() {
+      expect(bloomFilter._m).toEqual(m);
+    });
+    it("should have property '_n' which holds the number of items added to our filter", function() {
+      expect(bloomFilter._n).toEqual(0);
     });
     it("should have property '_storage' which is initialized to 0", function() {
       expect(typeof bloomFilter._storage).toEqual('number');
@@ -61,6 +66,12 @@ describe("bloomFilter", function() {
       expect(bloomFilter._storage&maskv1h2).toEqual(maskv1h2);
       expect(bloomFilter._storage&fakeMask).toNotEqual(fakeMask);
     });
+    it("should increase the _n property by one for each added value", function() {
+      bloomFilter.add(v1);
+      expect(bloomFilter._n).toEqual(1);
+      bloomFilter.add(v2);
+      expect(bloomFilter._n).toEqual(2);
+    });
     it("should make add multiple items and ensure that the initialized bitwise masks work", function() {
       bloomFilter.add(v1);
       bloomFilter.add(v2);
@@ -74,24 +85,34 @@ describe("bloomFilter", function() {
     });
   });
 
-  describe('query function', function(){
-    it("should return a value of 0 if an item is not in _storage using bitmasks", function() {
+  xdescribe('query function', function(){
+    it("should return a value of 0 if an item is not in _storage, using bitmasks", function() {
       expect(bloomFilter.query(v1)).toEqual(0);
       expect(bloomFilter.query(v2)).toEqual(0);
       bloomFilter.add(v1);
       expect(bloomFilter.query(v1)).toNotEqual(0);
       expect(bloomFilter.query(v2)).toEqual(0);
     });
-    it("should return a positive float if an item is in _storage using bitmasks", function() {
+    it("should return a value of 1 if an item is in _storage, using bitmasks", function() {
       bloomFilter.add(v1);
       bloomFilter.add(v2);
-      expect(bloomFilter.query(v1) > 0).toEqual(true);
-      expect(bloomFilter.query(v2) > 0).toEqual(true);
+      expect(bloomFilter.query(v1)).toEqual(1);
+      expect(bloomFilter.query(v2)).toEqual(1);
     });
-    xit("should return the probability of an item being in _storage", function() {
+    it("should increment _n by one if _.storage was changed", function() {
+      expect(bloomFilter._n).toEqual(0);
+      bloomFilter.add(v1);
+      expect(bloomFilter._n).toEqual(1);
+      bloomFilter.add(v1);
+      expect(bloomFilter._n).toEqual(1);
+      bloomFilter.add(v2);
+      expect(bloomFilter._n).toEqual(2);
       bloomFilter.add(v3);
-      var query = bloomFilter.query(v3);
-      expect(query > 0 && query <= 1).toEqual(true);
+      expect(bloomFilter._n).toEqual(3);
+    });
+  });
+  xdescribe('fp function', function(){
+    it('should return the false-positive rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
     });
   });
   xdescribe('remove function', function(){
