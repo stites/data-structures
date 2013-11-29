@@ -57,6 +57,12 @@ describe("bloomFilter", function() {
   });
 
   describe('add function', function(){
+    it("should throw an error if hash functions are not filled", function() {
+      bloomFilter._hashStorage[0] = undefined;
+      expect(function () {
+        bloomFilter.add(v1)
+      }).toThrow(new Error ('expected '+k+' hash functions'));
+    });
     it("should change the storage to be a different value", function() {
       var previousBitArray = bloomFilter._storage;
       bloomFilter.add(v1);

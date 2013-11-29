@@ -42,6 +42,9 @@ BloomFilter.prototype.remove = function(strVal) {
 BloomFilter.prototype.getMask = function(strVal) {
   var mask = 0;
   for (var i = 0; i < this._hashStorage.length; i++) {
+    if (this._hashStorage[i] === undefined) {
+      throw new Error('expected '+this._hashStorage.length+' hash functions');
+    }
     mask |= 1 << this._hashStorage[i](strVal, this._m);
   };
   return mask;
