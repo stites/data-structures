@@ -123,35 +123,41 @@ describe("bloomFilter", function() {
       expect(bloomFilter._removedStorage).toEqual(0);
     });
     it("should remove an item if it's bitmask is in _storage", function() {
-      // debugger;
       bloomFilter.add(v1);
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage).toNotEqual(0);
     });
-    xit("should change the removeStorage to be a different value", function() {
+    it("should change the removeStorage to be a different value", function() {
+      bloomFilter.add(v1);
       var previousBitArray = bloomFilter._removedStorage;
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage).toNotEqual(previousBitArray);
     });
-    xit("should make sure that the initialized bitwise masks work on one value", function() {
+    it("should make sure that the initialized bitwise masks work on one value", function() {
+      bloomFilter.add(v1);
       bloomFilter.remove(v1);
       expect(bloomFilter._removedStorage&maskv1h0).toEqual(maskv1h0);
       expect(bloomFilter._removedStorage&maskv1h1).toEqual(maskv1h1);
       expect(bloomFilter._removedStorage&maskv1h2).toEqual(maskv1h2);
       expect(bloomFilter._removedStorage&fakeMask).toNotEqual(fakeMask);
     });
-    xit("should increase the _removed property by one for each removed value", function() {
+    it("should increase the _removed property by one for each removed value", function() {
+      bloomFilter.add(v1);
       expect(bloomFilter._removed).toEqual(0);
       bloomFilter.remove(v1);
       expect(bloomFilter._removed).toEqual(1);
       bloomFilter.remove(v1);
       expect(bloomFilter._removed).toEqual(1);
+      bloomFilter.add(v2);
       bloomFilter.remove(v2);
       expect(bloomFilter._removed).toEqual(2);
+      bloomFilter.add(v3);
       bloomFilter.remove(v3);
       expect(bloomFilter._removed).toEqual(3);
     });
-    xit("should not increase the _removed property by one if the value does not change _removedStorage", function() {
+    it("should not increase the _removed property by one if the value does not change _removedStorage", function() {
+      bloomFilter.add(v1);
+      bloomFilter.add(v2);
       bloomFilter.remove(v1);
       expect(bloomFilter._removed).toEqual(1);
       bloomFilter.remove(v1);
@@ -161,7 +167,9 @@ describe("bloomFilter", function() {
       bloomFilter.remove(v2);
       expect(bloomFilter._removed).toEqual(2);
     });
-    xit("should make add multiple items and ensure that the initialized bitwise masks work", function() {
+    it("should make add multiple items and ensure that the initialized bitwise masks work", function() {
+      bloomFilter.add(v1);
+      bloomFilter.add(v2);
       bloomFilter.remove(v1);
       bloomFilter.remove(v2);
       expect(bloomFilter._removedStorage&maskv1h0).toEqual(maskv1h0);
