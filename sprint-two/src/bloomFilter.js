@@ -22,10 +22,11 @@ BloomFilter.prototype.query = function(strVal) {
   return (test !== mask) ? 0 : 1;
 };
 
-BloomFilter.prototype.fp = function(strVal) {
+BloomFilter.prototype.fp = function() {
+  return null;
 };
 
-BloomFilter.prototype.fn = function(strVal) {
+BloomFilter.prototype.fn = function() {
 };
 
 BloomFilter.prototype.remove = function(strVal) {

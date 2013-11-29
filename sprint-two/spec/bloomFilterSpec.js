@@ -8,6 +8,10 @@ describe("bloomFilter", function() {
 
     v1 = 'val1';
     v2 = 'val2';
+    v3 = 'val3';
+    v4 = 'val4';
+    v5 = 'val5';
+    v6 = 'val6';
     maskv1h0 = parseInt('000000000000010000',2); //[4, 10, 4]
     maskv1h1 = parseInt('000000010000000000',2); //[4, 10, 4]
     maskv1h2 = parseInt('000000000000010000',2); //[4, 10, 4]
@@ -194,8 +198,41 @@ describe("bloomFilter", function() {
       expect(bloomFilter._removedStorage&fakeMask).toNotEqual(fakeMask);
     });
   });
-  xdescribe('fp function', function(){
-    it('should return the false-positive rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
+  describe('fp function', function(){
+    describe('should return the false-positive rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
+      it('should return null when nothing is added to the filter', function () {
+        expect(bloomFilter.fp()).toEqual(null);
+      });
+      xit('should return 0.2530 for m/n === 3 and k === 3', function () {
+        // n === 6
+        bloomFilter.add(v1);
+        bloomFilter.add(v2);
+        bloomFilter.add(v3);
+        bloomFilter.add(v4);
+        bloomFilter.add(v5);
+        bloomFilter.add(v6);
+        expect(bloomFilter.fp()).toEqual(0.2530);
+      });
+      xit('should return 0.0609 for m/n === 6 and k === 3', function () {
+        // n === 3
+        bloomFilter.add(v1);
+        bloomFilter.add(v2);
+        bloomFilter.add(v3);
+        expect(bloomFilter.fp()).toEqual(0.0609);
+      });
+      xit('should return 0.0228 for m/n === 9 and k === 3', function () {
+        // n === 2
+        bloomFilter.add(v1);
+        bloomFilter.add(v2);
+        expect(bloomFilter.fp()).toEqual(0.0228);
+      });
+    });
+  });
+  xdescribe('fn function', function(){
+    describe('should return the false-negative rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
+      it('', function () {
+        
+      });
     });
   });
 });
