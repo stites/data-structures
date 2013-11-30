@@ -15,7 +15,7 @@ PrefixTree.prototype.stringUpload = function(str) {
       var addChar = true;
       if (node.children !== undefined){
         for (var existingParentIdx = 0; existingParentIdx < node.children.length; existingParentIdx++) {
-          if (node.children[existingParentIdx].value === firstChar){
+          if (node.children[existingParentIdx].value === firstChar) {
             addChar = false;
             break;
           }
@@ -34,5 +34,9 @@ PrefixTree.prototype.stringUpload = function(str) {
   traversalChildAdd(this, str);
 };
 
-PrefixTree.prototype.batchUpload = function() {
+PrefixTree.prototype.batchUpload = function(bigStr) {
+  littleStrings = bigStr.split(" ");
+  for (var word = 0; word < littleStrings.length; word++) {
+    this.stringUpload(littleStrings[word]);
+  };
 };

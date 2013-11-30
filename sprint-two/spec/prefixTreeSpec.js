@@ -79,9 +79,38 @@ describe('prefixTree', function () {
     });
   });
 
-  xdescribe('batch uploading of words', function () {
+  describe('batch uploading of words', function () {
     it('should have a function called "batchUpload."', function () {
       expect(prefixTree.batchUpload).toEqual(jasmine.any(Function))
     });
+
+    it('should stringUpload space-deliminated words', function () {
+      prefixTree.batchUpload('this that them cat');
+      var tNode = prefixTree.children[0];
+      var thNode = tNode.children[0];
+      var thiNode = thNode.children[0];
+      var thisNode = thiNode.children[0];
+      var thaNode = thNode.children[1];
+      var thatNode = thaNode.children[0];
+      var theNode = thNode.children[2];
+      var themNode = theNode.children[0];
+      var cNode = prefixTree.children[1];
+      var caNode = cNode.children[0];
+      var catNode = caNode.children[0];
+
+      expect(prefixTree.value).toEqual(undefined);
+      expect(tNode.value)   .toEqual('t');
+      expect(thNode.value)  .toEqual('h');
+      expect(thiNode.value) .toEqual('i');
+      expect(thisNode.value).toEqual('s');
+      expect(thaNode.value) .toEqual('a');
+      expect(thatNode.value).toEqual('t');
+      expect(theNode.value) .toEqual('e');
+      expect(themNode.value).toEqual('m');
+      expect(cNode.value)   .toEqual('c');
+      expect(caNode.value)  .toEqual('a');
+      expect(catNode.value) .toEqual('t');
+    });
+
   })
 });
