@@ -31,6 +31,10 @@ BloomFilter.prototype.fp = function() {
 };
 
 BloomFilter.prototype.fn = function() {
+  m = this._m;
+  k = this._k;
+  n = this._removed;
+  return Math.pow(1 - Math.pow(1-(1/m), k*n), k);
 };
 
 BloomFilter.prototype.remove = function(strVal) {

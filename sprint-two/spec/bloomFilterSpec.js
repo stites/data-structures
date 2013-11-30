@@ -231,10 +231,47 @@ describe("bloomFilter", function() {
       });
     });
   });
-  xdescribe('fn function', function(){
+  describe('fn function', function(){
     describe('should return the false-negative rate of the bloom filter (see http://goo.gl/YsbSt8)', function(){
-      it('', function () {
-        
+      it('should return 0 when nothing is added to the filter', function () {
+        expect(bloomFilter.fn()).toEqual(0);
+      });
+      it('should return ~0.2530 for (m/_removed) === 3 and k === 3', function () {
+        // _removed === 6
+        bloomFilter.add(v1);
+        bloomFilter.add(v2);
+        bloomFilter.add(v3);
+        bloomFilter.add(v4);
+        bloomFilter.add(v5);
+        bloomFilter.add(v6);
+        bloomFilter.remove(v1);
+        bloomFilter.remove(v2);
+        bloomFilter.remove(v3);
+        bloomFilter.remove(v4);
+        bloomFilter.remove(v5);
+        bloomFilter.remove(v6);
+        expect(bloomFilter.fn()).toBeGreaterThan(0.2530-0.015);
+        expect(bloomFilter.fn()).toBeLessThan(0.2530+0.015);
+      });
+      it('should return 0.0609 for (m/_removed) === 6 and k === 3', function () {
+        // _removed === 3
+        bloomFilter.add(v1);
+        bloomFilter.add(v2);
+        bloomFilter.add(v3);
+        bloomFilter.remove(v1);
+        bloomFilter.remove(v2);
+        bloomFilter.remove(v3);
+        expect(bloomFilter.fn()).toBeGreaterThan(0.0609-0.005);
+        expect(bloomFilter.fn()).toBeLessThan(0.0609+0.005);
+      });
+      it('should return 0.0228 for (m/_removed) === 9 and k === 3', function () {
+        // _removed === 2
+        bloomFilter.add(v1);
+        bloomFilter.add(v2);
+        bloomFilter.remove(v1);
+        bloomFilter.remove(v2);
+        expect(bloomFilter.fn()).toBeGreaterThan(0.0228-0.002);
+        expect(bloomFilter.fn()).toBeLessThan(0.0228+0.002);
       });
     });
   });
