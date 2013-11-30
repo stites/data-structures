@@ -38,6 +38,15 @@ describe('prefixTree', function () {
       expect(iNode.value).toEqual('i');
       expect(sNode.value).toEqual('s');
     });
+    it('should not add new elements to the tree if a duplicate string is uploaded', function () {
+      prefixTree.stringUpload('this');
+      prefixTree.stringUpload('this');
+      var counter = 0;
+      prefixTree.traverse(function () {
+        counter++;
+      });
+      expect(counter).toEqual('this'.length+1);
+    });
   });
 
   xdescribe('batch uploading of words', function () {

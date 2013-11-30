@@ -11,8 +11,22 @@ PrefixTree.prototype.stringUpload = function(str) {
     if (word === ''){
       return;
     } else {
-      node.addChild(word.substr(0,1))
-      traversalChildAdd(node.children[0], word.substr(1));
+      var firstChar = word.substr(0,1);
+      var addChar = true;
+      if (node.children !== undefined){
+        for (var i = 0; i < node.children.length; i++) {
+          if (node.children[i].value === firstChar){
+            addChar = false;
+            break;
+          }
+        }
+      }
+      if (addChar) {
+        node.addChild(firstChar);
+        traversalChildAdd(node.children[0], word.substr(1));
+      } else {
+        traversalChildAdd(node.children[0], word.substr(1));
+      }
     }
   }
 
