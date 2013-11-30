@@ -61,18 +61,18 @@ BloomFilter.prototype.getMask = function(strVal) {
 };
 
 BloomFilter.prototype.addHash = function(hashFn) {
-  // var counter = 0;
-  // var storage = this._hashStorage;
-  // for (var i = 0; i < storage.length; i++) {
-  //   if (storage[i] === undefined){
-  //     counter++;
-  //   }
-  // };
-  // if (counter < storage.length){
-  //   storage.push(hashFn);
-  // } else {
-  //   throw new Error('Hash storage is full!');
-  // }
+  var counter = 0;
+  var storage = this._hashStorage;
+  for (var i = 0; i < storage.length; i++) {
+    if (storage[i] === undefined){
+      counter++;
+    }
+  };
+  if (counter < storage.length){
+    storage.push(hashFn);
+  } else {
+    throw new Error('Hash storage is full!');
+  }
 };
 
 
