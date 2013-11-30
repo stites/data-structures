@@ -114,17 +114,17 @@ describe("bloomFilter", function() {
   });
   describe('query function', function(){
     it("should return a value of 0 if an item is not in _storage, using bitmasks", function() {
-      expect(bloomFilter.query(v1)).toEqual(0);
-      expect(bloomFilter.query(v2)).toEqual(0);
+      expect(bloomFilter.query(v1)).toEqual(false);
+      expect(bloomFilter.query(v2)).toEqual(false);
       bloomFilter.add(v1);
-      expect(bloomFilter.query(v1)).toNotEqual(0);
-      expect(bloomFilter.query(v2)).toEqual(0);
+      expect(bloomFilter.query(v1)).toNotEqual(false);
+      expect(bloomFilter.query(v2)).toEqual(false);
     });
     it("should return a value of 1 if an item is in _storage, using bitmasks", function() {
       bloomFilter.add(v1);
       bloomFilter.add(v2);
-      expect(bloomFilter.query(v1)).toEqual(1);
-      expect(bloomFilter.query(v2)).toEqual(1);
+      expect(bloomFilter.query(v1)).toEqual(true);
+      expect(bloomFilter.query(v2)).toEqual(true);
     });
   });
   describe('remove function', function(){
@@ -273,6 +273,59 @@ describe("bloomFilter", function() {
         expect(bloomFilter.fn()).toBeGreaterThan(0.0228-0.002);
         expect(bloomFilter.fn()).toBeLessThan(0.0228+0.002);
       });
+    });
+  });
+  describe('stress testing', function(){
+    beforeEach(function () {
+      // Run a small loop that runs 10,000 trials of trying
+      // to retreive a mix of items that are in the filter and
+      // not in the filter.
+
+      // Compare that rate with the approximation given for 
+      // Bloom filters, which is approximated as (1- e^(-kn/m))^k)
+
+      // m = 120000;
+      // n = 80000;
+      // k = 3;
+      // bloomfilter = new BloomFilter(m, k);
+
+      // bloomFilter._hashStorage[0] = getIndexBelowMaxForKey;
+      // bloomFilter._hashStorage[1] = djb2;
+      // bloomFilter._hashStorage[2] = universalHash;
+
+      // for (var i = 0; i < n; i++) {
+      //   bloomFilter.add('val'+i);
+      // };
+
+      // var fp = 0;
+      // var tp = 0;
+      // var fn = 0;
+      // var tn = 0;
+      // for (var i = 0; i < m; i++) {
+      //   if (i < n){
+      //     if ( (bloomFilter.query('val'+i) ) === true){
+      //       tp++;
+      //     } else {
+      //       fn++;
+      //     }
+      //   } else {
+      //     if ( (bloomFilter.query('val'+i) ) === true){
+      //       fp++;
+      //     } else {
+      //       tn++;
+      //     }
+      //   }
+      // };
+      // console.log( 'fp', fp, 'tp', tp, 'fn', fn, 'tn', tn );
+    });
+    xit('returns some results running a small loop that runs 10,000 trials of trying to retreive a mix of items that are in the filter and not in the filter.', function () {
+      expect(1).toEqual(2);
+    });
+    xit('Record the empirical rate of false-positives by comparing your result with what you know to be true from the inputs you selected.', function () {
+      
+    });
+    xit('Compare that rate with the approximation given for Bloom filters, which is approximated as (1- e^(-kn/m))^k)', function () {
+      
     });
   });
 });

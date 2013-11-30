@@ -20,7 +20,7 @@ BloomFilter.prototype.add = function(strVal) {
 BloomFilter.prototype.query = function(strVal) {
   var mask = this.getMask(strVal);
   var test = mask&this._storage;
-  return (test !== mask) ? 0 : 1;
+  return (test !== mask) ? false : true;
 };
 
 BloomFilter.prototype.fp = function() {
