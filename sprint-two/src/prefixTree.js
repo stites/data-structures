@@ -4,3 +4,7 @@ var PrefixTree = function PrefixTree(value, parent) {
 
 PrefixTree.prototype = Object.create(Tree.prototype);
 PrefixTree.prototype.constructor = PrefixTree;
+
+PrefixTree.prototype.batchUpload = function(csv) {
+
+};
