@@ -198,9 +198,18 @@ describe('prefixTree', function () {
       expect(prefixTree.autocomplete).toEqual(jasmine.any(Function));
     });
 
-    it('should take in a string and return a string', function () {
-      expect(prefixTree.autocomplete('testing')).toEqual(jasmine.any(String));
+    it('should take in a string and return an array of strings, or an empty array', function () {
+      var result = prefixTree.autocomplete('testing');
+      expect(result).toEqual(jasmine.any(Array));
+      if (result.length === 0){
+        expect(result).toEqual([]);
+      } else {
+        for (var i = 0; i < result.length; i++) {
+          expect(result[i]).toEqual(jasmine.any(String));
+        };
+      }
     });
+
   });
 
 });
