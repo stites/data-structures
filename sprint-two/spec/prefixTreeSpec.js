@@ -47,6 +47,36 @@ describe('prefixTree', function () {
       });
       expect(counter).toEqual('this'.length+1);
     });
+    it('should add new elements to the tree only if they diverge from a common branch', function () {
+      prefixTree.stringUpload('this');
+      var tNode = prefixTree.children[0];
+      var thNode = tNode.children[0];
+      var thiNode = thNode.children[0];
+      var thisNode = thiNode.children[0];
+      prefixTree.stringUpload('that');
+      var thaNode = thNode.children[1];
+      var thatNode = thaNode.children[0];
+      prefixTree.stringUpload('them');
+      var theNode = thNode.children[2];
+      var themNode = theNode.children[0];
+      prefixTree.stringUpload('cat');
+      var cNode = prefixTree.children[1];
+      var caNode = cNode.children[0];
+      var catNode = caNode.children[0];
+
+      expect(prefixTree.value).toEqual(undefined);
+      expect(tNode.value)   .toEqual('t');
+      expect(thNode.value)  .toEqual('h');
+      expect(thiNode.value) .toEqual('i');
+      expect(thisNode.value).toEqual('s');
+      expect(thaNode.value) .toEqual('a');
+      expect(thatNode.value).toEqual('t');
+      expect(theNode.value) .toEqual('e');
+      expect(themNode.value).toEqual('m');
+      expect(cNode.value)   .toEqual('c');
+      expect(caNode.value)  .toEqual('a');
+      expect(catNode.value) .toEqual('t');
+    });
   });
 
   xdescribe('batch uploading of words', function () {
