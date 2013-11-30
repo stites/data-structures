@@ -25,6 +25,19 @@ describe('prefixTree', function () {
       });
       expect(counter).toEqual('this'.length+1);
     });
+    it('should create a single branch from the root for an uploaded string', function () {
+      prefixTree.stringUpload('this');
+      var tNode = prefixTree.children[0];
+      var hNode = tNode.children[0];
+      var iNode = hNode.children[0];
+      var sNode = iNode.children[0];
+
+      expect(prefixTree.value).toEqual(undefined);
+      expect(tNode.value).toEqual('t');
+      expect(hNode.value).toEqual('h');
+      expect(iNode.value).toEqual('i');
+      expect(sNode.value).toEqual('s');
+    });
   });
 
   xdescribe('batch uploading of words', function () {

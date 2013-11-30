@@ -6,10 +6,17 @@ PrefixTree.prototype = Object.create(Tree.prototype);
 PrefixTree.prototype.constructor = PrefixTree;
 
 PrefixTree.prototype.stringUpload = function(str) {
-  var charsToAdd = str.split('');
-  for (var i = 0; i < charsToAdd.length; i++) {
-    this.addChild(charsToAdd[i]);
-  };
+
+  var traversalChildAdd = function (node, word) {
+    if (word === ''){
+      return;
+    } else {
+      node.addChild(word.substr(0,1))
+      traversalChildAdd(node.children[0], word.substr(1));
+    }
+  }
+
+  traversalChildAdd(this, str);
 };
 
 PrefixTree.prototype.batchUpload = function() {
