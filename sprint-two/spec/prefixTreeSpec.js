@@ -167,5 +167,18 @@ describe('prefixTree', function () {
       expect(caNode.value)  .toEqual('a');
       expect(catNode.value) .toEqual('t');
     });
+
+    it('should be able to upload someofthewords and the first depth will have 26 children', function(){
+      prefixTree.batchUpload(someofthewords);
+      expect(prefixTree.children.length).toEqual(26);
+    });
+  });
+
+  describe('autocomplete functionality', function () {
+    xit('should be able to upload everyflippinwordontheplanet words and not throw an error', function(){
+      prefixTree.batchUpload(everyflippinwordontheplanet);
+      expect(prefixTree.children.length).not.toThrow();
+    });
   })
+
 });
