@@ -195,7 +195,11 @@ describe('prefixTree', function () {
     });
 
     it('should have a function called "autocomplete"', function () {
-      expect(prefixTree.autocomplete).toEqual(jasmine.any(Function))
+      expect(prefixTree.autocomplete).toEqual(jasmine.any(Function));
+    });
+
+    it('should take in a string and return a string', function () {
+      expect(prefixTree.autocomplete('testing')).toEqual(jasmine.any(String));
     });
   });
 
