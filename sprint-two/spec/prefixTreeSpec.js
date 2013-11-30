@@ -85,7 +85,7 @@ describe('prefixTree', function () {
     });
 
     it('should stringUpload space-deliminated words', function () {
-      prefixTree.batchUpload('this that them cat');
+      prefixTree.batchUpload('this that them  cat');
       var tNode = prefixTree.children[0];
       var thNode = tNode.children[0];
       var thiNode = thNode.children[0];
@@ -113,7 +113,7 @@ describe('prefixTree', function () {
     });
 
     it('should stringUpload comma-deliminated words', function () {
-      prefixTree.batchUpload('this,that,them,cat');
+      prefixTree.batchUpload('this,,that,them,cat');
       var tNode = prefixTree.children[0];
       var thNode = tNode.children[0];
       var thiNode = thNode.children[0];
