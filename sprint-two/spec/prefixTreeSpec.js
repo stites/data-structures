@@ -174,11 +174,29 @@ describe('prefixTree', function () {
     });
   });
 
-  describe('autocomplete functionality', function () {
-    xit('should be able to upload everyflippinwordontheplanet words and not throw an error', function(){
-      prefixTree.batchUpload(everyflippinwordontheplanet);
-      expect(prefixTree.children.length).not.toThrow();
+  describe('autocompleting', function () {
+    beforeEach(function () {
+      if (someofthewords) {
+        prefixTree.batchUpload(someofthewords);
+      } else {
+        prefixTree.batchUpload(
+          'the,of,and,to,a,in,for,is,on,that,by,this,with,i,you,it,not,or,be,are,\
+          from,at,as,your,all,have,new,more,an,was,we,will,home,can,us,about,if,\
+          page,my,has,search,free,but,our,one,other,do,no,information,time,they,\
+          site,he,up,may,what,which,their,news,out,use,any,there,see,only,so,his,\
+          when,contact,here,business,who,web,also,now,help,get,pm,view,online,c,e,\
+          first,am,been,would,how,were,me,s,services,some,these,click,its,like,service,\
+          x,than,find,price,date,back,top,people,had,list,name,just,over,state,year,day,\
+          into,email,two,health,n,world,re,next,used,go,b,work,last,most,products,\
+          music,buy,data,make,them,should,product,system,post,her,city,t,add,policy,\
+          number,such,please,available,copyright,support,message,after,best,software,\
+          then,jan,good,video,well,d,where,info,rights,public,books,high,school,through');
+      }
     });
-  })
+
+    it('should have a function called "autocomplete"', function () {
+      expect(prefixTree.autocomplete).toEqual(jasmine.any(Function))
+    });
+  });
 
 });

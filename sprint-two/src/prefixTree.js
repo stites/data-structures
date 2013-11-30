@@ -35,8 +35,11 @@ PrefixTree.prototype.stringUpload = function(str) {
 };
 
 PrefixTree.prototype.batchUpload = function(bigStr) {
-  littleStrings = bigStr.split(/,+|\s+|\r+/);
+  var littleStrings = bigStr.split(/,+|\s+|\r+/);
   for (var word = 0; word < littleStrings.length; word++) {
     this.stringUpload(littleStrings[word]);
   };
 };
+
+PrefixTree.prototype.autocomplete = function (str) {
+}
