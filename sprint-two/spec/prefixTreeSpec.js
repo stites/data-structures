@@ -210,8 +210,17 @@ describe('prefixTree', function () {
       expect(prefixTree.children.length).toEqual(26);
     });
   });
-
-  describe('autocompleting', function () {
+  describe('merging a branch', function () {
+    it('should have a function called mergeBranches', function () {
+      expect(prefixTree.mergeBranches).toEqual(jasmine.any(Function));
+    });
+    it('should merge one-branched tree into the uploaded word', function () {
+      prefixTree.stringUpload('this');
+      var result = prefixTree.mergeBranches();
+      expect(result[0]).toEqual('this');
+    });
+  });
+  xdescribe('autocompleting', function () {
     beforeEach(function () {
       if (someofthewords) {
         prefixTree.batchUpload(someofthewords);
@@ -281,7 +290,6 @@ describe('prefixTree', function () {
       subtree.traverse(cb);
       expect(result.length).toEqual(eowNodeCounter);
     });
-
   });
 
 });
