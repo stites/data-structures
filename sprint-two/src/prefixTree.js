@@ -53,5 +53,29 @@ PrefixTree.prototype.batchUpload = function(bigStr) {
 };
 
 PrefixTree.prototype.autocomplete = function (str) {
+  var results = [];
+  var subtree = this.findSubTree(this, str);
+  // console.log(subtree)
+
+  // if (str === 'test') debugger;
+  // subtree.depthFirstLog()
   return [str, str];
-}
+};
+
+PrefixTree.prototype.findSubTree = function(node, str) {
+  var firstChar = str.substr(0,1);
+  var restOfStr = str.substr(1);
+  var path;
+  for (var i = 0; i < node.children.length; i++) {
+    if (node.children[i].value === firstChar){
+      path = node.children[i];
+      break;
+    }
+  }
+
+  if (restOfStr === ''){
+    return path;
+  }
+
+  return this.findSubTree(path, restOfStr);
+};

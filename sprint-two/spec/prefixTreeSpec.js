@@ -266,6 +266,22 @@ describe('prefixTree', function () {
       expect(result.length).toBeGreaterThan(1);
     });
 
+    it('should return as many words in the array as there are \'eow\' nodes in the subtree.', function () {
+      var test = 'a'; var subtree;
+      for (var i = 0; i < prefixTree.children.length; i++) {
+        if (prefixTree.children[i].value === test){
+          subtree = prefixTree.children[i];
+        }
+      };
+      var result = prefixTree.autocomplete(test);
+      var eowNodeCounter = 0;
+      var cb = function (nodeValue) {
+        if (nodeValue === 'eow') eowNodeCounter++;
+      };
+      subtree.traverse(cb);
+      expect(result.length).toEqual(eowNodeCounter);
+    });
+
   });
 
 });
