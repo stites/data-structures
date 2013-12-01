@@ -103,17 +103,6 @@ BinarySearchTree.prototype.contains = function (value) {
   return result;
 };
 
-BinarySearchTree.prototype.depthFirstLog = function (cb, node) {
-  node = node || this;
-  node.value = cb(node.value);
-
-  if (node.children) {
-    for (var i = 0; i < node.children.length; i++) {
-      this.depthFirstLog(cb, node.children[i]);
-    }
-  }
-};
-
 BinarySearchTree.prototype.breadthFirstLog = function (cb) {
   var queue = [];
 
