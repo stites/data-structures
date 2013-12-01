@@ -17,13 +17,13 @@ describe('prefixTree', function () {
     it('should have a function called "stringUpload."', function () {
       expect(prefixTree.stringUpload).toEqual(jasmine.any(Function))
     });
-    it('should convert a single string into a tree with string.length nodes +1 for root', function () {
+    it('should convert a single string into a tree with string.length nodes +1 for root and +1 for an end-of-word node containing "eow"', function () {
       prefixTree.stringUpload('this');
       var counter = 0;
       prefixTree.traverse(function () {
         counter++;
       });
-      expect(counter).toEqual('this'.length+1);
+      expect(counter).toEqual('this'.length+2);
     });
     it('should create a single branch from the root for an uploaded string', function () {
       prefixTree.stringUpload('this');
@@ -31,12 +31,14 @@ describe('prefixTree', function () {
       var hNode = tNode.children[0];
       var iNode = hNode.children[0];
       var sNode = iNode.children[0];
+      var eowNode = sNode.children[0];
 
       expect(prefixTree.value).toEqual(undefined);
       expect(tNode.value).toEqual('t');
       expect(hNode.value).toEqual('h');
       expect(iNode.value).toEqual('i');
       expect(sNode.value).toEqual('s');
+      expect(eowNode.value).toEqual('eow');
     });
     it('should not add new elements to the tree if a duplicate string is uploaded', function () {
       prefixTree.stringUpload('this');
@@ -45,7 +47,7 @@ describe('prefixTree', function () {
       prefixTree.traverse(function () {
         counter++;
       });
-      expect(counter).toEqual('this'.length+1);
+      expect(counter).toEqual('this'.length+2);
     });
     it('should add new elements to the tree only if they diverge from a common branch', function () {
       prefixTree.stringUpload('this');
@@ -53,16 +55,20 @@ describe('prefixTree', function () {
       var thNode = tNode.children[0];
       var thiNode = thNode.children[0];
       var thisNode = thiNode.children[0];
+      var thisEOWNode = thisNode.children[0];
       prefixTree.stringUpload('that');
       var thaNode = thNode.children[1];
       var thatNode = thaNode.children[0];
+      var thatEOWNode = thatNode.children[0];
       prefixTree.stringUpload('them');
       var theNode = thNode.children[2];
       var themNode = theNode.children[0];
+      var themEOWNode = themNode.children[0];
       prefixTree.stringUpload('cat');
       var cNode = prefixTree.children[1];
       var caNode = cNode.children[0];
       var catNode = caNode.children[0];
+      var catEOWNode = catNode.children[0];
 
       expect(prefixTree.value).toEqual(undefined);
       expect(tNode.value)   .toEqual('t');
@@ -76,6 +82,10 @@ describe('prefixTree', function () {
       expect(cNode.value)   .toEqual('c');
       expect(caNode.value)  .toEqual('a');
       expect(catNode.value) .toEqual('t');
+      expect(thisEOWNode.value).toEqual('eow');
+      expect(thatEOWNode.value).toEqual('eow');
+      expect(themEOWNode.value).toEqual('eow');
+      expect(catEOWNode.value) .toEqual('eow');
     });
   });
 
@@ -110,6 +120,15 @@ describe('prefixTree', function () {
       expect(cNode.value)   .toEqual('c');
       expect(caNode.value)  .toEqual('a');
       expect(catNode.value) .toEqual('t');
+
+      var thisEOWNode = thisNode.children[0];
+      var thatEOWNode = thatNode.children[0];
+      var themEOWNode = themNode.children[0];
+      var catEOWNode = catNode.children[0];
+      expect(thisEOWNode.value).toEqual('eow');
+      expect(thatEOWNode.value).toEqual('eow');
+      expect(themEOWNode.value).toEqual('eow');
+      expect(catEOWNode.value) .toEqual('eow');
     });
 
     it('should stringUpload comma-deliminated words', function () {
@@ -138,6 +157,15 @@ describe('prefixTree', function () {
       expect(cNode.value)   .toEqual('c');
       expect(caNode.value)  .toEqual('a');
       expect(catNode.value) .toEqual('t');
+
+      var thisEOWNode = thisNode.children[0];
+      var thatEOWNode = thatNode.children[0];
+      var themEOWNode = themNode.children[0];
+      var catEOWNode = catNode.children[0];
+      expect(thisEOWNode.value).toEqual('eow');
+      expect(thatEOWNode.value).toEqual('eow');
+      expect(themEOWNode.value).toEqual('eow');
+      expect(catEOWNode.value) .toEqual('eow');
     });
 
     it('should be able to upload carraige-returned set of strings', function(){
@@ -166,6 +194,15 @@ describe('prefixTree', function () {
       expect(cNode.value)   .toEqual('c');
       expect(caNode.value)  .toEqual('a');
       expect(catNode.value) .toEqual('t');
+
+      var thisEOWNode = thisNode.children[0];
+      var thatEOWNode = thatNode.children[0];
+      var themEOWNode = themNode.children[0];
+      var catEOWNode = catNode.children[0];
+      expect(thisEOWNode.value).toEqual('eow');
+      expect(thatEOWNode.value).toEqual('eow');
+      expect(themEOWNode.value).toEqual('eow');
+      expect(catEOWNode.value) .toEqual('eow');
     });
 
     it('should be able to upload someofthewords and the first depth will have 26 children', function(){
