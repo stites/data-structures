@@ -53,11 +53,8 @@ PrefixTree.prototype.batchUpload = function(bigStr) {
 };
 
 PrefixTree.prototype.autocomplete = function (str) {
-  var results = [];
   var subtree = this.findSubTree(this, str);
-
-  if (str === 'test') debugger;
-  return [str, str];
+  return this.mergeBranches(subtree, str);
 };
 
 PrefixTree.prototype.findSubTree = function(node, str) {
@@ -76,7 +73,7 @@ PrefixTree.prototype.findSubTree = function(node, str) {
   return this.findSubTree(path, restOfStr);
 };
 
-PrefixTree.prototype.mergeBranches = function(treeRoot) {
+PrefixTree.prototype.mergeBranches = function(treeRoot, prefix) {
   treeRoot = treeRoot || this;
   var result = [];
   (function depthFirstMerge (node, str) {
@@ -97,6 +94,6 @@ PrefixTree.prototype.mergeBranches = function(treeRoot) {
         depthFirstMerge(child, str+child.value);
       }
     }
-  })(treeRoot);
+  })(treeRoot, prefix);
   return result;
 };
