@@ -252,6 +252,20 @@ describe('prefixTree', function () {
       expect(result[0]).toEqual('testing');
     });
 
+    it('should return an array of words prefixed by the input', function () {
+      var test = 'test';
+      var result = prefixTree.autocomplete(test);
+      for (var i = 0; i < result.length; i++) {
+        expect(result[i].substring(0,test.length)).toEqual(test);
+      };
+    });
+
+    it('should return multiple items array for an input of a single character', function () {
+      var test = 'a';
+      var result = prefixTree.autocomplete(test);
+      expect(result.length).toBeGreaterThan(1);
+    });
+
   });
 
 });

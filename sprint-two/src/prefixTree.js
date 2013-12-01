@@ -53,5 +53,5 @@ PrefixTree.prototype.batchUpload = function(bigStr) {
 };
 
 PrefixTree.prototype.autocomplete = function (str) {
-  return [str];
+  return [str, str];
 }
