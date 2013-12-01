@@ -25,7 +25,7 @@ PrefixTree.prototype.stringUpload = function(str) {
           break;
         }
         if (endOfWord && comparisonVal === 'eow') {
-          return; // stop everything
+          return;
         }
       }
     }
@@ -70,19 +70,16 @@ PrefixTree.prototype.findSubTree = function(node, str) {
       break;
     }
   }
-
   if (restOfStr === ''){
     return path;
   }
-
   return this.findSubTree(path, restOfStr);
 };
 
 PrefixTree.prototype.mergeBranches = function(treeRoot) {
   treeRoot = treeRoot || this;
   var result = [];
-
-  depthFirstMerge = function (node, str) {
+  (function depthFirstMerge (node, str) {
     str = str || '';
     var child;
     if (node.children){
@@ -100,9 +97,6 @@ PrefixTree.prototype.mergeBranches = function(treeRoot) {
         depthFirstMerge(child, str+child.value);
       }
     }
-  };
-
-  depthFirstMerge(treeRoot);
-  console.log(result);
+  })(treeRoot);
   return result;
 };

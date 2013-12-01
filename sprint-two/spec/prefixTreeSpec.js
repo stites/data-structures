@@ -247,7 +247,7 @@ describe('prefixTree', function () {
       expect(result).toContain('that');
     });
   });
-  xdescribe('autocompleting', function () {
+  describe('autocompleting', function () {
     beforeEach(function () {
       if (someofthewords) {
         prefixTree.batchUpload(someofthewords);
