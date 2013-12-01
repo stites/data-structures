@@ -99,4 +99,25 @@ PrefixTree.prototype.mergeBranches = function(treeRoot, prefix) {
 };
 
 PrefixTree.prototype.t9 = function(number) {
+  var userIntent = this.findT9Elements(number);
+
+
+};
+
+PrefixTree.prototype.findT9Elements = function(number) {
+  var userInput = number + '';
+  var userIntent;
+
+  if (userInput.indexOf('e') > -1) {
+    // t9 will not work on scientific notation
+    throw new Error('input is in scientific notation');
+  } else if (userInput.indexOf(1) > -1 || userInput.indexOf(0) > -1) {
+    // t9 does not include 0 or 1.
+    throw new Error('t9 does not support 0 or 1.')
+  }
+
+  userIntent = userInput.replace(/2/g, 'abc,' ).replace(/3/g, 'def,' ).replace(/4/g, 'ghi,' )
+                        .replace(/5/g, 'jkl,' ).replace(/6/g, 'mno,' ).replace(/7/g, 'pqrs,')
+                        .replace(/8/g, 'tuv,' ).replace(/9/g, 'wxyz,').split(',').slice(0,-1);
+  return userIntent;
 };
