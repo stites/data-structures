@@ -248,30 +248,13 @@ describe('prefixTree', function () {
     });
   });
   describe('autocompleting', function () {
-    beforeEach(function () {
-      if (someofthewords) {
-        prefixTree.batchUpload(someofthewords);
-      } else {
-        prefixTree.batchUpload(
-          'the,of,and,to,a,in,for,is,on,that,by,this,with,i,you,it,not,or,be,are,\
-          from,at,as,your,all,have,new,more,an,was,we,will,home,can,us,about,if,\
-          page,my,has,search,free,but,our,one,other,do,no,information,time,they,\
-          site,he,up,may,what,which,their,news,out,use,any,there,see,only,so,his,\
-          when,contact,here,business,who,web,also,now,help,get,pm,view,online,c,e,\
-          first,am,been,would,how,were,me,s,services,some,these,click,its,like,service,\
-          x,than,find,price,date,back,top,people,had,list,name,just,over,state,year,day,\
-          into,email,two,health,n,world,re,next,used,go,b,work,last,most,products,\
-          music,buy,data,make,them,should,product,system,post,her,city,t,add,policy,\
-          number,such,please,available,copyright,support,message,after,best,software,\
-          then,jan,good,video,well,d,where,info,rights,public,books,high,school,through');
-      }
-    });
 
     it('should have a function called "autocomplete"', function () {
       expect(prefixTree.autocomplete).toEqual(jasmine.any(Function));
     });
 
     it('should take in a string and return an array of strings, or an empty array', function () {
+      prefixTree.stringUpload('testing');
       var result = prefixTree.autocomplete('testing');
       expect(result).toEqual(jasmine.any(Array));
       if (result.length === 0){
@@ -284,25 +267,39 @@ describe('prefixTree', function () {
     });
 
     it('if the string is a complete word, it should return that word as the first item in the array', function () {
+      prefixTree.stringUpload('testing');
       var result = prefixTree.autocomplete('testing');
       expect(result[0]).toEqual('testing');
     });
 
     it('should return an array of words prefixed by the input', function () {
+      prefixTree.stringUpload('test');
+      prefixTree.stringUpload('testing');
+      prefixTree.stringUpload('tested');
+      prefixTree.stringUpload('testable');
+      prefixTree.stringUpload('testosterone');
+      prefixTree.stringUpload('tes');
       var test = 'test';
       var result = prefixTree.autocomplete(test);
       for (var i = 0; i < result.length; i++) {
         expect(result[i].substring(0,test.length)).toEqual(test);
       };
+      expect(result).not.toContain('tes');
     });
 
     it('should return multiple items array for an input of a single character', function () {
+      prefixTree.stringUpload('a');
+      prefixTree.stringUpload('able');
+      prefixTree.stringUpload('ally');
+      prefixTree.stringUpload('alcatraz');
+      prefixTree.stringUpload('all');
       var test = 'a';
       var result = prefixTree.autocomplete(test);
       expect(result.length).toBeGreaterThan(1);
     });
 
     it('should return as many words in the array as there are \'eow\' nodes in the subtree.', function () {
+      prefixTree.batchUpload(someofthewords);
       var test = 'a'; var subtree;
       for (var i = 0; i < prefixTree.children.length; i++) {
         if (prefixTree.children[i].value === test){
@@ -318,5 +315,9 @@ describe('prefixTree', function () {
       expect(result.length).toEqual(eowNodeCounter);
     });
   });
-
+  describe('T9 autocompletion', function () {
+    it('should have a function called "t9"', function () {
+      expect(prefixTree.t9).toEqual(jasmine.any(Function));
+    })
+  })
 });

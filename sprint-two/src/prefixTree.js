@@ -97,3 +97,6 @@ PrefixTree.prototype.mergeBranches = function(treeRoot, prefix) {
   })(treeRoot, prefix);
   return result;
 };
+
+PrefixTree.prototype.t9 = function(number) {
+};
