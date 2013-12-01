@@ -247,6 +247,11 @@ describe('prefixTree', function () {
       }
     });
 
+    it('if the string is a complete word, it should return that word as the first item in the array', function () {
+      var result = prefixTree.autocomplete('testing');
+      expect(result[0]).toEqual('testing');
+    });
+
   });
 
 });
