@@ -219,6 +219,33 @@ describe('prefixTree', function () {
       var result = prefixTree.mergeBranches();
       expect(result[0]).toEqual('this');
     });
+    it('should merge a multi-word tree and push both results to the resulting array', function () {
+      var result;
+      prefixTree.stringUpload('the');
+      prefixTree.stringUpload('that');
+      result = prefixTree.mergeBranches();
+
+      expect(result.length).toEqual(2);
+      expect(result).toContain('the');
+      expect(result).toContain('that');
+
+      prefixTree.stringUpload('these');
+      result = prefixTree.mergeBranches();
+
+      expect(result.length).toEqual(3);
+      expect(result).toContain('these');
+      expect(result).toContain('the');
+      expect(result).toContain('that');
+
+      prefixTree.stringUpload('cat');
+      result = prefixTree.mergeBranches();
+
+      expect(result.length).toEqual(4);
+      expect(result).toContain('these');
+      expect(result).toContain('cat');
+      expect(result).toContain('the');
+      expect(result).toContain('that');
+    });
   });
   xdescribe('autocompleting', function () {
     beforeEach(function () {

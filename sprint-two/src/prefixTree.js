@@ -79,25 +79,30 @@ PrefixTree.prototype.findSubTree = function(node, str) {
 };
 
 PrefixTree.prototype.mergeBranches = function(treeRoot) {
-  console.log('here')
   treeRoot = treeRoot || this;
   var result = [];
 
   depthFirstMerge = function (node, str) {
     str = str || '';
     var child;
-    for (var i = 0; i < node.children.length; i++) {
-      child = node.children[i];
-      if (child.value === 'eow'){
-        result.push(str);
-        return;
+    if (node.children){
+      for (var i = 0; i < node.children.length; i++) {
+        child = node.children[i];
+        if (child.value === 'eow'){
+          result.push(str);
+          if (node.children.length === 1){
+            return;
+          }
+        }
+      }
+      for (var i = 0; i < node.children.length; i++) {
+        child = node.children[i];
+        depthFirstMerge(child, str+child.value);
       }
     }
-    for (var i = 0; i < node.children.length; i++) {
-      child = node.children[i];
-      depthFirstMerge(child, str+child.value);
-    }
   };
+
   depthFirstMerge(treeRoot);
+  console.log(result);
   return result;
 };
