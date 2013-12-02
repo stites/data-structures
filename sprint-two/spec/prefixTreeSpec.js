@@ -345,7 +345,7 @@ describe('prefixTree', function () {
         };
       });
     });
-    describe('filtering user intent with bloomfilters', function () {
+    xdescribe('filtering user intent with bloomfilters', function () {
       it('has a bloomFilter which is accessible at ._bloomFilter', function () {
         expect(prefixTree._bloomFilter instanceof BloomFilter).toEqual(true);
       });
@@ -364,8 +364,22 @@ describe('prefixTree', function () {
         expect(BloomFilter.prototype['query']).toHaveBeenCalled();
       });
     });
-    it('should have a function called "t9"', function () {
-      expect(prefixTree.t9).toEqual(jasmine.any(Function));
+    describe('autocomplete from a number sequence', function () {
+      it('should have a function called "t9"', function () {
+        expect(prefixTree.t9).toEqual(jasmine.any(Function));
+      });
+      it('should call "findT9Elements", "getT9Combinations", and "autocomplete"', function () {
+        prefixTree.batchUpload(someofthewords);
+        // spyOn(PrefixTree.prototype, 'findT9Elements');
+        // spyOn(PrefixTree.prototype, 'getT9Combinations');
+        // spyOn(PrefixTree.prototype, 'autocomplete');
+        // debugger;
+        var check = prefixTree.t9(237);
+        console.log(check);
+        // expect(PrefixTree.prototype.findT9Elements).toHaveBeenCalled();
+        // expect(PrefixTree.prototype.getT9Combinations).toHaveBeenCalled();
+        // expect(PrefixTree.prototype.autocomplete).toHaveBeenCalled();
+      });
     });
-  })
+  });
 });

@@ -1,16 +1,11 @@
 var PrefixTree = function PrefixTree(value, parent) {
   Tree.apply(this, arguments);
-  this._bloomFilter = new BloomFilter(1000000, 3); //1M entries
-  this._bloomFilter._hashStorage[0] = getIndexBelowMaxForKey;
-  this._bloomFilter._hashStorage[1] = djb2;
-  this._bloomFilter._hashStorage[2] = universalHash;
 }
 
 PrefixTree.prototype = Object.create(Tree.prototype);
 PrefixTree.prototype.constructor = PrefixTree;
 
 PrefixTree.prototype.stringUpload = function(str) {
-  this._bloomFilter.add(str);
 
   var traversalChildAdd = function (node, word) {
     var endOfWord = false;
@@ -104,9 +99,6 @@ PrefixTree.prototype.mergeBranches = function(treeRoot, prefix) {
   return result;
 };
 
-PrefixTree.prototype.t9 = function(number) {
-};
-
 PrefixTree.prototype.findT9Elements = function(number) {
   var userInput = number + '';
   var userIntent;
@@ -125,7 +117,6 @@ PrefixTree.prototype.findT9Elements = function(number) {
 
 PrefixTree.prototype.getT9Combinations = function(depthOptions) {
   var results = [];
-  var filter = this._bloomFilter;
   var recursionFunTime = function (aggregation, remainingOptions) {
     var currentOptions = remainingOptions.shift().split('');
     for (var option = 0; option < currentOptions.length; option++) {
@@ -133,11 +124,7 @@ PrefixTree.prototype.getT9Combinations = function(depthOptions) {
       comboCopy.push(currentOptions[option]);
 
       if (remainingOptions.length === 0) {
-        var newEntry = comboCopy.join('');
-        debugger;
-        if (filter.query(newEntry)){
-          results.push(newEntry);
-        }
+        results.push(comboCopy.join(''));
       } else {
         var remainingCopy = remainingOptions.slice(0);
         recursionFunTime(comboCopy, remainingCopy);
@@ -145,19 +132,14 @@ PrefixTree.prototype.getT9Combinations = function(depthOptions) {
     };
   };
   recursionFunTime([], depthOptions);
-
-
   return results;
 };
 
-PrefixTree.prototype.genNewBloomFilter = function(m) {
-  var allWords = this.mergeBranches();
-  if (m < allWords.length) throw new Error('make your bloomFilter larger');
-  this._bloomFilter = new BloomFilter(m, 3);
-  this._bloomFilter._hashStorage[0] = getIndexBelowMaxForKey;
-  this._bloomFilter._hashStorage[1] = djb2;
-  this._bloomFilter._hashStorage[2] = universalHash;
-  for (var i = 0; i < allWords.length; i++) {
-    this._bloomFilter.add(allWords[i]);
+PrefixTree.prototype.t9 = function(number) {
+  var userCombinations = this.getT9Combinations(this.findT9Elements(number));
+  var results = [];
+  for (var i = 0; i < userCombinations.length; i++) {
+    results = results.concat(this.autocomplete(userCombinations[i]));
   };
+  return results;
 };
