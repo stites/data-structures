@@ -12,7 +12,6 @@ describe('prefixTree', function () {
       expect(prefixTree.value).toEqual(undefined);
     });
   });
-
   describe('uploading a string', function () {
     it('should have a function called "stringUpload."', function () {
       expect(prefixTree.stringUpload).toEqual(jasmine.any(Function))
@@ -88,7 +87,6 @@ describe('prefixTree', function () {
       expect(catEOWNode.value) .toEqual('eow');
     });
   });
-
   describe('batch uploading of words', function () {
     it('should have a function called "batchUpload."', function () {
       expect(prefixTree.batchUpload).toEqual(jasmine.any(Function))
@@ -248,11 +246,9 @@ describe('prefixTree', function () {
     });
   });
   describe('autocompleting', function () {
-
     it('should have a function called "autocomplete"', function () {
       expect(prefixTree.autocomplete).toEqual(jasmine.any(Function));
     });
-
     it('should take in a string and return an array of strings, or an empty array', function () {
       prefixTree.stringUpload('testing');
       var result = prefixTree.autocomplete('testing');
@@ -265,7 +261,6 @@ describe('prefixTree', function () {
         };
       }
     });
-
     it('if the string is a complete word, it should return that word as the first item in the array', function () {
       prefixTree.stringUpload('testing');
       var result = prefixTree.autocomplete('testing');
@@ -333,21 +328,34 @@ describe('prefixTree', function () {
         expect(prefixTree.getT9Combinations).toEqual(jasmine.any(Function));
       });
       it('returns an array of combinations where a character of every element option is used.', function () {
+        prefixTree.batchUpload('the them thesis test');
         var the = 843; // ('the' --> 843) , you could also do ('test' --> 8378)
         expect((the+"").length).toBeGreaterThan(0);
         var elementArray = prefixTree.findT9Elements(the);
         expect(elementArray.length).toBeGreaterThan(0);
         var combos = prefixTree.getT9Combinations(elementArray.slice(0));
         expect(combos.length).toBeGreaterThan(0);
+        expect(combos).toContain('the');
         for (var combo = 0; combo < combos.length; combo++) {
           for (var characterLevel = 0; characterLevel < combos[combo].length; characterLevel++) {
-            var check = false;
             for (var i = 0; i < elementArray[characterLevel].length; i++) {
-              check = check || (combos[combo].indexOf(elementArray[characterLevel][i]) > -1);
+              expect(elementArray[characterLevel].indexOf(combos[combo][characterLevel]) > -1).toEqual(true);
             };
-            expect(check).toEqual(true);
           };
         };
+      });
+    });
+    describe('filtering user intent with bloomfilters', function () {
+      it('has a bloomFilter which is accessible at ._bloomFilter', function () {
+        expect(prefixTree._bloomFilter instanceof BloomFilter).toEqual(true);
+      });
+      it('should have a function which regenerates the bloomfilter for large uploads called "genNewBloomFilter"', function () {
+        expect(prefixTree.genNewBloomFilter).toEqual(jasmine.any(Function));
+      });
+      it('should call bloomfilter.add when uploading a string', function () {
+        spyOn(BloomFilter.prototype, 'add');
+        prefixTree.stringUpload('this');
+        expect(BloomFilter.prototype['add']).toHaveBeenCalled();
       });
     });
     it('should have a function called "t9"', function () {
