@@ -99,9 +99,6 @@ PrefixTree.prototype.mergeBranches = function(treeRoot, prefix) {
 };
 
 PrefixTree.prototype.t9 = function(number) {
-  var userIntent = this.findT9Elements(number);
-
-
 };
 
 PrefixTree.prototype.findT9Elements = function(number) {
@@ -120,4 +117,25 @@ PrefixTree.prototype.findT9Elements = function(number) {
                         .replace(/5/g, 'jkl,' ).replace(/6/g, 'mno,' ).replace(/7/g, 'pqrs,')
                         .replace(/8/g, 'tuv,' ).replace(/9/g, 'wxyz,').split(',').slice(0,-1);
   return userIntent;
+};
+
+PrefixTree.prototype.getT9Combinations = function(depthOptions) {
+  var results = [];
+
+  var recursionFunTime = function (aggregation, remainingOptions) {
+    var currentOptions = remainingOptions.shift().split('');
+    for (var option = 0; option < currentOptions.length; option++) {
+      var comboCopy = aggregation.slice(0);
+      comboCopy.push(currentOptions[option]);
+      if (remainingOptions.length === 0) {
+        results.push(comboCopy.join(''));
+      } else {
+        var remainingCopy = remainingOptions.slice(0);
+        recursionFunTime(comboCopy, remainingCopy);
+      }
+    };
+  };
+  recursionFunTime([], depthOptions);
+
+  return results;
 };

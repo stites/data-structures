@@ -316,8 +316,42 @@ describe('prefixTree', function () {
     });
   });
   describe('T9 autocompletion', function () {
+    describe('findT9Elements', function () {
+      it('has a T9 helper function called "findT9Elements"', function () {
+        expect(prefixTree.findT9Elements).toEqual(jasmine.any(Function));
+      });
+      it('converts a number into an array of character combinations', function () {
+        var arr = prefixTree.findT9Elements(234);
+        expect(arr).toEqual(jasmine.any(Array));
+        for (var i = 0; i < arr.length; i++) {
+          expect(arr[i]).toEqual(jasmine.any(String));
+        };
+      });
+    });
+    describe('finding user intent', function () {
+      it('has a T9 helper function called "getT9Combinations"', function () {
+        expect(prefixTree.getT9Combinations).toEqual(jasmine.any(Function));
+      });
+      it('returns an array of combinations where a character of every element option is used.', function () {
+        var the = 843; // ('the' --> 843) , you could also do ('test' --> 8378)
+        expect((the+"").length).toBeGreaterThan(0);
+        var elementArray = prefixTree.findT9Elements(the);
+        expect(elementArray.length).toBeGreaterThan(0);
+        var combos = prefixTree.getT9Combinations(elementArray.slice(0));
+        expect(combos.length).toBeGreaterThan(0);
+        for (var combo = 0; combo < combos.length; combo++) {
+          for (var characterLevel = 0; characterLevel < combos[combo].length; characterLevel++) {
+            var check = false;
+            for (var i = 0; i < elementArray[characterLevel].length; i++) {
+              check = check || (combos[combo].indexOf(elementArray[characterLevel][i]) > -1);
+            };
+            expect(check).toEqual(true);
+          };
+        };
+      });
+    });
     it('should have a function called "t9"', function () {
       expect(prefixTree.t9).toEqual(jasmine.any(Function));
-    })
+    });
   })
 });
