@@ -357,6 +357,12 @@ describe('prefixTree', function () {
         prefixTree.stringUpload('this');
         expect(BloomFilter.prototype['add']).toHaveBeenCalled();
       });
+      it('should call bloomfilter.query when generating combinations in "getT9Combinations"', function () {
+        spyOn(BloomFilter.prototype, 'query');
+        prefixTree.batchUpload('the them thesis test');
+        prefixTree.getT9Combinations(prefixTree.findT9Elements(843));
+        expect(BloomFilter.prototype['query']).toHaveBeenCalled();
+      });
     });
     it('should have a function called "t9"', function () {
       expect(prefixTree.t9).toEqual(jasmine.any(Function));
