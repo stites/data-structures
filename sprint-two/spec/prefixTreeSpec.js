@@ -369,16 +369,24 @@ describe('prefixTree', function () {
         expect(prefixTree.t9).toEqual(jasmine.any(Function));
       });
       it('should call "findT9Elements", "getT9Combinations", and "autocomplete"', function () {
+        spyOn(PrefixTree.prototype, 'findT9Elements').andCallThrough();
+        spyOn(PrefixTree.prototype, 'getT9Combinations').andCallThrough();
+        spyOn(PrefixTree.prototype, 'autocomplete').andCallThrough();
+        prefixTree = new PrefixTree();
         prefixTree.batchUpload(someofthewords);
-        // spyOn(PrefixTree.prototype, 'findT9Elements');
-        // spyOn(PrefixTree.prototype, 'getT9Combinations');
-        // spyOn(PrefixTree.prototype, 'autocomplete');
-        // debugger;
-        var check = prefixTree.t9(237);
-        console.log(check);
-        // expect(PrefixTree.prototype.findT9Elements).toHaveBeenCalled();
-        // expect(PrefixTree.prototype.getT9Combinations).toHaveBeenCalled();
-        // expect(PrefixTree.prototype.autocomplete).toHaveBeenCalled();
+        var check = prefixTree.t9(2337);
+        expect(PrefixTree.prototype['findT9Elements']).toHaveBeenCalled();
+        expect(PrefixTree.prototype['getT9Combinations']).toHaveBeenCalled();
+        expect(PrefixTree.prototype['autocomplete']).toHaveBeenCalled();
+      });
+      it('should return a list of strings', function () {
+        prefixTree = new PrefixTree();
+        prefixTree.batchUpload(someofthewords);
+        var check = prefixTree.t9(2337);
+        expect(check).toEqual(jasmine.any(Array));
+        for (var i = 0; i < check.length; i++) {
+          expect(check[i]).toEqual(jasmine.any(String));
+        };
       });
     });
   });

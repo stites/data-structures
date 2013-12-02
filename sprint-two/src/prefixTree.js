@@ -54,21 +54,25 @@ PrefixTree.prototype.batchUpload = function(bigStr) {
 
 PrefixTree.prototype.autocomplete = function (str) {
   var subtree = this.findSubTree(this, str);
-  return this.mergeBranches(subtree, str);
+  return (subtree === undefined) ?[] : this.mergeBranches(subtree, str);
 };
 
 PrefixTree.prototype.findSubTree = function(node, str) {
   var firstChar = str.substr(0,1);
   var restOfStr = str.substr(1);
   var path;
-  for (var i = 0; i < node.children.length; i++) {
-    if (node.children[i].value === firstChar){
-      path = node.children[i];
-      break;
-    }
-  }
-  if (restOfStr === ''){
+  if (!node) {
     return path;
+  } else {
+    for (var i = 0; i < node.children.length; i++) {
+      if (node.children[i].value === firstChar){
+        path = node.children[i];
+        break;
+      }
+    }
+    if (restOfStr === ''){
+      return path;
+    }
   }
   return this.findSubTree(path, restOfStr);
 };
@@ -136,10 +140,12 @@ PrefixTree.prototype.getT9Combinations = function(depthOptions) {
 };
 
 PrefixTree.prototype.t9 = function(number) {
-  var userCombinations = this.getT9Combinations(this.findT9Elements(number));
+  var t9ele = this.findT9Elements(number);
+  var userCombinations = this.getT9Combinations(t9ele);
   var results = [];
   for (var i = 0; i < userCombinations.length; i++) {
-    results = results.concat(this.autocomplete(userCombinations[i]));
+    var part1 = this.autocomplete(userCombinations[i]);
+    results = results.concat(part1);
   };
   return results;
 };
